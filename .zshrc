@@ -7,6 +7,7 @@ alias ...='cd ../..'
 alias grep='grep --color=auto'
 alias c='clear'
 alias h='history'
+alias vim='nvim'
 
 # git
 alias gb='git branch --sort=-committerdate'
