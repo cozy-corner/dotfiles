@@ -74,3 +74,5 @@ alias gal='gcloud auth login --update-adc'
 if [ -f ~/.zshrc_bo ]; then
     source ~/.zshrc_bo
 fi
+
+eval "$(fzf --zsh)"
