@@ -61,6 +61,15 @@ gh-watch() {
       fzf -1 -0 | awk '{print $1}' | xargs gh run watch
 }
 
+killport() {
+    if [ -z "$1" ]; then
+        echo "Usage: killport <port>"
+        return 1
+    fi
+    lsof -ti:$1 | xargs kill -9
+}
+alias kp=killport
+
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tr -d '\n' | pbcopy'
 aliasdc='docker-compose'
