@@ -1,5 +1,7 @@
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
+PROMPT='%~ %! %# '
+
 alias ll='ls -laG'
 alias llh='ls -laG ~' 
 alias ..='cd ..'
