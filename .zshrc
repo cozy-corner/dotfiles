@@ -1,6 +1,8 @@
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export EDITOR=nvim
 
+PROMPT='%~ %! %# '
+
 alias ll='ls -laG'
 alias llh='ls -laG ~' 
 alias ..='cd ..'
