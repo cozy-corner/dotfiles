@@ -1,4 +1,5 @@
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export EDITOR=nvim
 
 alias ll='ls -laG'
 alias llh='ls -laG ~' 
@@ -19,6 +20,8 @@ alias gpoh='git push origin head'
 alias gl='git log --oneline --graph --decorate'
 alias gcan='git commit --amend --no-edit'
 alias gsmdc='current_branch=$(git rev-parse --abbrev-ref HEAD) && git checkout main && git branch -D $current_branch'
+alias gcae='git commit --allow-empty -m "empty commit"'
+alias gpc='git pull origin $(git branch --show-current)'
 gc() {
   git commit -m "$1"
 }
@@ -60,6 +63,7 @@ gh-watch() {
       jq -r '.[] | select(.status != "completed") | (.databaseId | tostring) + "\t" + (.name)' |
       fzf -1 -0 | awk '{print $1}' | xargs gh run watch
 }
+
 
 killport() {
     if [ -z "$1" ]; then
