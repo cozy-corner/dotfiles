@@ -3,13 +3,19 @@ export EDITOR=nvim
 
 PROMPT='%~ %! %# '
 
+setopt append_history
+setopt inc_append_history
+setopt share_history
+
+HISTSIZE=1000
+SAVEHIST=1000
+
 alias ll='ls -laG'
 alias llh='ls -laG ~' 
 alias ..='cd ..'
 alias ...='cd ../..'
 alias grep='grep --color=auto'
 alias c='clear'
-alias h='history'
 alias vim='nvim'
 
 # git
@@ -66,7 +72,6 @@ gh-watch() {
       fzf -1 -0 | awk '{print $1}' | xargs gh run watch
 }
 
-
 killport() {
     if [ -z "$1" ]; then
         echo "Usage: killport <port>"
@@ -74,6 +79,12 @@ killport() {
     fi
     lsof -ti:$1 | xargs kill -9
 }
+
+h() {
+    local cmd=$(history 1 | sed 's/^[[:space:]]*[0-9]*[[:space:]]*//' | awk '!seen[$0]++' | fzf +s +m)
+    eval "$cmd"
+}
+
 alias kp=killport
 
 export PATH=$HOME/.nodebrew/current/bin:$PATH
