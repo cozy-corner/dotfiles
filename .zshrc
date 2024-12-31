@@ -1,3 +1,6 @@
+# emacs key bind
+bindkey -e
+
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export EDITOR=nvim
 
