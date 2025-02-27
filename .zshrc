@@ -33,6 +33,7 @@ alias gcan='git commit --amend --no-edit'
 alias gsmdc='current_branch=$(git rev-parse --abbrev-ref HEAD) && git checkout main && git branch -D $current_branch'
 alias gcae='git commit --allow-empty -m "empty commit"'
 alias gpc='git pull origin $(git branch --show-current)'
+alias grh='git fetch origin && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)'
 gc() {
   git commit -m "$1"
 }
