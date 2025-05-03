@@ -1,5 +1,1 @@
 keybind = global:cmd+grave_accent=toggle_quick_terminal
-keybind = all:shift+h=adjust_selection:left
-keybind = all:shift+l=adjust_selection:right
-keybind = all:shift+k=adjust_selection:up
-keybind = all:shift+j=adjust_selection:down
