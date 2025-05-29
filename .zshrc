@@ -34,6 +34,8 @@ alias gsmdc='current_branch=$(git rev-parse --abbrev-ref HEAD) && git checkout m
 alias gcae='git commit --allow-empty -m "empty commit"'
 alias gpc='git pull origin $(git branch --show-current)'
 alias grh='git fetch origin && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)'
+alias proot='cd $(git rev-parse --show-toplevel)'
+
 gc() {
   git commit -m "$1"
 }
@@ -76,6 +78,7 @@ gh-watch() {
       fzf -1 -0 | awk '{print $1}' | xargs gh run watch
 }
 
+
 killport() {
     if [ -z "$1" ]; then
         echo "Usage: killport <port>"
@@ -107,3 +110,9 @@ fi
 
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh --hook prompt )"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/sasakitakashinanji/work/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/sasakitakashinanji/work/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/sasakitakashinanji/work/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/sasakitakashinanji/work/google-cloud-sdk/completion.zsh.inc'; fi
