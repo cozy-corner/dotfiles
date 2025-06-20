@@ -36,6 +36,20 @@ alias gpc='git pull origin $(git branch --show-current)'
 alias grh='git fetch origin && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)'
 alias proot='cd $(git rev-parse --show-toplevel)'
 
+# Block git commit --no-verify
+git() {
+    if [[ "$1" == "commit" ]]; then
+        for arg in "$@"; do
+            if [[ "$arg" == "--no-verify" || "$arg" == "-n" ]]; then
+                echo "❌ ERROR: --no-verify bypasses quality checks and is forbidden"
+                echo "Pre-commit hooks ensure code quality. Please fix issues instead of bypassing them."
+                return 1
+            fi
+        done
+    fi
+    command git "$@"
+}
+
 gc() {
   git commit -m "$1"
 }
