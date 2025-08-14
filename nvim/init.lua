@@ -8,9 +8,6 @@ vim.opt.incsearch = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- カラースキーム
-vim.cmd.colorscheme("habamax")
-
 -- lazy.nvimのセットアップ
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
@@ -28,6 +25,19 @@ vim.opt.rtp:prepend(lazypath)
 
 -- プラグイン設定
 require("lazy").setup({
+  -- Gruvbox
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000,
+    config = function()
+      require("gruvbox").setup({
+        contrast = "medium", -- hard, medium, soft
+        transparent_mode = false,
+      })
+      vim.cmd.colorscheme("gruvbox")
+    end,
+  },
+
   -- Treesitter: シンタックスハイライト
   {
     "nvim-treesitter/nvim-treesitter",
