@@ -8,6 +8,9 @@ vim.opt.incsearch = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- jjをESCに割り当て
+vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
+
 -- lazy.nvimのセットアップ
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
