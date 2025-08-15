@@ -65,6 +65,16 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
+  -- Which-key: キーバインディングのヘルプ表示
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {},
+    config = function()
+      require("which-key").setup()
+    end,
+  },
+
   -- Mason: LSPサーバー管理
   {
     "williamboman/mason.nvim",
@@ -110,15 +120,15 @@ require("lazy").setup({
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "<leader>f", function()
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, noremap = true, silent = true, desc = "Rename symbol" })
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, noremap = true, silent = true, desc = "Code action" })
+        vim.keymap.set("n", "<leader>cf", function()
           vim.lsp.buf.format { async = true }
-        end, opts)
+        end, { buffer = bufnr, noremap = true, silent = true, desc = "Format code" })
         vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
         vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-        vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
+        vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = bufnr, noremap = true, silent = true, desc = "Show diagnostics" })
+        vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { buffer = bufnr, noremap = true, silent = true, desc = "Diagnostic list" })
       end
       
       -- LSPサーバーのリスト
@@ -176,15 +186,22 @@ require("lazy").setup({
 
 -- Telescopeキーマッピング
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Telescope recent files' })
-vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Fuzzily search in current buffer' })
-vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Telescope git commits' })
-vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'Telescope git status' })
-vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Telescope git branches' })
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Help tags' })
+vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Recent files' })
+vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = 'Search in current buffer' })
+vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Git commits' })
+vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'Git status' })
+vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Git branches' })
+
+-- Which-keyでTelescopeグループを登録
+local wk = require("which-key")
+wk.add({
+  { "<leader>f", group = "Find" },
+  { "<leader>g", group = "Git" },
+})
 
 -- 補完の設定
 local cmp = require("cmp")
