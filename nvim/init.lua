@@ -84,6 +84,16 @@ require("lazy").setup({
     end,
   },
 
+  -- nvim-surround: 囲み文字の操作
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup()
+    end,
+  },
+
   -- Mason: LSPサーバー管理
   {
     "williamboman/mason.nvim",
