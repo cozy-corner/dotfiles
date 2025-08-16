@@ -94,6 +94,15 @@ require("lazy").setup({
     end,
   },
 
+  -- Comment.nvim: コメントアウトの操作
+  {
+    "numToStr/Comment.nvim",
+    opts = {},
+    config = function()
+      require("Comment").setup()
+    end,
+  },
+
   -- Mason: LSPサーバー管理
   {
     "williamboman/mason.nvim",
