@@ -3,13 +3,15 @@ vim.opt.number = true
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
+vim.opt.timeoutlen = 300
 
 -- リーダーキーをスペースに設定
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- jjをESCに割り当て
+-- ESC
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("v", "kj", "<Esc>", { noremap = true, silent = true })
 
 -- ウィンドウ移動のキーマッピング
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
