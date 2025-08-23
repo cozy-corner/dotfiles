@@ -19,6 +19,12 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to window below" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to window above" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
+-- バッファ移動のキーマッピング
+vim.keymap.set("n", "[b", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
+vim.keymap.set("n", "]b", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
+vim.keymap.set("n", "[B", ":bfirst<CR>", { noremap = true, silent = true, desc = "First buffer" })
+vim.keymap.set("n", "]B", ":blast<CR>", { noremap = true, silent = true, desc = "Last buffer" })
+
 -- lazy.nvimのセットアップ
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
