@@ -19,6 +19,15 @@ vim.keymap.set("n", "]b", ":bnext<CR>", { noremap = true, silent = true, desc = 
 vim.keymap.set("n", "[B", ":bfirst<CR>", { noremap = true, silent = true, desc = "First buffer" })
 vim.keymap.set("n", "]B", ":blast<CR>", { noremap = true, silent = true, desc = "Last buffer" })
 
+-- コマンドラインで%%を現在のファイルのディレクトリに展開
+vim.keymap.set("c", "%%", function()
+  if vim.fn.getcmdtype() == ":" then
+    return vim.fn.expand("%:h") .. "/"
+  else
+    return "%%"
+  end
+end, { expr = true })
+
 -- lazy.nvimのセットアップ
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
