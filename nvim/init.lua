@@ -45,16 +45,17 @@ vim.opt.rtp:prepend(lazypath)
 
 -- プラグイン設定
 require("lazy").setup({
-  -- Gruvbox
+  -- Catppuccin
   {
-    "ellisonleao/gruvbox.nvim",
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
     config = function()
-      require("gruvbox").setup({
-        contrast = "medium", -- hard, medium, soft
-        transparent_mode = false,
+      require("catppuccin").setup({
+        flavour = "mocha", -- latte, frappe, macchiato, mocha
+        transparent_background = false,
       })
-      vim.cmd.colorscheme("gruvbox")
+      vim.cmd.colorscheme("catppuccin")
     end,
   },
 
