@@ -1,5 +1,24 @@
 # nvim-cmpと挿入ノーマルモード（C-o）の問題
 
+## 環境
+
+### システム
+- **OS**: macOS 14.5 Sonoma (Build 23F79)
+- **Architecture**: ARM64 (Apple M1 Max)
+- **Kernel**: Darwin 23.5.0
+
+### Neovim
+- **Version**: v0.10.3
+- **Build type**: Release
+- **LuaJIT**: 2.1.1736781742
+
+### 関連プラグイン
+- **nvim-cmp**: b5311ab (2025-04-13)
+
+### その他
+- **プラグインマネージャー**: lazy.nvim
+- **テスト日**: 2025年8月31日
+
 ## 問題の症状
 
 ### 現象
