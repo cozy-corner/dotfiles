@@ -131,3 +131,6 @@ if [ -f '/Users/sasakitakashinanji/work/google-cloud-sdk/path.zsh.inc' ]; then .
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/sasakitakashinanji/work/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/sasakitakashinanji/work/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="/usr/local/share/dotnet:$PATH"
+
+# Added by CodeRabbit CLI installer
+export PATH="/Users/sasakitakashinanji/.local/bin:$PATH"
