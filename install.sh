@@ -14,3 +14,11 @@ ln -sf ~/dotfiles/ghostty/themes ~/.config/ghostty/themes
 mkdir -p ~/.claude
 ln -sf ~/dotfiles/claude/commands ~/.claude/commands
 
+# Install CodeRabbit CLI
+if ! command -v coderabbit &> /dev/null; then
+    echo "Installing CodeRabbit CLI..."
+    curl -fsSL https://cli.coderabbit.ai/install.sh | sh
+else
+    echo "CodeRabbit CLI is already installed"
+fi
+
