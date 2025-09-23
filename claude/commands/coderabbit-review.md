@@ -1,7 +1,7 @@
 ---
 syntax: coderabbit-review
-description: AI-driven review of uncommitted changes (runs in background)
-allowed-tools: Bash(coderabbit:*), Bash(git:*), Bash(which:*)
+description: AI-driven review of uncommitted changes
+allowed-tools: Bash(coderabbit:*), Bash(git:*)
 ---
 
 Run CodeRabbit CLI review for uncommitted changes - perfect for pre-commit quality checks.
@@ -16,46 +16,27 @@ Run CodeRabbit CLI review for uncommitted changes - perfect for pre-commit quali
 - **Working directory changes** (not yet git add)
 - **All uncommitted modifications** in current repository
 
-## Current status
-!`git status`
-!`git diff --stat`
+## How it works
+1. **Check git status** - Show current uncommitted changes
+2. **Run CodeRabbit CLI** - Execute `coderabbit --prompt-only` directly
+3. **Process results** - Analyze AI prompts and format findings
+4. **Provide detailed report** - Human-readable summary with specific fixes
 
 ## Review Process
 CodeRabbit CLI provides:
 - Line-by-line AI-powered review comments
 - Detection of defects, refactoring opportunities, and missed unit tests
 - Context-aware analysis of code changes
-- Interactive or plain text output
-
-## Execution Time
-CodeRabbit reviews typically take 1-3 minutes depending on:
-- Number of files changed
-- Complexity of code
-- Number of issues to analyze
-
-Note: The command runs synchronously, so please wait for completion to see detailed results.
+- Security vulnerability identification
 
 ## Usage
 Simply run: `/coderabbit-review`
 
-This will review all your uncommitted changes (both staged and unstaged) and provide AI-powered suggestions for improvements.
+Claude Code will automatically:
+- Execute the CodeRabbit review directly
+- Process and format the results
+- Provide actionable recommendations
+- Include security vulnerability assessments
 
-**Tip for background execution:**
-If you want to run the review in the background while continuing other work, you can:
-1. First use the Task tool to launch a general-purpose agent
-2. Then run `/coderabbit-review` in that agent
-3. Continue working in your main session while the agent handles the review
-
-## Tasks
-Execute the following steps:
-
-1. Verify coderabbit CLI is installed:
-
-!`which coderabbit || echo "CodeRabbit CLI not found"`
-
-2. Run the code review (takes 1-3 minutes):
-
-!`coderabbit --plain 2>&1`
-
-Note: This command runs synchronously. The review will take 1-3 minutes to complete.
-Ensure you're authenticated with `coderabbit auth login` before running.
+## Prerequisites
+Ensure you're authenticated with CodeRabbit: `coderabbit auth login`
