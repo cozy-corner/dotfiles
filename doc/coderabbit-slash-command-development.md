@@ -1,7 +1,11 @@
-# CodeRabbit CLI スラッシュコマンド開発記録
+# CodeRabbit CLI スラッシュコマンド開発
 
 ## 概要
 Claude Code向けにCodeRabbit CLIを活用したスラッシュコマンドを作成した際の試行錯誤と最終的な解決策をまとめる。
+
+**関連ファイル:**
+- [スラッシュコマンド本体](../claude/commands/coderabbit-review.md)
+- [GitHub: スラッシュコマンド本体](https://github.com/cozy-corner/dotfiles/blob/main/claude/commands/coderabbit-review.md)
 
 ## 目標
 - uncommitted changesに対するCodeRabbit CLIレビューを実行
@@ -160,6 +164,45 @@ A  problematic_code.js  → 詳細なレビュー結果 ✅
 - ファイル・行番号の特定
 
 ### 検出例
+検証に使用した問題のあるコード例と、CodeRabbitが検出した問題：
+
+```javascript
+// Problematic code for testing - UPDATED
+const password = "admin123";  // hardcoded password
+const apiKey = "sk-123456789abcdef";  // exposed API key
+eval("console.log('dangerous')");  // eval usage
+document.innerHTML = userInput;  // XSS vulnerability
+
+function getData() {
+    var result = null;
+    console.log(result.data);  // null reference
+    console.log(result.nested.deep.value);  // multiple null references
+    // missing return
+}
+
+var x = 1;
+var x = 2;  // duplicate variable
+var y = 3;
+var y = 4;  // another duplicate
+
+// SQL injection vulnerable
+function query(userInput) {
+    return "SELECT * FROM users WHERE id = " + userInput;
+}
+
+// Command injection
+function runCommand(userCommand) {
+    const exec = require('child_process').exec;
+    exec('ls ' + userCommand);  // command injection
+}
+
+// Infinite loop risk
+while(true) {
+    // no break condition
+}
+```
+
+**CodeRabbitが検出した問題:**
 - SQL injection vulnerabilities
 - XSS risks (innerHTML usage)
 - Command injection (exec concatenation)
@@ -167,6 +210,7 @@ A  problematic_code.js  → 詳細なレビュー結果 ✅
 - Hardcoded credentials
 - Null reference errors
 - Infinite loops
+- Variable redeclarations
 
 ## 今後の改善点
 
