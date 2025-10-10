@@ -83,6 +83,13 @@ gm() {
         echo "No branch selected."
     fi
 }
+gfco() {
+  local branch
+  branch=$(git ls-remote --heads origin | awk '{print $2}' | sed 's|refs/heads/||' | fzf +m --height 40% --border --ansi --prompt="Select remote branch: ") &&
+  branch=$(echo "$branch" | xargs) &&
+  git fetch origin "$branch" &&
+  git checkout "$branch"
+}
 
 gh-watch() {
     gh run list \
