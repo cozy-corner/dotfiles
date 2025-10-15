@@ -141,3 +141,6 @@ export PATH="/usr/local/share/dotnet:$PATH"
 
 # Added by CodeRabbit CLI installer
 export PATH="$HOME/.local/bin:$PATH"
+
+# Go
+export PATH="$HOME/go/bin:$PATH"
