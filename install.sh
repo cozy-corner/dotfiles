@@ -13,6 +13,8 @@ ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ln -sf ~/dotfiles/ghostty/themes ~/.config/ghostty/themes
 mkdir -p ~/.claude
 ln -sf ~/dotfiles/claude/commands ~/.claude/commands
+ln -sf ~/dotfiles/claude/agents ~/.claude/agents
+ln -sf ~/dotfiles/claude/settings.local.json ~/.claude/settings.local.json
 
 # Install CodeRabbit CLI
 if ! command -v coderabbit &> /dev/null; then
