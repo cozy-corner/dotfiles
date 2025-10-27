@@ -12,8 +12,11 @@ ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ln -sf ~/dotfiles/ghostty/themes ~/.config/ghostty/themes
 mkdir -p ~/.claude
+rm -rf ~/.claude/commands
 ln -sf ~/dotfiles/claude/commands ~/.claude/commands
+rm -rf ~/.claude/agents
 ln -sf ~/dotfiles/claude/agents ~/.claude/agents
+rm -f ~/.claude/settings.local.json
 ln -sf ~/dotfiles/claude/settings.local.json ~/.claude/settings.local.json
 
 # Install CodeRabbit CLI
