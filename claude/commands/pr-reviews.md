@@ -14,10 +14,11 @@ Follow these steps:
 4. **Use `gh api --paginate /repos/{owner}/{repo}/pulls/{number}/reviews?per_page=100` to get PR reviews (CRITICAL: includes CodeRabbit nitpicks)**
 5. Use `gh api --paginate /repos/{owner}/{repo}/pulls/{number}/comments?per_page=100` to get review comments on specific lines
 6. Pay particular attention to the following fields in reviews: `body`, `state`, `user`, `submitted_at`
-7. Pay particular attention to the following fields in review comments: `body`, `diff_hunk`, `path`, `line`, `position`
-8. If a review comment references code, consider fetching it using `gh api /repos/{owner}/{repo}/contents/{path}?ref={branch} | jq .content -r | base64 -d`
-9. Parse and format all comments in a readable way
-10. Return ONLY the formatted comments, with no additional text
+7. Pay particular attention to the following fields in review comments: `body`, `diff_hunk`, `path`, `line`, `position`, `in_reply_to_id`
+8. Review comments may have an `in_reply_to_id` field - use this to identify replies and nest them under the parent comment
+9. If a review comment references code, consider fetching it using `gh api /repos/{owner}/{repo}/contents/{path}?ref={branch} | jq .content -r | base64 -d`
+10. Parse and format all comments in a readable way
+11. Return ONLY the formatted comments, with no additional text
 
 Format the comments as:
 
