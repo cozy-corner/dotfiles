@@ -9,8 +9,12 @@ ln -sf ~/dotfiles/.ideavimrc ~/.ideavimrc
 mkdir -p ~/.config/nvim
 rm -f ~/.config/nvim/init.vim  # 古い設定を削除
 ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
+mkdir -p ~/.config/ghostty
+rm -rf ~/.config/ghostty/config
 ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
+rm -rf ~/.config/ghostty/themes
 ln -sf ~/dotfiles/ghostty/themes ~/.config/ghostty/themes
+rm -rf ~/.config/ghostty/shaders
 ln -sf ~/dotfiles/ghostty/shaders ~/.config/ghostty/shaders
 mkdir -p ~/.claude
 rm -rf ~/.claude/commands
