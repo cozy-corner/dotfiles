@@ -11,6 +11,7 @@ rm -f ~/.config/nvim/init.vim  # 古い設定を削除
 ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
 ln -sf ~/dotfiles/ghostty/themes ~/.config/ghostty/themes
+ln -sf ~/dotfiles/ghostty/shaders ~/.config/ghostty/shaders
 mkdir -p ~/.claude
 rm -rf ~/.claude/commands
 ln -sf ~/dotfiles/claude/commands ~/.claude/commands
