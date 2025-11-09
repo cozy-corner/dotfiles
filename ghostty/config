@@ -5,3 +5,10 @@ font-size = 20
 
 # Hide traffic light buttons
 macos-window-buttons = hidden
+
+# Custom cursor shader (from most subtle to most flashy)
+custom-shader = ~/.config/ghostty/shaders/cursor_smear.glsl  # Simple smear (current choice)
+# custom-shader = ~/.config/ghostty/shaders/cursor_smear_fade.glsl  # Smear with fade
+# custom-shader = ~/.config/ghostty/shaders/cursor_blaze_tapered.glsl  # Tapered blaze (flashy)
+# custom-shader = ~/.config/ghostty/shaders/cursor_smear_gradient.glsl  # Gradient with animation (very flashy)
+# custom-shader = ~/.config/ghostty/shaders/cursor_blaze.glsl  # Full blaze (very flashy)
