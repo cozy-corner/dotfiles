@@ -2,3 +2,6 @@ keybind = global:cmd+grave_accent=toggle_quick_terminal
 
 # Font size
 font-size = 20
+
+# Hide traffic light buttons
+macos-window-buttons = hidden
