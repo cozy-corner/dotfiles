@@ -16,6 +16,8 @@ rm -rf ~/.config/ghostty/themes
 ln -sf ~/dotfiles/ghostty/themes ~/.config/ghostty/themes
 rm -rf ~/.config/ghostty/shaders
 ln -sf ~/dotfiles/ghostty/shaders ~/.config/ghostty/shaders
+mkdir -p ~/.config
+ln -sf ~/dotfiles/aerospace ~/.config/aerospace
 mkdir -p ~/.claude
 rm -rf ~/.claude/commands
 ln -sf ~/dotfiles/claude/commands ~/.claude/commands
