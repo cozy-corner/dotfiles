@@ -250,10 +250,18 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.tinyspeck.slackmacgap'
     run = 'move-node-to-workspace S'  # S - Slack
 
-# TODO: Add Notion when installed (check app-id with: aerospace list-apps)
-# [[on-window-detected]]
-#     if.app-id = 'notion.id'  # Verify correct app-id
-#     run = 'move-node-to-workspace N'  # N - Notion
+[[on-window-detected]]
+    if.app-id = 'notion.id'
+    run = 'move-node-to-workspace N'  # N - Notion
+
+[[on-window-detected]]
+    if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
+    if.window-title-regex-substring = 'Google カレンダー'
+    run = 'move-node-to-workspace G'  # G - Google Calendar
+
+[[on-window-detected]]
+    if.app-id = 'com.teamflowhq.desktopApp'
+    run = 'move-node-to-workspace F'  # F - Teamflow
 
 [[on-window-detected]]
     if.app-id = 'com.jetbrains.intellij'
