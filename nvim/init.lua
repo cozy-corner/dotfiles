@@ -271,6 +271,32 @@ require("lazy").setup({
     },
   },
 
+  -- csvview.nvim: CSVファイルのテーブル表示
+  {
+    "hat0uma/csvview.nvim",
+    ft = { "csv", "tsv" },
+    config = function()
+      require("csvview").setup({
+        view = {
+          display_mode = "border", -- "border"または"highlight"
+        },
+        keymaps = {
+          -- テキストオブジェクト（CSVファイルでのみ有効）
+          textobject_field_inner = { "if", mode = { "o", "x" } },
+          textobject_field_outer = { "af", mode = { "o", "x" } },
+        },
+      })
+
+      -- CSVファイルを開いたときに自動で有効化
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "csv", "tsv" },
+        callback = function()
+          vim.cmd("CsvViewEnable")
+        end,
+      })
+    end,
+  },
+
 })
 
 -- Telescopeキーマッピング
