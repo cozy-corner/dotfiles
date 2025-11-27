@@ -256,7 +256,6 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
-    if.window-title-regex-substring = 'Google カレンダー'
     run = 'move-node-to-workspace G'  # G - Google Calendar
 
 [[on-window-detected]]
