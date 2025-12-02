@@ -147,3 +147,5 @@ export PATH="$HOME/go/bin:$PATH"
 
 # git-gtr completion
 [ -f ~/tools/git-worktree-runner/completions/git-gtr.zsh ] && source ~/tools/git-worktree-runner/completions/git-gtr.zsh
+# Load mise if installed (handles environment-specific tools)
+command -v mise &> /dev/null && eval "$(mise activate zsh)"
