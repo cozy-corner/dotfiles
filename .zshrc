@@ -90,6 +90,9 @@ gfco() {
   git fetch origin "$branch" &&
   git checkout "$branch"
 }
+gwd() {
+  git worktree list | fzf -m | awk '{print $1}' | xargs -I {} git worktree remove -f {}
+}
 
 gh-watch() {
     gh run list \
