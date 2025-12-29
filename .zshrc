@@ -91,7 +91,11 @@ gfco() {
   git checkout "$branch"
 }
 gwd() {
-  git worktree list | fzf -m | awk '{print $1}' | xargs -I {} git worktree remove -f {}
+  git worktree list | fzf -m | while read -r line; do
+    local worktree_path=$(echo "$line" | awk '{print $1}')
+    local branch_name=$(echo "$line" | awk '{print $3}' | tr -d '[]')
+    git worktree remove -f "$worktree_path" && git branch -D "$branch_name"
+  done
 }
 gwcd() {
   local worktrees worktree
