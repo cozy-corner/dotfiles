@@ -93,6 +93,12 @@ gfco() {
 gwd() {
   git worktree list | fzf -m | awk '{print $1}' | xargs -I {} git worktree remove -f {}
 }
+gwcd() {
+  local worktrees worktree
+  worktrees=$(git worktree list) &&
+  worktree=$(echo "$worktrees" | fzf) &&
+  cd $(echo "$worktree" | awk '{print $1}')
+}
 
 gh-watch() {
     gh run list \
