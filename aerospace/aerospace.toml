@@ -259,8 +259,16 @@ automatically-unhide-macos-hidden-apps = false
     run = 'move-node-to-workspace G'  # G - Google Calendar
 
 [[on-window-detected]]
+    if.app-id = 'com.1password.1password'
+    run = 'move-node-to-workspace 1'  # 1 - 1Password
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.finder'
+    run = 'move-node-to-workspace F'  # F - Finder
+
+[[on-window-detected]]
     if.app-id = 'com.teamflowhq.desktopApp'
-    run = 'move-node-to-workspace F'  # F - Teamflow
+    run = 'move-node-to-workspace W'  # W - Teamflow (Work)
 
 [[on-window-detected]]
     if.app-id = 'us.zoom.xos'
