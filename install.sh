@@ -18,6 +18,9 @@ rm -rf ~/.config/ghostty/shaders
 ln -sf ~/dotfiles/ghostty/shaders ~/.config/ghostty/shaders
 mkdir -p ~/.config
 ln -sf ~/dotfiles/aerospace ~/.config/aerospace
+mkdir -p ~/.config/gh
+rm -f ~/.config/gh/config.yml
+ln -sf ~/dotfiles/gh/config.yml ~/.config/gh/config.yml
 mkdir -p ~/.claude
 rm -rf ~/.claude/commands
 ln -sf ~/dotfiles/claude/commands ~/.claude/commands
