@@ -25,8 +25,8 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 alias ls='eza -a --icons'
-alias ll='eza -la --icons --git'
-alias llh='eza -la --icons --git ~'
+alias ll='eza -la --icons'
+alias llh='eza -la --icons ~'
 alias lt='eza --tree --level=2 --icons'
 alias ..='cd ..'
 alias ...='cd ../..'
