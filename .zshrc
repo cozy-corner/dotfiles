@@ -4,6 +4,17 @@ bindkey -e
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export EDITOR=nvim
 
+# eza colors (Catppuccin Mocha theme - subdued)
+export LS_COLORS="$(vivid generate catppuccin-mocha)"
+export EZA_COLORS="\
+ur=38;2;186;194;222:uw=38;2;186;194;222:ux=38;2;186;194;222:\
+gr=38;2;166;173;200:gw=38;2;166;173;200:gx=38;2;166;173;200:\
+tr=38;2;147;153;178:tw=38;2;147;153;178:tx=38;2;147;153;178:\
+uu=38;2;137;180;250:un=38;2;127;132;156:\
+gu=38;2;166;173;200:gn=38;2;127;132;156:\
+sn=38;2;166;173;200:sb=38;2;147;153;178:\
+da=38;2;147;153;178"
+
 PROMPT='%~ %! %# '
 
 setopt append_history
@@ -13,8 +24,10 @@ setopt share_history
 HISTSIZE=1000
 SAVEHIST=1000
 
-alias ll='ls -laG'
-alias llh='ls -laG ~' 
+alias ls='eza -a --icons'
+alias ll='eza -la --icons --git'
+alias llh='eza -la --icons --git ~'
+alias lt='eza --tree --level=2 --icons'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias grep='grep --color=auto'
