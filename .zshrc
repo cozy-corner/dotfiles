@@ -25,14 +25,15 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 alias ls='eza -a --icons'
-alias ll='eza -la --icons'
-alias llh='eza -la --icons ~'
+alias ll='eza -la --icons --no-user'
+alias llh='eza -la --icons --no-user ~'
 alias lt='eza --tree --level=2 --icons'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias grep='grep --color=auto'
 alias c='clear'
 alias vim='nvim'
+alias vi='nvim'
 
 # git
 alias gb='git branch --sort=-committerdate'
