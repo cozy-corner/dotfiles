@@ -79,6 +79,34 @@ require("lazy").setup({
     end,
   },
 
+  -- render-markdown.nvim: Markdownのリッチ表示
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    opts = {
+      -- Insert modeでレンダリングを無効化
+      modes = { "n", "c", "v" }, -- normal, command, visual modeのみ
+      -- カーソル行も通常表示
+      anti_conceal = {
+        enabled = true,
+      },
+      -- 余白を無効化（ペインいっぱいに表示）
+      padding = {
+        highlight = nil,
+      },
+      win_options = {
+        conceallevel = {
+          default = 2,
+          rendered = 2,
+        },
+        concealcursor = {
+          default = "",
+          rendered = "",
+        },
+      },
+    },
+    ft = { "markdown" },
+  },
+
   -- Telescope: ファジーファインダー
   {
     "nvim-telescope/telescope.nvim",
