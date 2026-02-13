@@ -107,6 +107,23 @@ require("lazy").setup({
     ft = { "markdown" },
   },
 
+  -- markdown-preview.nvim: ブラウザでMarkdown/Mermaidプレビュー
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mkdp_auto_close = 0 -- プレビューを閉じてもブラウザを閉じない
+      vim.g.mkdp_theme = "dark" -- dark テーマ
+
+      -- キーマッピング
+      vim.keymap.set("n", "<leader>mp", ":MarkdownPreview<CR>", { noremap = true, silent = true, desc = "Markdown preview" })
+      vim.keymap.set("n", "<leader>ms", ":MarkdownPreviewStop<CR>", { noremap = true, silent = true, desc = "Stop markdown preview" })
+    end,
+    ft = { "markdown" },
+  },
+
   -- Telescope: ファジーファインダー
   {
     "nvim-telescope/telescope.nvim",
