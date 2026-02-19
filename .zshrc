@@ -144,6 +144,11 @@ alias kp=killport
 
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tr -d '\n' | pbcopy'
+
+cpwd() {
+  pwd | tr -d '\n' | pbcopy
+  echo "Copied: $(pwd)"
+}
 aliasdc='docker-compose'
 alias tf='terraform'
 alias dc='docker-compose'
