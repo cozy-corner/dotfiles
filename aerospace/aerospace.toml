@@ -209,6 +209,12 @@ automatically-unhide-macos-hidden-apps = false
     up = 'volume up'
     shift-down = ['volume set 0', 'mode main']
 
+# Monitor assignments
+# Physical layout (left to right): MacBook(1) | main LG(2) | sub LG(3)
+[workspace-to-monitor-force-assignment]
+Y = [3, 2, 1]  # sub → main → MacBook
+U = [3, 2, 1]  # sub → main → MacBook
+
 # App to workspace assignments
 # Note: Chrome windows with specific titles must be checked first
 [[on-window-detected]]
