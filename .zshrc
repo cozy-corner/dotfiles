@@ -182,3 +182,6 @@ export PATH="$HOME/go/bin:$PATH"
 # Load mise if installed (handles environment-specific tools)
 command -v mise &> /dev/null && eval "$(mise activate zsh)"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# atuin - shell history
+eval "$(atuin init zsh)"

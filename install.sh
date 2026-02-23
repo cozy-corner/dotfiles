@@ -29,6 +29,11 @@ ln -sf ~/dotfiles/claude/agents ~/.claude/agents
 rm -f ~/.claude/settings.local.json
 ln -sf ~/dotfiles/claude/settings.local.json ~/.claude/settings.local.json
 
+# atuin
+mkdir -p ~/.config/atuin
+rm -f ~/.config/atuin/config.toml
+ln -sf ~/dotfiles/atuin/config.toml ~/.config/atuin/config.toml
+
 # Install CodeRabbit CLI
 if ! command -v coderabbit &> /dev/null; then
     echo "Installing CodeRabbit CLI..."

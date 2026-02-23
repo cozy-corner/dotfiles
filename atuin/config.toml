@@ -1,0 +1,21 @@
+## timezone
+timezone = "+9"
+
+
+## workspace mode - filter within git repo tree
+# workspaces = true
+
+
+[stats]
+common_subcommands = [
+  "cargo",
+  "docker",
+  "git",
+  "go",
+  "kubectl",
+  "npm",
+  "tmux",
+]
+
+[ui]
+columns = ["duration", "time", "directory", "command"]
