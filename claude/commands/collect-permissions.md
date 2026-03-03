@@ -7,7 +7,7 @@ allowed-tools: Read, Edit, Bash(git diff:*)
 
 ## 現在のグローバル設定
 
-!`cat ~/.claude/settings.local.json`
+!`cat ~/.claude/settings.json`
 
 ## 手順
 
@@ -48,5 +48,5 @@ allowed-tools: Read, Edit, Bash(git diff:*)
 
 ### 5. 確認後に書き込む
 
-ユーザーが承認したら `~/.claude/settings.local.json` の `permissions.allow` 配列に追記する。
-書き込み後、`git diff ~/.claude/settings.local.json` で差分を表示する。
+ユーザーが承認したら `~/.claude/settings.json` の `permissions.allow` 配列に追記する。
+書き込み後、`git diff ~/dotfiles/claude/settings.json` で差分を表示する。
