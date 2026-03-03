@@ -7,7 +7,7 @@ allowed-tools: Read, Edit, Bash(git diff:*)
 
 ## 現在のグローバル設定
 
-!`cat ~/.claude/settings.json`
+Read ツールで `~/.claude/settings.json` を読み込んでその内容を確認する。
 
 ## 手順
 
