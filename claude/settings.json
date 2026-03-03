@@ -96,6 +96,8 @@
       "Bash(brew search)",
       "Bash(brew deps)",
       "Bash(gradlew)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
       "Bash(pnpm)",
 
       "WebFetch(domain:github.com)",
