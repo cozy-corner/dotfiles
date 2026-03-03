@@ -102,7 +102,8 @@
 
       "WebFetch(domain:github.com)",
       "WebSearch",
-      "Bash(coderabbit review:*)"
+      "Bash(coderabbit review:*)",
+      "mcp__serena__*"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
@@ -132,7 +133,8 @@
     "coverage/"
   ],
   "enabledPlugins": {
-    "mapo-aidd@bill-one-marketplace": true
+    "mapo-aidd@bill-one-marketplace": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
   },
   "enableAllProjectMcpServers": false
 }
