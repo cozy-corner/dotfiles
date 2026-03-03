@@ -28,8 +28,6 @@ rm -rf ~/.claude/agents
 ln -sf ~/dotfiles/claude/agents ~/.claude/agents
 rm -f ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
-rm -f ~/.claude/settings.local.json
-ln -sf ~/dotfiles/claude/settings.local.json ~/.claude/settings.local.json
 
 # atuin
 mkdir -p ~/.config/atuin
