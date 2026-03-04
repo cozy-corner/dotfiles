@@ -116,6 +116,7 @@ require("lazy").setup({
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_auto_close = 0 -- プレビューを閉じてもブラウザを閉じない
       vim.g.mkdp_theme = "dark" -- dark テーマ
+      vim.g.mkdp_markdown_css = vim.fn.stdpath("config") .. "/markdown.css"
 
       -- キーマッピング
       vim.keymap.set("n", "<leader>mp", ":MarkdownPreview<CR>", { noremap = true, silent = true, desc = "Markdown preview" })
