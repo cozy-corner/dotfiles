@@ -4,6 +4,7 @@ bindkey -e
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export EDITOR=nvim
 
+
 # eza colors (Catppuccin Mocha theme - subdued)
 export LS_COLORS="$(vivid generate catppuccin-mocha)"
 export EZA_COLORS="\
@@ -24,31 +25,14 @@ setopt share_history
 HISTSIZE=1000
 SAVEHIST=1000
 
-alias ls='eza -a --icons'
-alias ll='eza -la --icons --no-user'
-alias llh='eza -la --icons --no-user ~'
-alias lt='eza --tree --level=2 --icons'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias grep='grep --color=auto'
-alias c='clear'
-alias vim='nvim'
-alias vi='nvim'
+alias grep='grep --color=auto'  # abbrだと再帰展開になるためaliasのまま
 
-# git
-alias gb='git branch --sort=-committerdate'
-alias gs='git status'
-alias ga='git add'
-alias gd='git diff'
-alias gp='git push'
-alias gpoh='git push origin head'
-alias gl='git log --oneline --graph --decorate'
-alias gcan='git commit --amend --no-edit'
-alias gsmdc='current_branch=$(git rev-parse --abbrev-ref HEAD) && git checkout main && git branch -D $current_branch'
-alias gcae='git commit --allow-empty -m "empty commit"'
-alias gpc='git pull origin $(git branch --show-current)'
-alias grh='git fetch origin && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)'
-alias proot='cd $(git rev-parse --show-toplevel)'
+# zsh-abbr
+source "$(brew --prefix)/share/zsh-abbr/zsh-abbr.zsh"
+
+alias ls='eza -a --icons'  # abbrだと同名コマンドが存在するためaliasのまま
+alias vim='nvim'            # abbrだと同名コマンドが存在するためaliasのまま
+alias vi='nvim'             # abbrだと同名コマンドが存在するためaliasのまま
 
 # Block git commit --no-verify
 git() {
@@ -140,22 +124,11 @@ h() {
     eval "$cmd"
 }
 
-alias kp=killport
-
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-alias uuid='uuidgen | tr "[:upper:]" "[:lower:]" | tr -d '\n' | pbcopy'
-
 cpwd() {
   pwd | tr -d '\n' | pbcopy
   echo "Copied: $(pwd)"
 }
-aliasdc='docker-compose'
-alias tf='terraform'
-alias dc='docker-compose'
-alias dcu='docker-compose up'
-
-# google cloud
-alias gal='gcloud auth login --update-adc'
+alias dc='docker-compose'  # abbrだと同名コマンドが存在するためaliasのまま
 
 if [ -f ~/.zshrc_bo ]; then
     source ~/.zshrc_bo
