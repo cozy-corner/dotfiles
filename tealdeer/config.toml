@@ -1,0 +1,44 @@
+[style.description]
+foreground = { rgb = [205, 214, 244] }
+underline = false
+bold = false
+italic = false
+
+[style.command_name]
+foreground = { rgb = [203, 166, 247] }
+underline = false
+bold = false
+italic = false
+
+[style.example_text]
+foreground = { rgb = [166, 227, 161] }
+underline = false
+bold = false
+italic = false
+
+[style.example_code]
+foreground = { rgb = [137, 180, 250] }
+underline = false
+bold = false
+italic = false
+
+[style.example_variable]
+foreground = { rgb = [250, 179, 135] }
+underline = true
+bold = false
+italic = false
+
+[display]
+compact = false
+use_pager = false
+show_title = false
+
+[updates]
+auto_update = false
+auto_update_interval_hours = 720
+archive_source = "https://github.com/tldr-pages/tldr/releases/latest/download/"
+tls_backend = "rustls-with-webpki-roots"
+
+[directories]
+
+[search]

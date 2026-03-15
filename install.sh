@@ -30,6 +30,11 @@ ln -sf ~/dotfiles/claude/agents ~/.claude/agents
 rm -f ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
 
+# tealdeer
+mkdir -p ~/.config/tealdeer
+rm -f ~/.config/tealdeer/config.toml
+ln -sf ~/dotfiles/tealdeer/config.toml ~/.config/tealdeer/config.toml
+
 # atuin
 mkdir -p ~/.config/atuin
 rm -f ~/.config/atuin/config.toml
