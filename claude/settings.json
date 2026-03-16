@@ -105,7 +105,6 @@
       "Bash(pnpm build *)",
       "Bash(pnpm lint *)",
       "Bash(pnpm --filter *)",
-
       "WebFetch(domain:github.com)",
       "WebSearch",
       "Bash(coderabbit review *)",
@@ -129,10 +128,16 @@
     ],
     "defaultMode": "acceptEdits"
   },
+  "enableAllProjectMcpServers": false,
   "statusLine": {
     "type": "command",
     "command": "pnpx ccusage@latest statusline",
     "padding": 0
+  },
+  "enabledPlugins": {
+    "mapo-aidd@bill-one-marketplace": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "mapo-tools@bill-one-marketplace": true
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
@@ -152,10 +157,5 @@
     "*.iml",
     "*.log",
     "coverage/"
-  ],
-  "enabledPlugins": {
-    "mapo-aidd@bill-one-marketplace": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
-  },
-  "enableAllProjectMcpServers": false
+  ]
 }
