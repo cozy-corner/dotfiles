@@ -108,7 +108,8 @@
       "WebFetch(domain:github.com)",
       "WebSearch",
       "Bash(coderabbit review *)",
-      "mcp__serena__*"
+      "mcp__serena__*",
+      "mcp__notion__notion-search"
     ],
     "deny": [
       "Bash(gh api --method DELETE *)",
