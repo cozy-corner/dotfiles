@@ -109,7 +109,8 @@
       "WebSearch",
       "Bash(coderabbit review *)",
       "mcp__serena__*",
-      "mcp__notion__notion-search"
+      "mcp__notion__notion-search",
+      "mcp__notion__notion-fetch"
     ],
     "deny": [
       "Bash(gh api --method DELETE *)",
