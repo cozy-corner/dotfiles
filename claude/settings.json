@@ -79,7 +79,8 @@
   "enabledPlugins": {
     "mapo-aidd@bill-one-marketplace": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
-    "mapo-tools@bill-one-marketplace": true
+    "mapo-tools@bill-one-marketplace": true,
+    "mapo-git@bill-one-marketplace": true
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
@@ -99,5 +100,6 @@
     "*.iml",
     "*.log",
     "coverage/"
-  ]
+  ],
+  "model": "opus[1m]"
 }
