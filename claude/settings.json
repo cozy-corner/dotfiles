@@ -70,6 +70,7 @@
     ],
     "defaultMode": "acceptEdits"
   },
+  "model": "opus[1m]",
   "enableAllProjectMcpServers": false,
   "statusLine": {
     "type": "command",
@@ -80,7 +81,11 @@
     "mapo-aidd@bill-one-marketplace": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "mapo-tools@bill-one-marketplace": true,
-    "mapo-git@bill-one-marketplace": true
+    "mapo-git@bill-one-marketplace": true,
+    "kotlin-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "mapo-implementation-rules@bill-one-marketplace": true,
+    "github@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
@@ -100,6 +105,5 @@
     "*.iml",
     "*.log",
     "coverage/"
-  ],
-  "model": "opus[1m]"
+  ]
 }
