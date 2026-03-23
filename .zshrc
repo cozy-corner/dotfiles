@@ -28,6 +28,8 @@ SAVEHIST=1000
 alias grep='grep --color=auto'  # abbrだと再帰展開になるためaliasのまま
 
 # zsh-abbr
+# symlinkだとabbr add/erase時のmvでリンクが実ファイルに置き換わるため、直接パスを指定
+ABBR_USER_ABBREVIATIONS_FILE=$HOME/dotfiles/user-abbreviations
 source "$(brew --prefix)/share/zsh-abbr/zsh-abbr.zsh"
 
 alias ls='eza -a --icons'  # abbrだと同名コマンドが存在するためaliasのまま

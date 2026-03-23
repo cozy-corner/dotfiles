@@ -40,10 +40,7 @@ mkdir -p ~/.config/atuin
 rm -f ~/.config/atuin/config.toml
 ln -sf ~/dotfiles/atuin/config.toml ~/.config/atuin/config.toml
 
-# zsh-abbr
-mkdir -p ~/.config/zsh-abbr
-rm -f ~/.config/zsh-abbr/user-abbreviations
-ln -sf ~/dotfiles/user-abbreviations ~/.config/zsh-abbr/user-abbreviations
+# zsh-abbr: .zshrcでABBR_USER_ABBREVIATIONS_FILEを直接指定するためsymlinkは不要
 
 # Install CodeRabbit CLI
 if ! command -v coderabbit &> /dev/null; then
