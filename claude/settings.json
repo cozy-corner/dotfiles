@@ -10,7 +10,8 @@
       "WebFetch",
       "WebSearch",
       "mcp__notion__*",
-      "mcp__obsidian-mcp-tools__*"
+      "mcp__obsidian-mcp-tools__*",
+      "mcp__serena__*"
     ],
     "deny": [
       "Bash(sudo *)",
