@@ -29,6 +29,8 @@ rm -rf ~/.claude/agents
 ln -sf ~/dotfiles/claude/agents ~/.claude/agents
 rm -f ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
+rm -f ~/.claude/CLAUDE.md
+ln -sf ~/dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 
 # tealdeer
 mkdir -p ~/.config/tealdeer
