@@ -108,7 +108,6 @@
     "kotlin-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
     "mapo-implementation-rules@bill-one-marketplace": true,
-    "github@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
     "serena@claude-plugins-official": false,
