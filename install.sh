@@ -31,6 +31,8 @@ rm -f ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
 rm -f ~/.claude/CLAUDE.md
 ln -sf ~/dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
+rm -f ~/.claude/statusline-command.sh
+ln -sf ~/dotfiles/claude/statusline-command.sh ~/.claude/statusline-command.sh
 
 # tealdeer
 mkdir -p ~/.config/tealdeer
