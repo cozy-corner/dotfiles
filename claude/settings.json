@@ -98,7 +98,7 @@
   "enableAllProjectMcpServers": false,
   "statusLine": {
     "type": "command",
-    "command": "pnpx ccusage@latest statusline",
+    "command": "bash ~/.claude/statusline-command.sh",
     "padding": 0
   },
   "enabledPlugins": {
