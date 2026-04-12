@@ -18,6 +18,7 @@ ln -sf ~/dotfiles/ghostty/themes ~/.config/ghostty/themes
 rm -rf ~/.config/ghostty/shaders
 ln -sf ~/dotfiles/ghostty/shaders ~/.config/ghostty/shaders
 mkdir -p ~/.config
+rm -rf ~/.config/aerospace
 ln -sf ~/dotfiles/aerospace ~/.config/aerospace
 mkdir -p ~/.config/gh
 rm -f ~/.config/gh/config.yml
