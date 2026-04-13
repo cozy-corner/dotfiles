@@ -164,6 +164,13 @@ export TEALDEER_CONFIG_DIR="$HOME/.config/tealdeer"
 # atuin - shell history
 eval "$(atuin init zsh)"
 
+# ctrl-g: atuin search filtered to current directory
+_atuin_search_cwd() {
+  _atuin_search --filter-mode=directory
+}
+zle -N atuin-search-cwd _atuin_search_cwd
+bindkey '^G' atuin-search-cwd
+
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
