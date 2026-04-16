@@ -136,6 +136,26 @@ if [ -f ~/.zshrc_bo ]; then
     source ~/.zshrc_bo
 fi
 
+# tmux: on private mac, auto-create/attach "main" with fixed layout.
+# Gated by presence of ~/.tmux_private.conf (symlinked only on private mac).
+if [[ -f ~/.tmux_private.conf ]]; then
+    tmux() {
+        if [[ $# -eq 0 ]] && [[ -z "$TMUX" ]]; then
+            if command tmux has-session -t main 2>/dev/null; then
+                command tmux attach -t main
+            else
+                command tmux new-session -d -s main -n dotfiles    -c ~/dotfiles
+                command tmux new-window       -t main -n y-junctions -c ~/code/y-junctions
+                command tmux new-window       -t main -n obsidian    -c ~/obsidian
+                command tmux select-window -t main:0
+                command tmux attach -t main
+            fi
+        else
+            command tmux "$@"
+        fi
+    }
+fi
+
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh --hook prompt )"
 
