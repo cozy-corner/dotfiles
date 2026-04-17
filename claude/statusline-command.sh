@@ -49,7 +49,11 @@ if [ -n "$ctx_pct" ]; then
 fi
 ctx_color=$(color_for_pct "$ctx_int")
 
-short_cwd=$(echo "$cwd" | awk -F/ '{if(NF>2) print $(NF-1)"/"$NF; else print $0}')
+if [ -n "$cwd" ] && [ -n "${HOME:-}" ] && [ "${cwd#"$HOME"}" != "$cwd" ]; then
+  short_cwd="~${cwd#"$HOME"}"
+else
+  short_cwd=$(echo "$cwd" | awk -F/ '{if(NF>2) print $(NF-1)"/"$NF; else print $0}')
+fi
 
 git_branch=""
 if [ -n "$cwd" ] && git -C "$cwd" rev-parse --git-dir > /dev/null 2>&1; then
