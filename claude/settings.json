@@ -6,6 +6,7 @@
       "Glob",
       "Grep",
       "Edit",
+      "Write",
       "Bash(*)",
       "WebFetch",
       "WebSearch",
@@ -112,7 +113,8 @@
     "gopls-lsp@claude-plugins-official": true,
     "serena@claude-plugins-official": false,
     "mapo-git@bill-one-marketplace": true,
-    "superpowers@superpowers-marketplace": true
+    "superpowers@superpowers-marketplace": true,
+    "skill-creator@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
@@ -123,6 +125,7 @@
     }
   },
   "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754269096080
