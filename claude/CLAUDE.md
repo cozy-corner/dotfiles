@@ -18,3 +18,9 @@
 
 ## Scripts Location
 - Place all working scripts inside the repo (e.g., scripts/) rather than /tmp, so they are versioned and reusable.
+
+## Branch Workflow
+- When creating a branch (for a PR or otherwise), use `git gtr new <branch> --yes` instead of `git checkout -b` / `git switch -c`. `git gtr` is the `git-worktree-runner` tool (https://github.com/coderabbitai/git-worktree-runner) — not a git alias — and creates each branch in its own worktree directory.
+- Move into the new worktree with `cd "$(git gtr go <branch>)"`. The exact path is configured per repo via `gtr.worktrees.dir`; always use `git gtr go` instead of guessing the path.
+- After merge or abandonment, clean up with `git gtr rm <branch> --delete-branch --yes`.
+- Always pass `--yes` so the tool runs non-interactively. Run `git gtr help` for the full subcommand reference.
