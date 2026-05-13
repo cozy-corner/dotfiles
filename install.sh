@@ -28,6 +28,8 @@ rm -rf ~/.claude/commands
 ln -sf ~/dotfiles/claude/commands ~/.claude/commands
 rm -rf ~/.claude/agents
 ln -sf ~/dotfiles/claude/agents ~/.claude/agents
+rm -rf ~/.claude/rules
+ln -sf ~/dotfiles/claude/rules ~/.claude/rules
 rm -f ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
 rm -f ~/.claude/CLAUDE.md
