@@ -24,11 +24,11 @@ mkdir -p ~/.config/gh
 rm -f ~/.config/gh/config.yml
 ln -sf ~/dotfiles/gh/config.yml ~/.config/gh/config.yml
 mkdir -p ~/.claude
-rm -rf ~/.claude/commands
+rm -f ~/.claude/commands
 ln -sf ~/dotfiles/claude/commands ~/.claude/commands
-rm -rf ~/.claude/agents
+rm -f ~/.claude/agents
 ln -sf ~/dotfiles/claude/agents ~/.claude/agents
-rm -rf ~/.claude/rules
+rm -f ~/.claude/rules
 ln -sf ~/dotfiles/claude/rules ~/.claude/rules
 rm -f ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
