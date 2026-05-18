@@ -134,6 +134,7 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
+  "theme": "dark-daltonized",
   "feedbackSurveyState": {
     "lastShownTime": 1754269096080
   },
@@ -150,6 +151,5 @@
     "*.iml",
     "*.log",
     "coverage/"
-  ],
-  "theme": "dark-daltonized"
+  ]
 }
