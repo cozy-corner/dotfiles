@@ -136,6 +136,10 @@ if [ -f ~/.zshrc_bo ]; then
     source ~/.zshrc_bo
 fi
 
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi
+
 # tmux: on private mac, auto-create/attach "main" with fixed layout.
 # Gated by presence of ~/.tmux_private.conf (symlinked only on private mac).
 if [[ -f ~/.tmux_private.conf ]]; then
