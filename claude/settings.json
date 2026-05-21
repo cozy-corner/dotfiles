@@ -36,13 +36,10 @@
       "Bash(find * -exec *)",
       "Bash(find * -delete)",
       "Bash(rm -rf /)",
-      "Bash(rm -rf /*)",
       "Bash(rm -rf ~)",
       "Bash(rm -rf ~/)",
-      "Bash(rm -rf ~/*)",
       "Bash(rm -rf $HOME)",
-      "Bash(rm -rf $HOME/)",
-      "Bash(rm -rf $HOME/*)"
+      "Bash(rm -rf $HOME/)"
     ],
     "ask": [
       "Bash(mv *)",
@@ -51,6 +48,7 @@
       "Bash(kill *)",
       "Bash(pkill *)",
       "Bash(killall *)",
+      "Bash(rm -rf *)",
       "Bash(brew uninstall *)",
       "Bash(brew remove *)",
       "Bash(npm uninstall *)",
