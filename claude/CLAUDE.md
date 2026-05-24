@@ -4,6 +4,7 @@
 - When launching subagents (Agent tool), always include in the prompt an explicit instruction to use Grep/Glob/Read instead of Bash grep/find/cat. Subagents do not reliably follow CLAUDE.md rules unless restated in their prompt.
 
 ## Project Onboarding
+- Run `git pull` at the start of every conversation to ensure the working tree is up to date.
 - ALWAYS read the project README before starting work on a new task in a repo.
 
 ## Scope Discipline
