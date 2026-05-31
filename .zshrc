@@ -4,6 +4,9 @@ bindkey -e
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export EDITOR=nvim
 
+# Claude Code: keep output in terminal scrollback (disable fullscreen alt-screen renderer)
+export CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1
+
 
 # eza colors (Catppuccin Mocha theme - subdued)
 export LS_COLORS="$(vivid generate catppuccin-mocha)"

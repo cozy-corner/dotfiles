@@ -149,5 +149,6 @@
     "*.iml",
     "*.log",
     "coverage/"
-  ]
+  ],
+  "tui": "default"
 }
