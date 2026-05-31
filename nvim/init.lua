@@ -408,12 +408,17 @@ vim.api.nvim_create_user_command("Vb", function()
   vim.cmd([[!git -C ~/obsidian add -A && git -C ~/obsidian commit -m "vault backup: $(date '+\%Y-\%m-\%d \%H:\%M:\%S')" && git -C ~/obsidian pull --no-edit && git -C ~/obsidian push]])
 end, { desc = "Vault backup (git add+commit+pull+push)" })
 
+-- Obsidian操作（すべて <leader>o 配下）
+-- ナビゲーション
+vim.keymap.set('n', '<leader>ob', '<cmd>Obsidian backlinks<cr>', { desc = 'backlinks' })
+vim.keymap.set('n', '<leader>od', '<cmd>Obsidian today<cr>',     { desc = 'today (daily)' })
+
 -- 種別テンプレを現在のノートに適用（箱→後から種別付け）
-vim.keymap.set('n', '<leader>tf', '<cmd>Obsidian template fleeting<cr>',   { desc = 'type: fleeting' })
-vim.keymap.set('n', '<leader>tp', '<cmd>Obsidian template permanent<cr>',  { desc = 'type: permanent' })
-vim.keymap.set('n', '<leader>tl', '<cmd>Obsidian template literature<cr>', { desc = 'type: literature' })
-vim.keymap.set('n', '<leader>ts', '<cmd>Obsidian template structure<cr>',  { desc = 'type: structure' })
-vim.keymap.set('n', '<leader>td', '<cmd>Obsidian template diary<cr>',      { desc = 'type: diary' })
+vim.keymap.set('n', '<leader>otf', '<cmd>Obsidian template fleeting<cr>',   { desc = 'type: fleeting' })
+vim.keymap.set('n', '<leader>otp', '<cmd>Obsidian template permanent<cr>',  { desc = 'type: permanent' })
+vim.keymap.set('n', '<leader>otl', '<cmd>Obsidian template literature<cr>', { desc = 'type: literature' })
+vim.keymap.set('n', '<leader>ots', '<cmd>Obsidian template structure<cr>',  { desc = 'type: structure' })
+vim.keymap.set('n', '<leader>otd', '<cmd>Obsidian template diary<cr>',      { desc = 'type: diary' })
 
 -- テンプレから新規ノートを作成（タイトルを聞いてから作る）
 local function new_from_template(template)
@@ -423,19 +428,19 @@ local function new_from_template(template)
     end
   end)
 end
-vim.keymap.set('n', '<leader>nf', function() new_from_template('fleeting') end,   { desc = 'new: fleeting' })
-vim.keymap.set('n', '<leader>np', function() new_from_template('permanent') end,  { desc = 'new: permanent' })
-vim.keymap.set('n', '<leader>nl', function() new_from_template('literature') end, { desc = 'new: literature' })
-vim.keymap.set('n', '<leader>ns', function() new_from_template('structure') end,  { desc = 'new: structure' })
-vim.keymap.set('n', '<leader>nd', '<cmd>Obsidian today<cr>',                       { desc = 'new: today (daily)' })
+vim.keymap.set('n', '<leader>onf', function() new_from_template('fleeting') end,   { desc = 'new: fleeting' })
+vim.keymap.set('n', '<leader>onp', function() new_from_template('permanent') end,  { desc = 'new: permanent' })
+vim.keymap.set('n', '<leader>onl', function() new_from_template('literature') end, { desc = 'new: literature' })
+vim.keymap.set('n', '<leader>ons', function() new_from_template('structure') end,  { desc = 'new: structure' })
 
--- Which-keyでTelescopeグループを登録
+-- Which-keyグループ登録
 local wk = require("which-key")
 wk.add({
   { "<leader>f", group = "Find" },
   { "<leader>g", group = "Git" },
-  { "<leader>t", group = "Template" },
-  { "<leader>n", group = "New note" },
+  { "<leader>o", group = "Obsidian" },
+  { "<leader>ot", group = "apply template" },
+  { "<leader>on", group = "new note" },
 })
 
 -- 補完の設定
