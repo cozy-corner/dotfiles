@@ -125,6 +125,53 @@ require("lazy").setup({
     ft = { "markdown" },
   },
 
+  -- obsidian.nvim: Obsidian vault連携
+  {
+    "obsidian-nvim/obsidian.nvim",
+    version = "*",
+    opts = {
+      legacy_commands = false,
+      workspaces = {
+        { name = "personal", path = "~/obsidian" },
+      },
+      picker = {
+        name = "telescope.nvim",
+      },
+      -- render-markdown.nvimが描画を担当するため無効化（二重描画回避）
+      ui = {
+        enable = false,
+      },
+      -- 既存ノートへのtype後付けを可能にしつつ、id/aliases/tagsの自動付与は抑止（gitノイズ回避）
+      frontmatter = {
+        enabled = true,
+        func = function(note)
+          return note.metadata or {}
+        end,
+      },
+      new_notes_location = "notes_subdir",
+      notes_subdir = nil,
+      -- ファイル名をタイトルそのままに（既存の命名規則に合わせる）
+      note_id_func = function(title)
+        if title ~= nil and title ~= "" then
+          return title
+        end
+        return tostring(os.time())
+      end,
+      daily_notes = {
+        folder = nil,
+        date_format = "YYYY-MM-DD",
+        template = "diary.md",
+        default_tags = {},
+      },
+      templates = {
+        folder = "templates",
+      },
+      completion = {
+        min_chars = 2,
+      },
+    },
+  },
+
   -- Telescope: ファジーファインダー
   {
     "nvim-telescope/telescope.nvim",
@@ -357,11 +404,38 @@ vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Git commits' })
 vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'Git status' })
 vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Git branches' })
 
+vim.api.nvim_create_user_command("Vb", function()
+  vim.cmd([[!git -C ~/obsidian add -A && git -C ~/obsidian commit -m "vault backup: $(date '+\%Y-\%m-\%d \%H:\%M:\%S')" && git -C ~/obsidian pull --no-edit && git -C ~/obsidian push]])
+end, { desc = "Vault backup (git add+commit+pull+push)" })
+
+-- 種別テンプレを現在のノートに適用（箱→後から種別付け）
+vim.keymap.set('n', '<leader>tf', '<cmd>Obsidian template fleeting<cr>',   { desc = 'type: fleeting' })
+vim.keymap.set('n', '<leader>tp', '<cmd>Obsidian template permanent<cr>',  { desc = 'type: permanent' })
+vim.keymap.set('n', '<leader>tl', '<cmd>Obsidian template literature<cr>', { desc = 'type: literature' })
+vim.keymap.set('n', '<leader>ts', '<cmd>Obsidian template structure<cr>',  { desc = 'type: structure' })
+vim.keymap.set('n', '<leader>td', '<cmd>Obsidian template diary<cr>',      { desc = 'type: diary' })
+
+-- テンプレから新規ノートを作成（タイトルを聞いてから作る）
+local function new_from_template(template)
+  vim.ui.input({ prompt = 'Title: ' }, function(title)
+    if title and title ~= '' then
+      vim.cmd('Obsidian new_from_template ' .. title .. ' ' .. template)
+    end
+  end)
+end
+vim.keymap.set('n', '<leader>nf', function() new_from_template('fleeting') end,   { desc = 'new: fleeting' })
+vim.keymap.set('n', '<leader>np', function() new_from_template('permanent') end,  { desc = 'new: permanent' })
+vim.keymap.set('n', '<leader>nl', function() new_from_template('literature') end, { desc = 'new: literature' })
+vim.keymap.set('n', '<leader>ns', function() new_from_template('structure') end,  { desc = 'new: structure' })
+vim.keymap.set('n', '<leader>nd', '<cmd>Obsidian today<cr>',                       { desc = 'new: today (daily)' })
+
 -- Which-keyでTelescopeグループを登録
 local wk = require("which-key")
 wk.add({
   { "<leader>f", group = "Find" },
   { "<leader>g", group = "Git" },
+  { "<leader>t", group = "Template" },
+  { "<leader>n", group = "New note" },
 })
 
 -- 補完の設定
