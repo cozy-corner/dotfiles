@@ -132,7 +132,7 @@ require("lazy").setup({
     opts = {
       legacy_commands = false,
       workspaces = {
-        { name = "personal", path = "~/obsidian" },
+        { path = vim.env.OBSIDIAN_VAULT },
       },
       picker = {
         name = "telescope.nvim",
@@ -405,7 +405,7 @@ vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = 'Git status' })
 vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = 'Git branches' })
 
 vim.api.nvim_create_user_command("Vb", function()
-  vim.cmd([[!git -C ~/obsidian add -A && git -C ~/obsidian commit -m "vault backup: $(date '+\%Y-\%m-\%d \%H:\%M:\%S')" && git -C ~/obsidian pull --no-edit && git -C ~/obsidian push]])
+  vim.cmd([[!git -C "$OBSIDIAN_VAULT" add -A && git -C "$OBSIDIAN_VAULT" commit -m "vault backup: $(date '+\%Y-\%m-\%d \%H:\%M:\%S')" && git -C "$OBSIDIAN_VAULT" pull --no-edit && git -C "$OBSIDIAN_VAULT" push]])
 end, { desc = "Vault backup (git add+commit+pull+push)" })
 
 -- Obsidian操作（すべて <leader>o 配下）
