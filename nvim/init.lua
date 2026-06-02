@@ -290,68 +290,64 @@ require("lazy").setup({
       "mason-org/mason-lspconfig.nvim",
     },
     config = function()
-      local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      
-      -- LSP共通のキーマッピング設定
-      local function lsp_keymaps(_, bufnr)
-        local opts = { buffer = bufnr, noremap = true, silent = true }
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, noremap = true, silent = true, desc = "Rename symbol" })
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, noremap = true, silent = true, desc = "Code action" })
-        vim.keymap.set("n", "<leader>cf", function()
-          vim.lsp.buf.format { async = true }
-        end, { buffer = bufnr, noremap = true, silent = true, desc = "Format code" })
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-        vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = bufnr, noremap = true, silent = true, desc = "Show diagnostics" })
-        vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { buffer = bufnr, noremap = true, silent = true, desc = "Diagnostic list" })
-      end
-      
-      -- LSPサーバーのリスト
-      local servers = {
+
+      -- 全サーバー共通の設定（capabilitiesをワイルドカードでマージ）
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+      })
+
+      -- lua_ls用の特別な設定
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
+            diagnostics = {
+              globals = { "vim" },
+            },
+            workspace = {
+              checkThirdParty = false,
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      })
+
+      -- LSPサーバーを有効化
+      vim.lsp.enable({
         "lua_ls",
         "ts_ls",
         "pyright",
         "rust_analyzer",
         "kotlin_language_server",
         "fsautocomplete",
-      }
-      
-      -- 基本的なLSPサーバーの設定
-      for _, lsp in ipairs(servers) do
-        local config = {
-          capabilities = capabilities,
-          on_attach = lsp_keymaps,
-        }
-        
-        -- lua_ls用の特別な設定
-        if lsp == "lua_ls" then
-          config.settings = {
-            Lua = {
-              runtime = {
-                version = "LuaJIT",
-              },
-              diagnostics = {
-                globals = { "vim" },
-              },
-              workspace = {
-                checkThirdParty = false,
-              },
-              telemetry = {
-                enable = false,
-              },
-            },
-          }
-        end
-        
-        lspconfig[lsp].setup(config)
-      end
+      })
+
+      -- LSP attach時のキーマッピング設定
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(ev)
+          local opts = { buffer = ev.buf, noremap = true, silent = true }
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+          -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = ev.buf, noremap = true, silent = true, desc = "Rename symbol" })
+          vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, noremap = true, silent = true, desc = "Code action" })
+          vim.keymap.set("n", "<leader>cf", function()
+            vim.lsp.buf.format { async = true }
+          end, { buffer = ev.buf, noremap = true, silent = true, desc = "Format code" })
+          vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
+          vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
+          vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = ev.buf, noremap = true, silent = true, desc = "Show diagnostics" })
+          vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { buffer = ev.buf, noremap = true, silent = true, desc = "Diagnostic list" })
+        end,
+      })
     end,
   },
 
