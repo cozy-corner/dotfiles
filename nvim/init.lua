@@ -59,26 +59,6 @@ require("lazy").setup({
     end,
   },
 
-  -- Treesitter: シンタックスハイライト
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        -- 最小限のパーサー（他はauto_installで必要時にインストール）
-        ensure_installed = {
-          "lua",
-          "vim",
-        },
-        -- ファイルを開いたときに自動で言語パーサーをインストール
-        auto_install = true,
-        highlight = {
-          enable = true,
-        },
-      })
-    end,
-  },
-
   -- render-markdown.nvim: Markdownのリッチ表示
   {
     "MeanderingProgrammer/render-markdown.nvim",
@@ -460,4 +440,14 @@ cmp.setup({
 -- 診断表示の設定
 vim.diagnostic.config({
   update_in_insert = false,
+})
+
+-- パーサーが利用可能な言語で Treesitter ハイライトを開始
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+    if lang and vim.treesitter.language.add(lang) then
+      vim.treesitter.start(args.buf, lang)
+    end
+  end,
 })
