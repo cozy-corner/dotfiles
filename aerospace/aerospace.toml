@@ -212,20 +212,21 @@ automatically-unhide-macos-hidden-apps = false
 # Monitor assignments
 # Physical layout (left to right): MacBook(1) | main LG(2) | sub LG(3)
 [workspace-to-monitor-force-assignment]
-Y = [3, 2, 1]  # sub → main → MacBook
-U = [3, 2, 1]  # sub → main → MacBook
+V = [3, 2, 1]  # sub → main → MacBook (Video: YouTube/U-NEXT/DAZN)
 
 # App to workspace assignments
 # Note: Chrome windows with specific titles must be checked first
 [[on-window-detected]]
-    if.app-id = 'com.google.Chrome'
-    if.window-title-regex-substring = 'YouTube'
-    run = 'move-node-to-workspace Y'  # Y - YouTube
+    if.app-name-regex-substring = 'YouTube'
+    run = 'move-node-to-workspace V'  # V - Video (YouTube)
 
 [[on-window-detected]]
-    if.app-id = 'com.google.Chrome'
-    if.window-title-regex-substring = 'U-NEXT'
-    run = 'move-node-to-workspace U'  # U - U-NEXT
+    if.app-name-regex-substring = 'U-NEXT'
+    run = 'move-node-to-workspace V'  # V - Video (U-NEXT)
+
+[[on-window-detected]]
+    if.app-name-regex-substring = 'DAZN'
+    run = 'move-node-to-workspace V'  # V - Video (DAZN)
 
 # Other Chrome windows go to Browser workspace
 [[on-window-detected]]
@@ -282,7 +283,7 @@ U = [3, 2, 1]  # sub → main → MacBook
 
 [[on-window-detected]]
     if.app-id = 'us.zoom.xos'
-    run = 'move-node-to-workspace V'  # V - Zoom
+    run = 'move-node-to-workspace M'  # M - Meeting (Zoom)
 
 [[on-window-detected]]
     if.app-id = 'com.jetbrains.intellij'
