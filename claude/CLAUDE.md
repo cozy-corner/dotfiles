@@ -17,6 +17,9 @@
 - When the user asks a question, ANSWER FIRST before taking any action or making changes.
 - Do not over-engineer solutions (e.g., pre-push hooks, env var schemes). Prefer the simplest correct solution and research industry standards before designing custom mechanisms.
 
+## Code Comments
+- Prefer comments that explain the non-obvious *why* (rationale, gotcha, constraint) over ones that restate *what* the code does. If the name, types, or a one-line read already make it clear, skip the comment. Keep comments terse.
+
 ## No Speculation
 - Do not write design docs or make technical claims based on speculation. Read the actual code/docs first.
 - Do not fabricate API behaviors, URL formats, or 'runtime mismatch'-style problems without verification.
