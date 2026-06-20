@@ -11,6 +11,7 @@
 ## Git Workflow
 - ALWAYS use a git worktree for feature/bugfix work — never `git checkout -b` in the main checkout. Create it with `git gtr new <branch>` (the worktree runner; folder is named after the branch, fetches by default). This is a standing rule; do not ask each time.
 - The base branch is task-dependent — usually `origin/main`, but work may stack on another branch. Pass `--from <ref>` to set the base; if it isn't obvious, ask.
+- When addressing multiple review findings or items in one request, make one commit per item. Do not bundle unrelated changes into a single commit.
 
 ## Scope Discipline
 - Do not add refactors, parallelization, hooks, or settings.json changes that were not explicitly requested.
