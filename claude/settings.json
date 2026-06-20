@@ -12,7 +12,6 @@
       "WebSearch",
       "mcp__notion__*",
       "mcp__obsidian-mcp-tools__*",
-      "mcp__serena__*",
       "mcp__chrome-devtools__take_screenshot",
       "mcp__chrome-devtools__take_snapshot",
       "mcp__chrome-devtools__list_pages",
