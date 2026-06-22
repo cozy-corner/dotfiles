@@ -43,6 +43,26 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- LSP サーバー一覧。optional は必要なツールチェーンがある環境でだけ有効化する
+local lsp_servers = (function()
+  local servers = {
+    "lua_ls",
+    "ts_ls",
+    "kotlin_language_server",
+  }
+  local optional = {
+    fsautocomplete = "dotnet", -- F# LSP は .NET SDK 必須
+    rust_analyzer = "cargo",   -- Rust ツールチェーンが必要
+    pyright = "python3",       -- Python が必要
+  }
+  for server, exe in pairs(optional) do
+    if vim.fn.executable(exe) == 1 then
+      table.insert(servers, server)
+    end
+  end
+  return servers
+end)()
+
 -- プラグイン設定
 require("lazy").setup({
   -- Catppuccin
@@ -249,14 +269,7 @@ require("lazy").setup({
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = {
-          "lua_ls",
-          "ts_ls",
-          "pyright",
-          "rust_analyzer",
-          "kotlin_language_server",
-          "fsautocomplete",
-        },
+        ensure_installed = lsp_servers,
         automatic_enable = false,
       })
     end,
@@ -298,14 +311,7 @@ require("lazy").setup({
       })
 
       -- LSPサーバーを有効化
-      vim.lsp.enable({
-        "lua_ls",
-        "ts_ls",
-        "pyright",
-        "rust_analyzer",
-        "kotlin_language_server",
-        "fsautocomplete",
-      })
+      vim.lsp.enable(lsp_servers)
 
       -- LSP attach時のキーマッピング設定
       vim.api.nvim_create_autocmd("LspAttach", {
