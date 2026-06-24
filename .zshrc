@@ -164,7 +164,7 @@ if [[ -f ~/.tmux_private.conf ]]; then
 fi
 
 eval "$(fzf --zsh)"
-bindkey '^F' fzf-cd-widget
+bindkey '^O' fzf-cd-widget
 eval "$(zoxide init zsh --hook prompt )"
 
 # The next line updates PATH for the Google Cloud SDK.
