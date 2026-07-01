@@ -119,7 +119,7 @@
     }
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
+  "effortLevel": "medium",
   "tui": "default",
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark-daltonized",
