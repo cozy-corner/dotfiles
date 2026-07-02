@@ -283,6 +283,10 @@ W = ['built-in retina display']  # MacBook (Work: Teamflow/Gather); モニタ番
     run = 'move-node-to-workspace W'  # W - Gather V1
 
 [[on-window-detected]]
+    if.app-id = 'com.apple.systempreferences'
+    run = 'move-node-to-workspace 1'  # 1 - System Settings
+
+[[on-window-detected]]
     if.app-id = 'us.zoom.xos'
     run = 'move-node-to-workspace M'  # M - Meeting (Zoom)
 
