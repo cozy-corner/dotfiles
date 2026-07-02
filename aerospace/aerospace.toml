@@ -213,7 +213,7 @@ automatically-unhide-macos-hidden-apps = false
 # Physical layout (left to right): MacBook(1) | main LG(2) | sub LG(3)
 [workspace-to-monitor-force-assignment]
 V = [3, 2, 1]  # sub → main → MacBook (Video: YouTube/U-NEXT/DAZN)
-W = [1]  # MacBook (Work: Teamflow/Gather); 画面数に関わらず常にMacBook
+W = ['built-in retina display']  # MacBook (Work: Teamflow/Gather); モニタ番号は接続状況で変わるので名前で固定
 
 # App to workspace assignments
 # Note: Chrome windows with specific titles must be checked first
