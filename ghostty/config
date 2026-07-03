@@ -3,6 +3,9 @@ keybind = global:cmd+grave_accent=toggle_quick_terminal
 # Font size
 font-size = 20
 
+# Re-enable discretionary ligatures (default-off since 1.2.0)
+font-feature = dlig
+
 # Hide traffic light buttons
 macos-window-buttons = hidden
 
