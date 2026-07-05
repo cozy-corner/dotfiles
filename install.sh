@@ -13,8 +13,6 @@ ln -sf ~/dotfiles/nvim/markdown.css ~/.config/nvim/markdown.css
 mkdir -p ~/.config/ghostty
 rm -rf ~/.config/ghostty/config
 ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
-rm -rf ~/.config/ghostty/themes
-ln -sf ~/dotfiles/ghostty/themes ~/.config/ghostty/themes
 rm -rf ~/.config/ghostty/shaders
 ln -sf ~/dotfiles/ghostty/shaders ~/.config/ghostty/shaders
 mkdir -p ~/.config
