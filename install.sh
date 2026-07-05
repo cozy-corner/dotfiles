@@ -47,6 +47,11 @@ mkdir -p ~/.config/atuin
 rm -f ~/.config/atuin/config.toml
 ln -sf ~/dotfiles/atuin/config.toml ~/.config/atuin/config.toml
 
+# herdr
+mkdir -p ~/.config/herdr
+rm -f ~/.config/herdr/config.toml
+ln -sf ~/dotfiles/herdr/config.toml ~/.config/herdr/config.toml
+
 # zsh-abbr: .zshrcでABBR_USER_ABBREVIATIONS_FILEを直接指定するためsymlinkは不要
 
 # Install CodeRabbit CLI

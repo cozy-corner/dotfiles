@@ -1,0 +1,8 @@
+# Match tmux muscle memory — see ~/dotfiles/.tmux.conf
+[keys]
+prefix = "ctrl+q"   # tmux: set -g prefix C-q
+detach = "prefix+d" # tmux default detach is prefix+d (herdr default was prefix+q)
+
+# Splits — match tmux keys: " = top/bottom, % = left/right
+split_horizontal = "prefix+\""  # tmux: bind " split-window (top/bottom)
+split_vertical   = "prefix+%"   # tmux: bind % split-window -h (left/right)
