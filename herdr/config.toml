@@ -9,3 +9,7 @@ detach = "prefix+d" # tmux default detach is prefix+d (herdr default was prefix+
 # Splits — match tmux keys: " = top/bottom, % = left/right
 split_horizontal = "prefix+\""  # tmux: bind " split-window (top/bottom)
 split_vertical   = "prefix+%"   # tmux: bind % split-window -h (left/right)
+
+# Move within the spaces sidebar (navigate mode)
+navigate_workspace_down = "ctrl+n" # down = next in the list
+navigate_workspace_up   = "ctrl+p" # up = previous in the list
