@@ -65,17 +65,17 @@ end)()
 
 -- プラグイン設定
 require("lazy").setup({
-  -- Catppuccin
+  -- Kanagawa (Ghostty / tmux と統一)
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "rebelot/kanagawa.nvim",
+    name = "kanagawa",
     priority = 1000,
     config = function()
-      require("catppuccin").setup({
-        flavour = "mocha", -- latte, frappe, macchiato, mocha
-        transparent_background = false,
+      require("kanagawa").setup({
+        theme = "wave", -- wave, dragon, lotus
+        transparent = false,
       })
-      vim.cmd.colorscheme("catppuccin")
+      vim.cmd.colorscheme("kanagawa-wave")
     end,
   },
 

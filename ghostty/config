@@ -1,7 +1,7 @@
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 
 # Color theme
-theme = Kanagawa Dragon
+theme = Kanagawa Wave
 
 # Font size
 font-size = 20

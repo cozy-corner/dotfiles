@@ -6,7 +6,7 @@
 
 | プラグイン | 用途 |
 |---|---|
-| [catppuccin/nvim](https://github.com/catppuccin/nvim) | カラースキーム (Mocha) |
+| [rebelot/kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim) | カラースキーム (Wave) |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | シンタックスハイライト (auto_install 有効) |
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | ファジーファインダー |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP クライアント設定 |
