@@ -16,18 +16,18 @@ macos-window-buttons = hidden
 # Source: https://github.com/KroneCorylus/ghostty-shader-playground
 
 # Active: restrained Kanagawa-tuned smear + subtle bloom + film grain/vignette
-custom-shader = ~/.config/ghostty/shaders/cursor_smear_kanagawa.glsl
-custom-shader = ~/.config/ghostty/shaders/bloom.glsl
-custom-shader = ~/.config/ghostty/shaders/film_grain_vignette.glsl
+custom-shader = ~/.config/ghostty/shaders/kanagawa/cursor_smear.glsl
+custom-shader = ~/.config/ghostty/shaders/kanagawa/bloom.glsl
+custom-shader = ~/.config/ghostty/shaders/kanagawa/film_grain_vignette.glsl
 
-# --- Alternatives (uncomment one cursor shader at a time) ---
+# --- Alternatives from playground/ (uncomment one cursor shader at a time) ---
 # Previous cursor look: yellow smear with fade
-# custom-shader = ~/.config/ghostty/shaders/cursor_smear_fade.glsl
+# custom-shader = ~/.config/ghostty/shaders/playground/cursor_smear_fade.glsl
 # Simple smear effect
-# custom-shader = ~/.config/ghostty/shaders/cursor_smear.glsl
+# custom-shader = ~/.config/ghostty/shaders/playground/cursor_smear.glsl
 # Tapered blaze (flashy)
-# custom-shader = ~/.config/ghostty/shaders/cursor_blaze_tapered.glsl
+# custom-shader = ~/.config/ghostty/shaders/playground/cursor_blaze_tapered.glsl
 # Gradient with animation (very flashy)
-# custom-shader = ~/.config/ghostty/shaders/cursor_smear_gradient.glsl
+# custom-shader = ~/.config/ghostty/shaders/playground/cursor_smear_gradient.glsl
 # Full blaze (very flashy)
-# custom-shader = ~/.config/ghostty/shaders/cursor_blaze.glsl
+# custom-shader = ~/.config/ghostty/shaders/playground/cursor_blaze.glsl
