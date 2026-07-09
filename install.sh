@@ -50,6 +50,12 @@ mkdir -p ~/.config/herdr
 rm -f ~/.config/herdr/config.toml
 ln -sf ~/dotfiles/herdr/config.toml ~/.config/herdr/config.toml
 
+# bat (delta/lazygit と共有する syntax テーマ置き場)
+mkdir -p ~/.config/bat
+rm -rf ~/.config/bat/themes
+ln -sf ~/dotfiles/bat/themes ~/.config/bat/themes
+bat cache --build
+
 # zsh-abbr: .zshrcでABBR_USER_ABBREVIATIONS_FILEを直接指定するためsymlinkは不要
 
 # Install CodeRabbit CLI
