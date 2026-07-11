@@ -1,0 +1,4 @@
+theme = "laserwave"
+watch = true               # 起動時から自動リロードを有効
+exclude_untracked = false  # 作業ツリーレビューで untracked も表示
+menu_bar = false           # 上部メニューバーは非表示（? でヘルプ、各機能は単独キー）
