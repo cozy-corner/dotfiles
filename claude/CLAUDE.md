@@ -33,4 +33,4 @@
 - Place all working scripts inside the repo (e.g., scripts/) rather than /tmp, so they are versioned and reusable.
 
 ## Hunk (diff review)
-- To act on review comments the user left in Hunk, follow the bundled skill at `hunk skill path`.
+- Whenever the user wants you to read their Hunk review comments, or to review/annotate a changeset in Hunk, follow the bundled skill at `hunk skill path`.
