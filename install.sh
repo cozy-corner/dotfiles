@@ -50,6 +50,11 @@ mkdir -p ~/.config/herdr
 rm -f ~/.config/herdr/config.toml
 ln -sf ~/dotfiles/herdr/config.toml ~/.config/herdr/config.toml
 
+# hunk
+mkdir -p ~/.config/hunk
+rm -f ~/.config/hunk/config.toml
+ln -sf ~/dotfiles/hunk/config.toml ~/.config/hunk/config.toml
+
 # bat (delta/lazygit と共有する syntax テーマ置き場)
 mkdir -p ~/.config/bat
 rm -rf ~/.config/bat/themes
