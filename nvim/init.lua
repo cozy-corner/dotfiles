@@ -448,6 +448,80 @@ vim.diagnostic.config({
   update_in_insert = false,
 })
 
+-- Markdownリンク追従。標準の gf/<CR> は見出しアンカーや [ラベル] 上を追えないため補う。
+--   [x](#見出し)          -> 同一バッファ内の見出しへ
+--   [x](./file.md)        -> 現在ファイル基準の相対パスで開く
+--   [x](./file.md#見出し) -> ファイルを開いてその見出しへ
+--   [x](https://…)        -> vim.ui.open で開く
+-- リンク外では引数の標準動作（gf / +）にフォールバックし、<C-o> で辿る前に戻れる。
+local function md_slug(s)
+  s = s:gsub("%*%*", ""):lower()
+  s = s:gsub("%s+", "-")
+  -- ASCII語句・ハイフン・多バイト(UTF-8)以外を除去。%wはASCIIのみなので日本語は\128-\255で残す
+  s = s:gsub("[^%w%-\128-\255]", "")
+  return s
+end
+
+local function md_jump_to_heading(anchor)
+  local slug = md_slug(anchor)
+  for i, l in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
+    local h = l:match("^#+%s+(.*)$")
+    if h and md_slug(h) == slug then
+      vim.api.nvim_win_set_cursor(0, { i, 0 })
+      vim.cmd("normal! zz")
+      return true
+    end
+  end
+  return false
+end
+
+local function md_link_target()
+  local line, col = vim.api.nvim_get_current_line(), vim.fn.col('.')
+  local init = 1
+  while true do
+    -- %b() でバランス括弧を取り、URL内の括弧 (…/Foo_(bar)) で途中切れしないようにする
+    local s, e, paren = line:find("%[.-%](%b())", init)
+    if not s then return nil end
+    if col >= s and col <= e then return paren:sub(2, -2) end
+    init = e + 1
+  end
+end
+
+local function md_follow(fallback)
+  local target = md_link_target()
+  if not target then
+    pcall(function() vim.cmd("normal! " .. fallback) end)
+    return
+  end
+  vim.cmd("normal! m'") -- ジャンプリストに積み <C-o> で戻れるようにする
+  if target:match("^%w[%w+.-]*://") then
+    vim.ui.open(target)
+    return
+  end
+  local path, anchor = target:match("^(.-)#(.+)$")
+  path = path or target
+  if path ~= "" then
+    -- 絶対パス(/…) と ~ はそのまま(:pが~を展開)、相対パスのみ現在ファイル基準で解決
+    local base = (path:sub(1, 1) == "/" or path:sub(1, 1) == "~") and path
+      or vim.fn.expand('%:p:h') .. '/' .. path
+    vim.cmd('edit ' .. vim.fn.fnameescape(vim.fn.fnamemodify(base, ':p')))
+  end
+  if anchor and not md_jump_to_heading(anchor) then
+    vim.notify("見出しが見つかりません: #" .. anchor, vim.log.levels.WARN)
+  end
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function(args)
+    -- リンク外では第2要素の標準動作（gf=ファイル追従 / +=次行）にフォールバック
+    for _, m in ipairs({ { 'gf', 'gf' }, { '<cr>', '+' } }) do
+      vim.keymap.set('n', m[1], function() md_follow(m[2]) end,
+        { buffer = args.buf, silent = true, desc = 'Follow markdown link (or ' .. m[1] .. ')' })
+    end
+  end,
+})
+
 -- パーサーが利用可能な言語で Treesitter ハイライトを開始
 vim.api.nvim_create_autocmd("FileType", {
   callback = function(args)
