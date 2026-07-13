@@ -31,3 +31,6 @@
 
 ## Scripts Location
 - Place all working scripts inside the repo (e.g., scripts/) rather than /tmp, so they are versioned and reusable.
+
+## Hunk (diff review)
+- Whenever the user wants you to read their Hunk review comments, or to review/annotate a changeset in Hunk, follow the bundled skill at `hunk skill path`.
