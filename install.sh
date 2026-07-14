@@ -55,6 +55,13 @@ mkdir -p ~/.config/hunk
 rm -f ~/.config/hunk/config.toml
 ln -sf ~/dotfiles/hunk/config.toml ~/.config/hunk/config.toml
 
+# zed
+mkdir -p ~/.config/zed
+rm -f ~/.config/zed/settings.json
+ln -sf ~/dotfiles/zed/settings.json ~/.config/zed/settings.json
+rm -f ~/.config/zed/keymap.json
+ln -sf ~/dotfiles/zed/keymap.json ~/.config/zed/keymap.json
+
 # bat (delta/lazygit と共有する syntax テーマ置き場)
 mkdir -p ~/.config/bat
 rm -rf ~/.config/bat/themes

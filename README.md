@@ -23,6 +23,7 @@ cd ~/dotfiles
 | `user-abbreviations` | zsh-abbr の略語定義 |
 | [`nvim/`](nvim/) | Neovim 設定 ([詳細](nvim/README.md)) |
 | `ghostty/` | Ghostty ターミナル設定、カスタムカーソルシェーダー、テーマ |
+| `zed/` | Zed エディタ設定 (`settings.json` / `keymap.json`) |
 | `aerospace/` | AeroSpace ウィンドウマネージャ設定 |
 | `atuin/` | Atuin シェル履歴設定 |
 | `claude/` | Claude Code の設定・カスタムコマンド・エージェント定義 |
