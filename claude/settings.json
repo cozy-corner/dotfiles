@@ -22,7 +22,8 @@
       "source": {
         "repo": "obra/superpowers-marketplace",
         "source": "github"
-      }
+      },
+      "autoUpdate": true
     }
   },
   "feedbackSurveyState": {
