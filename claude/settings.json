@@ -82,15 +82,15 @@
       "mcp__chrome-devtools__resize_page",
       "mcp__chrome-devtools__wait_for",
       "mcp__chrome-devtools__close_page",
-      "mcp__chrome-devtools__navigate_page"
+      "mcp__chrome-devtools__navigate_page",
+      "Bash(kill *)",
+      "Bash(pkill *)",
+      "Bash(killall *)"
     ],
     "ask": [
       "Bash(mv *)",
       "Bash(chmod *)",
       "Bash(chown *)",
-      "Bash(kill *)",
-      "Bash(pkill *)",
-      "Bash(killall *)",
       "Bash(rm -rf *)",
       "Bash(brew uninstall *)",
       "Bash(brew remove *)",
