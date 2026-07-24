@@ -28,6 +28,7 @@
 
 ## Verification
 - Do not claim a task is complete, fixed, or passing without running the relevant verification (tests, build, manual check). Evidence before assertions.
+- Never say a named tool, skill, or agent was used unless that exact invocation is in the transcript. If asked to use one — or before spawning an Agent for a role a real Skill/agent already covers — first check the available Skill/agent list for that exact name and invoke it (Skill tool for skills, that exact agent type for agents). If you use something else instead (e.g. a general-purpose Agent role-playing a reviewer), say so literally and surface the substitution — never reuse the real name as the Agent's label, and do not describe the substitute by the requested name. Attribute work to the literal tool call, never to the role it played.
 
 ## Scripts Location
 - Place all working scripts inside the repo (e.g., scripts/) rather than /tmp, so they are versioned and reusable.
