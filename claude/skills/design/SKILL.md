@@ -9,14 +9,7 @@ Before designing or implementing, gather evidence from the actual code and docs,
 
 ## Why this exists
 
-Past sessions repeatedly failed when design was produced from speculation instead of reading actual code. Concrete failure modes that this skill exists to prevent:
-
-- **Fabrication**: invented a "runtime mismatch" problem and made up URL formats for an external API, instead of reading the official docs. Result: multiple rounds of corrections before landing the right approach.
-- **Over-engineered scope**: proposed top-level edits (e.g., to the app entry point) when the change was local to a single view file. Result: a whole PR had to be re-done from scratch.
-- **Skipped research**: designed a custom pre-push hook without checking the industry-standard answer (run the audit in CI). Result: the user pushed back repeatedly before the design converged.
-- **Symptom-not-cause**: diagnosed a UI sizing problem as a scrolling problem without inspecting the component. Result: two rounds of unrelated changes before the actual issue was addressed.
-
-Each of these could have been avoided by a short evidence-gathering step before committing to a design.
+Past sessions repeatedly failed when design was produced from speculation instead of reading actual code: fabricated API behavior and URL formats, scope creep to top-level files when the change was local, custom mechanisms where an industry-standard answer existed, and fixes aimed at symptoms rather than causes. Each cost a round of rework that a short evidence-gathering step would have prevented.
 
 ## Workflow
 
@@ -24,7 +17,7 @@ Each of these could have been avoided by a short evidence-gathering step before 
 
 Do NOT write anything about the problem or the solution before this step is done. Specifically:
 
-- **Local code**: use Grep / Glob / Read to locate the files that currently implement the behavior in question. Track specific file:line references you will cite in the plan.
+- **Local code**: locate the files that currently implement the behavior in question. Track specific file:line references you will cite in the plan.
 - **Existing patterns in the codebase**: search for how the codebase already solves analogous problems. If there is a convention, follow it — do not invent a new one. If a util, component, migration pattern, or helper already does 80% of what you need, reuse it.
 - **External APIs / URL formats / config schemas**: verify from the official docs (WebFetch) or from existing code in the repo that already uses them. Never guess parameter names, response shapes, or URL templates.
 - **Industry standards**: if the problem has a well-known standard answer ("where should a security audit run?", "how should auth tokens be stored?", "what's the idiomatic X in Y?"), check it before proposing anything custom.
