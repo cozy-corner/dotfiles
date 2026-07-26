@@ -4,6 +4,15 @@
 - For code symbol resolution (finding where a symbol is defined, referenced, or implemented), prefer the LSP tool (goToDefinition / findReferences / goToImplementation) over Grep — it uses type information, so it is more precise and won't confuse same-named symbols. Fall back to Grep for plain-text search or when no language server is configured.
 - When launching subagents (Agent tool), always include in the prompt an explicit instruction to use Grep/Glob/Read instead of Bash grep/find/cat. Subagents do not reliably follow CLAUDE.md rules unless restated in their prompt.
 
+## Subagents
+- Delegating is not free: each subagent re-establishes context, re-explores, and reports back, and you then read its report. Delegate only when that overhead is clearly worth it.
+- Do NOT delegate work you could finish yourself in a handful of tool calls, and do NOT delegate review or verification — verification belongs in the main loop.
+- Judge by context volume, not call count: reading a few large files can cost more context than a subagent's report. Delegate when you only need the conclusion (locating code, answering "where/whether"); read directly when you need the contents to keep working with — you would have to read them yourself anyway.
+- DO delegate genuinely independent, sizeable tracks: wide multi-file investigations, unrelated modules that can proceed in parallel.
+- Prefer one subagent over several. Do not split one modest job across multiple agents. Never exceed 20 parallel agents unless explicitly asked.
+- Brief the subagent fully the first time rather than launching, waiting, and re-briefing. Once it reports back, commit to its result — do not redo or re-derive its work.
+- Launch independent subagents in a single message with multiple tool uses so they run concurrently.
+
 ## Project Onboarding
 - Run `git pull` at the start of every conversation to ensure the working tree is up to date.
 - ALWAYS read the project README before starting work on a new task in a repo.
