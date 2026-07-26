@@ -130,7 +130,7 @@
       "Bash(pnpm install -g *)",
       "Bash(brew install *)"
     ],
-    "defaultMode": "acceptEdits",
+    "defaultMode": "auto",
     "deny": [
       "Bash(sudo *)",
       "Bash(git config --global *)",
