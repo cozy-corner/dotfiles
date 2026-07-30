@@ -10,7 +10,7 @@
 - Judge by context volume, not call count: reading a few large files can cost more context than a subagent's report. Delegate when you only need the conclusion (locating code, answering "where/whether"); read directly when you need the contents to keep working with — you would have to read them yourself anyway.
 - DO delegate genuinely independent, sizeable tracks: wide multi-file investigations, unrelated modules that can proceed in parallel.
 - Prefer one subagent over several. Do not split one modest job across multiple agents. Never exceed 20 parallel agents unless explicitly asked.
-- Brief the subagent fully the first time rather than launching, waiting, and re-briefing. Once it reports back, commit to its result — do not redo or re-derive its work.
+- Brief the subagent fully the first time rather than launching, waiting, and re-briefing.
 - Launch independent subagents in a single message with multiple tool uses so they run concurrently.
 
 ## Project Onboarding
