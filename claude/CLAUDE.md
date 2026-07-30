@@ -6,7 +6,7 @@
 
 ## Subagents
 - Delegating is not free: each subagent re-establishes context, re-explores, and reports back, and you then read its report. Delegate only when that overhead is clearly worth it.
-- Do NOT delegate work you could finish yourself in a handful of tool calls, and do NOT delegate review or verification — verification belongs in the main loop.
+- Do NOT delegate work you could finish yourself in a handful of tool calls.
 - Judge by context volume, not call count: reading a few large files can cost more context than a subagent's report. Delegate when you only need the conclusion (locating code, answering "where/whether"); read directly when you need the contents to keep working with — you would have to read them yourself anyway.
 - DO delegate genuinely independent, sizeable tracks: wide multi-file investigations, unrelated modules that can proceed in parallel.
 - Prefer one subagent over several. Do not split one modest job across multiple agents. Never exceed 20 parallel agents unless explicitly asked.
