@@ -45,7 +45,6 @@
       "Bash(rm -rf $HOME/)"
     ],
     "ask": [
-      "Bash(mv *)",
       "Bash(chmod *)",
       "Bash(chown *)",
       "Bash(rm -rf *)",
