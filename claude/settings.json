@@ -55,7 +55,6 @@
       "Bash(pnpm uninstall *)",
       "Bash(pnpm remove *)",
       "Bash(pip uninstall *)",
-      "Bash(git push*)",
       "Bash(git rebase*)",
       "Bash(git reset --hard*)",
       "Bash(git clean*)",
