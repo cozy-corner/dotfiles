@@ -1,63 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "alwaysThinkingEnabled": true,
-  "effortLevel": "medium",
-  "enableAllProjectMcpServers": false,
-  "enabledPlugins": {
-    "commit-commands@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true,
-    "kotlin-lsp@claude-plugins-official": true,
-    "mapo-aidd@bill-one-marketplace": true,
-    "mapo-git@bill-one-marketplace": true,
-    "mapo-implementation-rules@bill-one-marketplace": true,
-    "mapo-tools@bill-one-marketplace": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "serena@claude-plugins-official": false,
-    "skill-creator@claude-plugins-official": true,
-    "superpowers@superpowers-marketplace": true,
-    "typescript-lsp@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "superpowers-marketplace": {
-      "source": {
-        "repo": "obra/superpowers-marketplace",
-        "source": "github"
-      },
-      "autoUpdate": true
-    }
-  },
-  "feedbackSurveyState": {
-    "lastShownTime": 1754269096080
-  },
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
-            "timeout": 10,
-            "type": "command"
-          }
-        ],
-        "matcher": "*"
-      }
-    ]
-  },
-  "ignorePatterns": [
-    ".gradle/",
-    "node_modules/",
-    "build/",
-    "target/",
-    "out/",
-    "*.jar",
-    "*.war",
-    "*.ear",
-    ".idea/",
-    "*.iml",
-    "*.log",
-    "coverage/"
-  ],
-  "model": "opus",
   "permissions": {
     "allow": [
       "Read",
@@ -86,6 +28,21 @@
       "Bash(kill *)",
       "Bash(pkill *)",
       "Bash(killall *)"
+    ],
+    "deny": [
+      "Bash(sudo *)",
+      "Bash(git config --global *)",
+      "Bash(git config --system *)",
+      "Bash(gh api --method DELETE *)",
+      "Bash(gh api --method=DELETE *)",
+      "Bash(gh api -X DELETE *)",
+      "Bash(find * -exec *)",
+      "Bash(find * -delete)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf ~/)",
+      "Bash(rm -rf $HOME)",
+      "Bash(rm -rf $HOME/)"
     ],
     "ask": [
       "Bash(mv *)",
@@ -121,37 +78,78 @@
       "Bash(gh api -X POST *)",
       "Bash(gh api -X PATCH *)",
       "Bash(gh api -X PUT *)",
-      "Bash(sed -i *)",
-      "Bash(yq -i *)",
       "Bash(pip install *)",
       "Bash(npm install -g *)",
       "Bash(pnpm add -g *)",
       "Bash(pnpm install -g *)",
       "Bash(brew install *)"
     ],
-    "defaultMode": "auto",
-    "deny": [
-      "Bash(sudo *)",
-      "Bash(git config --global *)",
-      "Bash(git config --system *)",
-      "Bash(gh api --method DELETE *)",
-      "Bash(gh api --method=DELETE *)",
-      "Bash(gh api -X DELETE *)",
-      "Bash(find * -exec *)",
-      "Bash(find * -delete)",
-      "Bash(rm -rf /)",
-      "Bash(rm -rf ~)",
-      "Bash(rm -rf ~/)",
-      "Bash(rm -rf $HOME)",
-      "Bash(rm -rf $HOME/)"
+    "defaultMode": "auto"
+  },
+  "model": "claude-opus-4-8",
+  "enableAllProjectMcpServers": false,
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   },
-  "skipDangerousModePermissionPrompt": true,
   "statusLine": {
+    "type": "command",
     "command": "bash ~/.claude/statusline-command.sh",
-    "padding": 0,
-    "type": "command"
+    "padding": 0
   },
+  "enabledPlugins": {
+    "commit-commands@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "kotlin-lsp@claude-plugins-official": true,
+    "mapo-aidd@bill-one-marketplace": true,
+    "mapo-git@bill-one-marketplace": true,
+    "mapo-implementation-rules@bill-one-marketplace": true,
+    "mapo-tools@bill-one-marketplace": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "serena@claude-plugins-official": false,
+    "skill-creator@claude-plugins-official": true,
+    "superpowers@superpowers-marketplace": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      },
+      "autoUpdate": true
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "medium",
+  "tui": "default",
+  "skipDangerousModePermissionPrompt": true,
   "theme": "dark-daltonized",
-  "tui": "default"
+  "feedbackSurveyState": {
+    "lastShownTime": 1754269096080
+  },
+  "ignorePatterns": [
+    ".gradle/",
+    "node_modules/",
+    "build/",
+    "target/",
+    "out/",
+    "*.jar",
+    "*.war",
+    "*.ear",
+    ".idea/",
+    "*.iml",
+    "*.log",
+    "coverage/"
+  ]
 }
