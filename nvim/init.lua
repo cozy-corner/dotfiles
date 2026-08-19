@@ -4,6 +4,7 @@ vim.opt.clipboard:append("unnamedplus")
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.timeoutlen = 300
+vim.opt.undofile = true -- 閉じても undo 履歴を残す（undodir は既定の ~/.local/state/nvim/undo）
 
 -- リーダーキーをスペースに設定
 vim.g.mapleader = " "
