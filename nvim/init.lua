@@ -13,6 +13,10 @@ vim.g.maplocalleader = " "
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("v", "kj", "<Esc>", { noremap = true, silent = true })
 
+-- 数値インクリメント/デクリメントを無効化（カーソル下の数字を気づかず書き換える誤爆防止）
+vim.keymap.set({ "n", "x" }, "<C-a>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "x" }, "<C-x>", "<Nop>", { noremap = true, silent = true })
+
 -- バッファ移動のキーマッピング
 vim.keymap.set("n", "[b", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 vim.keymap.set("n", "]b", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
