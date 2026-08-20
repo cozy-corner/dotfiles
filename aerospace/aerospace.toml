@@ -303,6 +303,10 @@ W = ['built-in retina display']  # MacBook (Work: Teamflow/Gather); モニタ番
     run = 'move-node-to-workspace D'  # D - DataGrip
 
 [[on-window-detected]]
+    if.app-id = 'com.liuliu.draw-things'
+    run = 'move-node-to-workspace D'  # D - Draw Things
+
+[[on-window-detected]]
     if.app-id = 'com.microsoft.VSCode'
     run = 'move-node-to-workspace E'  # E - Editor (VS Code)
 
