@@ -116,6 +116,20 @@ gh-watch() {
 }
 
 
+# Bluetooth: ペアリング済みデバイスをfzfで選び接続状態をトグル (要 blueutil)
+btf() {
+    local line addr
+    line=$(blueutil --paired --format json |
+        jq -r '.[] | "\(.address)\t\(if .connected then "🟢" else "⚪️" end) \(.name)"' |
+        fzf --with-nth=2.. --delimiter='\t' --prompt='Bluetooth> ') || return
+    addr=${line%%$'\t'*}
+    if [[ $(blueutil --is-connected "$addr") == 1 ]]; then
+        blueutil --disconnect "$addr" && echo "🔌 disconnected"
+    else
+        blueutil --connect "$addr" && echo "🔗 connected"
+    fi
+}
+
 killport() {
     if [ -z "$1" ]; then
         echo "Usage: killport <port>"
