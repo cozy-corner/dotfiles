@@ -1,0 +1,5 @@
+; 秘密情報を含まない共有用の git 設定。~/.gitconfig から include する。
+[filter "jsonsort"]
+	; 外部ツールが整形やキー順・配列順を書き換えても差分が出ないよう index 側を正規化する
+	; 値の中の " は git config の仕様上エスケープが必要
+	clean = jq -S 'walk(if type==\"array\" then sort else . end)'
