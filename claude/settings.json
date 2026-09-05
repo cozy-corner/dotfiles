@@ -1,120 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "permissions": {
-    "allow": [
-      "Read",
-      "Glob",
-      "Grep",
-      "LSP",
-      "Edit",
-      "Write",
-      "Bash(*)",
-      "WebFetch",
-      "WebSearch",
-      "mcp__notion__*",
-      "mcp__obsidian-mcp-tools__*",
-      "mcp__chrome-devtools__take_screenshot",
-      "mcp__chrome-devtools__take_snapshot",
-      "mcp__chrome-devtools__list_pages",
-      "mcp__chrome-devtools__select_page",
-      "mcp__chrome-devtools__get_console_message",
-      "mcp__chrome-devtools__list_console_messages",
-      "mcp__chrome-devtools__list_network_requests",
-      "mcp__chrome-devtools__get_network_request",
-      "mcp__chrome-devtools__resize_page",
-      "mcp__chrome-devtools__wait_for",
-      "mcp__chrome-devtools__close_page",
-      "mcp__chrome-devtools__navigate_page",
-      "Bash(kill *)",
-      "Bash(pkill *)",
-      "Bash(killall *)"
-    ],
-    "deny": [
-      "Bash(sudo *)",
-      "Bash(git config --global *)",
-      "Bash(git config --system *)",
-      "Bash(gh api --method DELETE *)",
-      "Bash(gh api --method=DELETE *)",
-      "Bash(gh api -X DELETE *)",
-      "Bash(find * -exec rm *)",
-      "Bash(find * -exec sh *)",
-      "Bash(find * -exec bash *)",
-      "Bash(find * -exec mv *)",
-      "Bash(find * -exec chmod *)",
-      "Bash(find * -exec chown *)",
-      "Bash(find * -execdir rm *)",
-      "Bash(find * -execdir sh *)",
-      "Bash(find * -execdir bash *)",
-      "Bash(find * -execdir mv *)",
-      "Bash(find * -execdir chmod *)",
-      "Bash(find * -execdir chown *)",
-      "Bash(find * -delete)",
-      "Bash(rm -rf /)",
-      "Bash(rm -rf ~)",
-      "Bash(rm -rf ~/)",
-      "Bash(rm -rf $HOME)",
-      "Bash(rm -rf $HOME/)"
-    ],
-    "ask": [
-      "Bash(chmod *)",
-      "Bash(chown *)",
-      "Bash(rm -rf *)",
-      "Bash(brew uninstall *)",
-      "Bash(brew remove *)",
-      "Bash(npm uninstall *)",
-      "Bash(pnpm uninstall *)",
-      "Bash(pnpm remove *)",
-      "Bash(pip uninstall *)",
-      "Bash(git rebase*)",
-      "Bash(git reset --hard*)",
-      "Bash(git clean*)",
-      "Bash(git checkout -- *)",
-      "Bash(git restore*)",
-      "Bash(git branch -D *)",
-      "Bash(gh pr create*)",
-      "Bash(gh pr merge*)",
-      "Bash(gh pr close*)",
-      "Bash(gh pr edit*)",
-      "Bash(gh issue create*)",
-      "Bash(gh issue close*)",
-      "Bash(gh issue edit*)",
-      "Bash(gh api --method POST *)",
-      "Bash(gh api --method PATCH *)",
-      "Bash(gh api --method PUT *)",
-      "Bash(gh api --method=POST *)",
-      "Bash(gh api --method=PATCH *)",
-      "Bash(gh api --method=PUT *)",
-      "Bash(gh api -X POST *)",
-      "Bash(gh api -X PATCH *)",
-      "Bash(gh api -X PUT *)",
-      "Bash(pip install *)",
-      "Bash(npm install -g *)",
-      "Bash(pnpm add -g *)",
-      "Bash(pnpm install -g *)",
-      "Bash(brew install *)"
-    ],
-    "defaultMode": "auto"
-  },
+  "advisorModel": "fable",
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "medium",
   "enableAllProjectMcpServers": false,
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
-            "timeout": 10
-          }
-        ]
-      }
-    ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/.claude/statusline-command.sh",
-    "padding": 0
-  },
   "enabledPlugins": {
     "commit-commands@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
@@ -132,34 +21,145 @@
   },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
+      "autoUpdate": true,
       "source": {
-        "source": "github",
-        "repo": "obra/superpowers-marketplace"
-      },
-      "autoUpdate": true
+        "repo": "obra/superpowers-marketplace",
+        "source": "github"
+      }
     }
   },
-  "alwaysThinkingEnabled": true,
-  "effortLevel": "medium",
-  "advisorModel": "fable",
-  "tui": "default",
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "dark-daltonized",
   "feedbackSurveyState": {
     "lastShownTime": 1754269096080
   },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
+  },
   "ignorePatterns": [
-    ".gradle/",
-    "node_modules/",
-    "build/",
-    "target/",
-    "out/",
-    "*.jar",
-    "*.war",
     "*.ear",
-    ".idea/",
     "*.iml",
+    "*.jar",
     "*.log",
-    "coverage/"
-  ]
+    "*.war",
+    ".gradle/",
+    ".idea/",
+    "build/",
+    "coverage/",
+    "node_modules/",
+    "out/",
+    "target/"
+  ],
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Bash(kill *)",
+      "Bash(killall *)",
+      "Bash(pkill *)",
+      "Edit",
+      "Glob",
+      "Grep",
+      "LSP",
+      "Read",
+      "WebFetch",
+      "WebSearch",
+      "Write",
+      "mcp__chrome-devtools__close_page",
+      "mcp__chrome-devtools__get_console_message",
+      "mcp__chrome-devtools__get_network_request",
+      "mcp__chrome-devtools__list_console_messages",
+      "mcp__chrome-devtools__list_network_requests",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__resize_page",
+      "mcp__chrome-devtools__select_page",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__wait_for",
+      "mcp__notion__*",
+      "mcp__obsidian-mcp-tools__*"
+    ],
+    "ask": [
+      "Bash(brew install *)",
+      "Bash(brew remove *)",
+      "Bash(brew uninstall *)",
+      "Bash(chmod *)",
+      "Bash(chown *)",
+      "Bash(gh api --method PATCH *)",
+      "Bash(gh api --method POST *)",
+      "Bash(gh api --method PUT *)",
+      "Bash(gh api --method=PATCH *)",
+      "Bash(gh api --method=POST *)",
+      "Bash(gh api --method=PUT *)",
+      "Bash(gh api -X PATCH *)",
+      "Bash(gh api -X POST *)",
+      "Bash(gh api -X PUT *)",
+      "Bash(gh issue close*)",
+      "Bash(gh issue create*)",
+      "Bash(gh issue edit*)",
+      "Bash(gh pr close*)",
+      "Bash(gh pr create*)",
+      "Bash(gh pr edit*)",
+      "Bash(gh pr merge*)",
+      "Bash(git branch -D *)",
+      "Bash(git checkout -- *)",
+      "Bash(git clean*)",
+      "Bash(git rebase*)",
+      "Bash(git reset --hard*)",
+      "Bash(git restore*)",
+      "Bash(npm install -g *)",
+      "Bash(npm uninstall *)",
+      "Bash(pip install *)",
+      "Bash(pip uninstall *)",
+      "Bash(pnpm add -g *)",
+      "Bash(pnpm install -g *)",
+      "Bash(pnpm remove *)",
+      "Bash(pnpm uninstall *)",
+      "Bash(rm -rf *)"
+    ],
+    "defaultMode": "auto",
+    "deny": [
+      "Bash(find * -delete)",
+      "Bash(find * -exec bash *)",
+      "Bash(find * -exec chmod *)",
+      "Bash(find * -exec chown *)",
+      "Bash(find * -exec mv *)",
+      "Bash(find * -exec rm *)",
+      "Bash(find * -exec sh *)",
+      "Bash(find * -execdir bash *)",
+      "Bash(find * -execdir chmod *)",
+      "Bash(find * -execdir chown *)",
+      "Bash(find * -execdir mv *)",
+      "Bash(find * -execdir rm *)",
+      "Bash(find * -execdir sh *)",
+      "Bash(gh api --method DELETE *)",
+      "Bash(gh api --method=DELETE *)",
+      "Bash(gh api -X DELETE *)",
+      "Bash(git config --global *)",
+      "Bash(git config --system *)",
+      "Bash(rm -rf $HOME)",
+      "Bash(rm -rf $HOME/)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf ~/)",
+      "Bash(sudo *)"
+    ]
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "statusLine": {
+    "command": "bash ~/.claude/statusline-command.sh",
+    "padding": 0,
+    "type": "command"
+  },
+  "theme": "dark-daltonized",
+  "tui": "default"
 }
