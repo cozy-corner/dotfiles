@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Claude Code statusline: 2-line display (session info + 5h usage bar)
+# Claude Code statusline: session info, context and 5h usage
 
 set -euo pipefail
 
@@ -37,19 +37,6 @@ color_for_pct() {
   fi
 }
 
-progress_bar() {
-  local pct=$1
-  local filled=$(( pct / 10 ))
-  (( filled > 10 )) && filled=10
-  local empty=$(( 10 - filled ))
-  local color
-  color=$(color_for_pct "$pct")
-  local bar=""
-  for ((i=0; i<filled; i++)); do bar+="▰"; done
-  for ((i=0; i<empty; i++)); do bar+="▱"; done
-  printf '%b%s%b' "$color" "$bar" "$RESET"
-}
-
 model=$(echo "$input" | jq -r '.model.display_name // ""')
 ctx_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 lines_added=$(echo "$input" | jq -r '.cost.total_lines_added // 0')
@@ -78,19 +65,19 @@ sep="${GRAY} │ ${RESET}"
 
 ctx_icon=$(battery_for_pct "$ctx_int")
 
-line1="${ICON_MODEL} ${model}${sep}${ctx_color}${ctx_icon} ${ctx_int}%${RESET}${sep}+${lines_added}/-${lines_removed}"
-[ -n "$git_branch" ] && line1+="${sep}${ICON_BRANCH} ${git_branch}"
-[ -n "$short_cwd" ] && line1+="${sep}${ICON_DIR} ${short_cwd}"
+line="${ICON_MODEL} ${model}${sep}${ctx_color}${ctx_icon} ${ctx_int}%${RESET}"
 
-line2=""
 if [ -n "$rate5h" ]; then
   printf -v rate_int "%.0f" "$rate5h" 2>/dev/null || rate_int="${rate5h%%.*}"
   rate_color=$(color_for_pct "$rate_int")
-  rate_bar=$(progress_bar "$rate_int")
-  line2="${rate_color}5h${RESET}  ${rate_bar}  ${rate_color}${rate_int}%${RESET}"
+  rate_icon=$(battery_for_pct "$rate_int")
+  line+="${sep}${rate_color}5h ${rate_icon} ${rate_int}%${RESET}"
 fi
 
-printf '%b\n' "$line1"
-[ -n "$line2" ] && printf '%b' "$line2"
+line+="${sep}+${lines_added}/-${lines_removed}"
+[ -n "$git_branch" ] && line+="${sep}${ICON_BRANCH} ${git_branch}"
+[ -n "$short_cwd" ] && line+="${sep}${ICON_DIR} ${short_cwd}"
+
+printf '%b' "$line"
 
 exit 0
