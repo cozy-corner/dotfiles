@@ -1,0 +1,3 @@
+# Claude Code などのツールがキー順を勝手に入れ替えるため、
+# 差分表示の直前に jq -S でキー順を正規化して並び替えノイズを消す。
+claude/settings.json diff=json
