@@ -12,6 +12,20 @@ RED="\033[38;2;243;139;168m"
 GRAY="\033[38;2;108;112;134m"
 RESET="\033[0m"
 
+# Nerd Font glyphs. Ghostty bundles "Symbols Nerd Font" as a fallback face,
+# so these render without installing anything — but only inside Ghostty.
+ICON_MODEL="󰚩"
+ICON_BRANCH=""
+ICON_DIR=""
+# Battery levels, index 0 (empty) .. 9 (full)
+BATTERY=("󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁿" "󰂀" "󰂁" "󰂂" "󰂃")
+
+battery_for_pct() {
+  local idx=$(( $1 / 10 ))
+  (( idx > 9 )) && idx=9
+  printf '%s' "${BATTERY[$idx]}"
+}
+
 color_for_pct() {
   local pct=$1
   if (( pct >= 80 )); then
@@ -62,16 +76,18 @@ fi
 
 sep="${GRAY} │ ${RESET}"
 
-line1="🤖 ${model}${sep}${ctx_color}📊 ${ctx_int}%${RESET}${sep}✏️ +${lines_added}/-${lines_removed}"
-[ -n "$git_branch" ] && line1+="${sep}🔀 ${git_branch}"
-[ -n "$short_cwd" ] && line1+="${sep}📁 ${short_cwd}"
+ctx_icon=$(battery_for_pct "$ctx_int")
+
+line1="${ICON_MODEL} ${model}${sep}${ctx_color}${ctx_icon} ${ctx_int}%${RESET}${sep}+${lines_added}/-${lines_removed}"
+[ -n "$git_branch" ] && line1+="${sep}${ICON_BRANCH} ${git_branch}"
+[ -n "$short_cwd" ] && line1+="${sep}${ICON_DIR} ${short_cwd}"
 
 line2=""
 if [ -n "$rate5h" ]; then
   printf -v rate_int "%.0f" "$rate5h" 2>/dev/null || rate_int="${rate5h%%.*}"
   rate_color=$(color_for_pct "$rate_int")
   rate_bar=$(progress_bar "$rate_int")
-  line2="${rate_color}⏱ 5h${RESET}  ${rate_bar}  ${rate_color}${rate_int}%${RESET}"
+  line2="${rate_color}5h${RESET}  ${rate_bar}  ${rate_color}${rate_int}%${RESET}"
 fi
 
 printf '%b\n' "$line1"
