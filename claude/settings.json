@@ -17,7 +17,7 @@
     "skill-creator@claude-plugins-official": true,
     "superpowers@superpowers-marketplace": true,
     "typescript-lsp@claude-plugins-official": true,
-    "vercel@claude-plugins-official": true
+    "vercel@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
