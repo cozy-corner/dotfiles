@@ -1,0 +1,5 @@
+{
+  "tui.select.up": ["up", "ctrl+p"],
+  "tui.select.down": ["down", "ctrl+n"],
+  "tui.editor.deleteCharBackward": ["backspace", "ctrl+h"]
+}

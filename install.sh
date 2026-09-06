@@ -62,6 +62,13 @@ ln -sf ~/dotfiles/zed/settings.json ~/.config/zed/settings.json
 rm -f ~/.config/zed/keymap.json
 ln -sf ~/dotfiles/zed/keymap.json ~/.config/zed/keymap.json
 
+# pi (auth.json は API キーなので管理対象外)
+mkdir -p ~/.pi/agent
+rm -f ~/.pi/agent/settings.json
+ln -sf ~/dotfiles/pi/settings.json ~/.pi/agent/settings.json
+rm -f ~/.pi/agent/keybindings.json
+ln -sf ~/dotfiles/pi/keybindings.json ~/.pi/agent/keybindings.json
+
 # bat (delta/lazygit と共有する syntax テーマ置き場)
 mkdir -p ~/.config/bat
 rm -rf ~/.config/bat/themes
