@@ -71,6 +71,14 @@ ln -sf ~/dotfiles/pi/keybindings.json ~/.pi/agent/keybindings.json
 rm -f ~/.pi/agent/prompts
 ln -sf ~/dotfiles/pi/prompts ~/.pi/agent/prompts
 
+# pi gondolin extension (ツール実行をローカル VM で隔離。node_modules は git 管理外)
+mkdir -p ~/.pi/agent/extensions
+rm -f ~/.pi/agent/extensions/gondolin
+ln -sf ~/dotfiles/pi/gondolin ~/.pi/agent/extensions/gondolin
+if [ ! -d ~/dotfiles/pi/gondolin/node_modules ]; then
+  (cd ~/dotfiles/pi/gondolin && npm install --ignore-scripts)
+fi
+
 # bat (delta/lazygit と共有する syntax テーマ置き場)
 mkdir -p ~/.config/bat
 rm -rf ~/.config/bat/themes
