@@ -68,6 +68,8 @@ rm -f ~/.pi/agent/settings.json
 ln -sf ~/dotfiles/pi/settings.json ~/.pi/agent/settings.json
 rm -f ~/.pi/agent/keybindings.json
 ln -sf ~/dotfiles/pi/keybindings.json ~/.pi/agent/keybindings.json
+rm -f ~/.pi/agent/prompts
+ln -sf ~/dotfiles/pi/prompts ~/.pi/agent/prompts
 
 # bat (delta/lazygit と共有する syntax テーマ置き場)
 mkdir -p ~/.config/bat
