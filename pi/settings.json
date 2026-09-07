@@ -1,5 +1,13 @@
 {
   "lastChangelogVersion": "0.85.1",
   "theme": "dark",
-  "externalEditor": "nvim"
+  "externalEditor": "nvim",
+  "defaultProvider": "opencode-go",
+  "enabledModels": [
+    "opencode-go/*"
+  ],
+  "skills": [
+    "~/.claude/skills"
+  ],
+  "hideThinkingBlock": false
 }
