@@ -19,6 +19,7 @@
  *   - QEMU installed (for example, `brew install qemu` on macOS)
  */
 
+import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { RealFSProvider, VM } from "@earendil-works/gondolin";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
@@ -366,6 +367,32 @@ function createGondolinBashOps(vm: VM, localCwd: string, shellPath: string): Bas
 	};
 }
 
+/** ホスト側コマンドが固まっても pi 全体を止めないよう、必ず時間で打ち切る */
+function runOnHost(command: string, args: string[]): string | undefined {
+	try {
+		const output = execFileSync(command, args, {
+			encoding: "utf8",
+			stdio: ["ignore", "pipe", "ignore"],
+			timeout: 5000,
+		}).trim();
+		return output || undefined;
+	} catch {
+		return undefined;
+	}
+}
+
+/** ホストの git が解決した実効値を読む (リポジトリ固有の上書きも反映される) */
+function readGitIdentity(localCwd: string): { name?: string; email?: string } {
+	return {
+		name: runOnHost("git", ["-C", localCwd, "config", "--get", "user.name"]),
+		email: runOnHost("git", ["-C", localCwd, "config", "--get", "user.email"]),
+	};
+}
+
+function shellQuote(value: string): string {
+	return `'${value.replace(/'/g, "'\\''")}'`;
+}
+
 export default function (pi: ExtensionAPI) {
 	const localCwd = process.cwd();
 	const localRead = createReadTool(localCwd);
@@ -390,9 +417,34 @@ export default function (pi: ExtensionAPI) {
 				},
 			},
 		});
+		// shutdown 側から到達できるよう、セットアップ前に保持する
+		vm = created;
+
 		const bashProbe = await created.exec(["/bin/sh", "-lc", "command -v bash || true"]);
 		shellPath = bashProbe.stdout.trim() || "/bin/sh";
-		vm = created;
+
+		// ゲスト image (alpine-base) に git は含まれないため、起動ごとに導入する。
+		// マウントの所有者はゲストの実行ユーザーと一致しないので safe.directory も要る
+		const gitIdentity = readGitIdentity(localCwd);
+		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", "Gondolin: installing git"));
+		const guestSetup = await created.exec([
+			"/bin/sh",
+			"-lc",
+			[
+				"(command -v git >/dev/null || apk add --no-progress git)",
+				`git config --global --add safe.directory ${GUEST_WORKSPACE}`,
+				// ホストの ~/.gitconfig はマウント外なので、実効値を写して commit できるようにする
+				...(gitIdentity.name ? [`git config --global user.name ${shellQuote(gitIdentity.name)}`] : []),
+				...(gitIdentity.email ? [`git config --global user.email ${shellQuote(gitIdentity.email)}`] : []),
+			].join(" && "),
+		]);
+		if (guestSetup.exitCode !== 0) {
+			ctx?.ui.notify(
+				`Gondolin: failed to set up git in the VM.\n${guestSetup.stderr.trim() || guestSetup.stdout.trim()}`,
+				"warning",
+			);
+		}
+
 		ctx?.ui.setStatus(
 			"gondolin",
 			ctx.ui.theme.fg("accent", `Gondolin: ${created.id.slice(0, 8)} (${GUEST_WORKSPACE})`),
