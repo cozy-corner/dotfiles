@@ -23,7 +23,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { RealFSProvider, VM } from "@earendil-works/gondolin";
+import { createHttpHooks, RealFSProvider, VM } from "@earendil-works/gondolin";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
 	type BashOperations,
@@ -369,7 +369,7 @@ function createGondolinBashOps(vm: VM, localCwd: string, shellPath: string): Bas
 	};
 }
 
-/** ホスト側コマンドが固まっても pi 全体を止めないよう、必ず時間で打ち切る */
+/** gh の keychain 参照などで固まっても pi 全体を止めないよう、必ず時間で打ち切る */
 function runOnHost(command: string, args: string[]): string | undefined {
 	try {
 		const output = execFileSync(command, args, {
@@ -381,6 +381,11 @@ function runOnHost(command: string, args: string[]): string | undefined {
 	} catch {
 		return undefined;
 	}
+}
+
+/** gh のトークンはホストの gh に保管されているので、環境変数が無ければそこから取り出す */
+function readGitHubToken(): string | undefined {
+	return process.env.GH_TOKEN || process.env.GITHUB_TOKEN || runOnHost("gh", ["auth", "token"]);
 }
 
 /** ホストの git が解決した実効値を読む (リポジトリ固有の上書きも反映される) */
@@ -411,6 +416,19 @@ export default function (pi: ExtensionAPI) {
 
 	async function startVm(ctx?: ExtensionContext): Promise<VM> {
 		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", `Gondolin: starting ${GUEST_WORKSPACE}`));
+
+		// ゲストに渡るのは placeholder だけで、実トークンはホスト側のプロキシが
+		// api.github.com 宛のヘッダにだけ差し込む (VM 内に実値は存在しない)
+		const githubToken = readGitHubToken();
+		if (!githubToken) {
+			ctx?.ui.notify("Gondolin: no GitHub token found (`gh auth login`); gh will be unauthenticated.", "warning");
+		}
+		const github = githubToken
+			? createHttpHooks({
+					secrets: { GH_TOKEN: { hosts: ["api.github.com"], value: githubToken } },
+				})
+			: undefined;
+
 		// agent や known_hosts が欠けた状態で ssh を渡すと VM.create 自体が throw し、
 		// SSH と無関係な read/bash まで含めて全ツールが使えなくなる
 		const sshAgent = process.env.SSH_AUTH_SOCK;
@@ -428,6 +446,8 @@ export default function (pi: ExtensionAPI) {
 
 		const created = await VM.create({
 			sessionLabel: `pi ${path.basename(localCwd)}`,
+			httpHooks: github?.httpHooks,
+			env: github?.env,
 			vfs: {
 				mounts: {
 					[GUEST_WORKSPACE]: new RealFSProvider(localCwd),
@@ -445,17 +465,17 @@ export default function (pi: ExtensionAPI) {
 		const bashProbe = await created.exec(["/bin/sh", "-lc", "command -v bash || true"]);
 		shellPath = bashProbe.stdout.trim() || "/bin/sh";
 
-		// ゲスト image (alpine-base) に git は含まれないため、起動ごとに導入する。
+		// ゲスト image (alpine-base) に git / gh は含まれないため、起動ごとに導入する。
 		// マウントの所有者はゲストの実行ユーザーと一致しないので safe.directory も要る。
 		// ゲストから見える SSH ホスト鍵は gondolin が合成したものなので accept-new にする
 		// (上流 github.com の検証はホスト側の known_hosts が担当する)
 		const gitIdentity = readGitIdentity(localCwd);
-		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", "Gondolin: installing git"));
+		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", "Gondolin: installing git and gh"));
 		const guestSetup = await created.exec([
 			"/bin/sh",
 			"-lc",
 			[
-				"(command -v git >/dev/null || apk add --no-progress git)",
+				"(command -v git >/dev/null && command -v gh >/dev/null || apk add --no-progress git github-cli)",
 				`git config --global --add safe.directory ${GUEST_WORKSPACE}`,
 				// ホストの ~/.gitconfig はマウント外なので、実効値を写して commit できるようにする
 				...(gitIdentity.name ? [`git config --global user.name ${shellQuote(gitIdentity.name)}`] : []),
