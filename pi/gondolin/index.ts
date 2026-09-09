@@ -20,6 +20,8 @@
  */
 
 import { execFileSync } from "node:child_process";
+import { existsSync } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { RealFSProvider, VM } from "@earendil-works/gondolin";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
@@ -409,6 +411,21 @@ export default function (pi: ExtensionAPI) {
 
 	async function startVm(ctx?: ExtensionContext): Promise<VM> {
 		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", `Gondolin: starting ${GUEST_WORKSPACE}`));
+		// agent や known_hosts が欠けた状態で ssh を渡すと VM.create 自体が throw し、
+		// SSH と無関係な read/bash まで含めて全ツールが使えなくなる
+		const sshAgent = process.env.SSH_AUTH_SOCK;
+		const hasKnownHosts = [
+			path.join(os.homedir(), ".ssh", "known_hosts"),
+			"/etc/ssh/ssh_known_hosts",
+		].some((file) => existsSync(file));
+		const sshEnabled = Boolean(sshAgent) && hasKnownHosts;
+		if (!sshEnabled) {
+			ctx?.ui.notify(
+				`Gondolin: git over SSH disabled (${!sshAgent ? "no ssh-agent; run `ssh-add`" : "no known_hosts"}).`,
+				"warning",
+			);
+		}
+
 		const created = await VM.create({
 			sessionLabel: `pi ${path.basename(localCwd)}`,
 			vfs: {
@@ -416,6 +433,11 @@ export default function (pi: ExtensionAPI) {
 					[GUEST_WORKSPACE]: new RealFSProvider(localCwd),
 				},
 			},
+			// port 22 の outbound を接続先ホスト名へ戻すために per-host マッピングが要る
+			dns: { mode: "synthetic", syntheticHostMapping: "per-host" },
+			// 秘密鍵はホストに残したまま、署名だけ ssh-agent 経由でホスト側に委譲する。
+			// 上流ホスト鍵は既定でホスト側の known_hosts により検証される
+			ssh: sshEnabled ? { allowedHosts: ["github.com"], agent: sshAgent } : undefined,
 		});
 		// shutdown 側から到達できるよう、セットアップ前に保持する
 		vm = created;
@@ -424,7 +446,9 @@ export default function (pi: ExtensionAPI) {
 		shellPath = bashProbe.stdout.trim() || "/bin/sh";
 
 		// ゲスト image (alpine-base) に git は含まれないため、起動ごとに導入する。
-		// マウントの所有者はゲストの実行ユーザーと一致しないので safe.directory も要る
+		// マウントの所有者はゲストの実行ユーザーと一致しないので safe.directory も要る。
+		// ゲストから見える SSH ホスト鍵は gondolin が合成したものなので accept-new にする
+		// (上流 github.com の検証はホスト側の known_hosts が担当する)
 		const gitIdentity = readGitIdentity(localCwd);
 		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", "Gondolin: installing git"));
 		const guestSetup = await created.exec([
@@ -436,6 +460,8 @@ export default function (pi: ExtensionAPI) {
 				// ホストの ~/.gitconfig はマウント外なので、実効値を写して commit できるようにする
 				...(gitIdentity.name ? [`git config --global user.name ${shellQuote(gitIdentity.name)}`] : []),
 				...(gitIdentity.email ? [`git config --global user.email ${shellQuote(gitIdentity.email)}`] : []),
+				'mkdir -p "$HOME/.ssh"',
+				"printf 'Host *\\n  StrictHostKeyChecking accept-new\\n' > \"$HOME/.ssh/config\"",
 			].join(" && "),
 		]);
 		if (guestSetup.exitCode !== 0) {
