@@ -1,4 +1,45 @@
+" ==== General ====
 set clipboard+=unnamed
 set hlsearch
 set incsearch
 set wildmenu
+set number
+
+let mapleader = " "
+
+" jj/kj で Insert/Visual を抜ける (nvim/init.lua と揃える)
+inoremap jj <Esc>
+vnoremap kj <Esc>
+
+" ==== plugin emulation (nvim の surround / commentary 相当) ====
+set surround
+set commentary
+set multiple-cursors
+set argtextobj
+set exchange
+set ReplaceWithRegister
+set highlightedyank
+set matchit
+set textobj-entire
+set NERDTree
+
+" ideavim 独自の便利設定
+set ideajoin
+set ideamarks
+set idearefactormode=keep
+
+" ==== IDE action へのマッピング (nvim の LSP/telescope キーバインドと揃える) ====
+nnoremap <leader>ff <Action>(GotoFile)
+nnoremap <leader>fg <Action>(FindInPath)
+nnoremap <leader>fb <Action>(Switcher)
+nnoremap <leader>e <Action>(ActivateProjectToolWindow)
+
+nnoremap <leader>rn <Action>(RenameElement)
+nnoremap <leader>ca <Action>(ShowIntentionActions)
+nnoremap <leader>cf <Action>(ReformatCode)
+
+nnoremap [d <Action>(GotoPreviousError)
+nnoremap ]d <Action>(GotoNextError)
+
+nnoremap [b <Action>(PreviousTab)
+nnoremap ]b <Action>(NextTab)
