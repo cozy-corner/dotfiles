@@ -19,7 +19,7 @@ cd ~/dotfiles
 | `.zshrc` | Zsh 設定。fzf / zoxide / atuin / direnv / mise 連携、git 関連関数群 |
 | `.tmux.conf` | tmux 設定。prefix は `Ctrl-Q`、Vi キーバインド |
 | `.gitconfig` | Git 設定。delta (side-by-side diff) |
-| `.ideavimrc` | JetBrains IdeaVim 設定 |
+| `.ideavimrc` | JetBrains IdeaVim 設定（surround/commentary 等 nvim 相当の挙動を再現） |
 | `user-abbreviations` | zsh-abbr の略語定義 |
 | [`nvim/`](nvim/) | Neovim 設定 ([詳細](nvim/README.md)) |
 | `ghostty/` | Ghostty ターミナル設定、カスタムカーソルシェーダー、テーマ |
