@@ -315,6 +315,10 @@ async function executeGondolinGrep(
 	};
 }
 
+// ホストのパスを指しており、ゲストでは存在しない位置を指してしまう変数。
+// 特に HOME はゲストの ~/.gitconfig や ~/.ssh/config を読めなくする
+const HOST_ONLY_ENV = new Set(["HOME", "TMPDIR", "SHELL", "USER", "LOGNAME", "PWD", "OLDPWD"]);
+
 function sanitizeEnv(env: NodeJS.ProcessEnv | undefined): Record<string, string> | undefined {
 	if (!env) return undefined;
 	// 認証情報を含む環境変数を VM 内のプロセスに渡さない
@@ -323,6 +327,7 @@ function sanitizeEnv(env: NodeJS.ProcessEnv | undefined): Record<string, string>
 	const result: Record<string, string> = {};
 	for (const [key, value] of Object.entries(env)) {
 		if (secretPattern.test(key)) continue;
+		if (HOST_ONLY_ENV.has(key)) continue;
 		if (typeof value === "string") result[key] = value;
 	}
 	return result;
