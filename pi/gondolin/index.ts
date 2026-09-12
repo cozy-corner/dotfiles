@@ -470,17 +470,16 @@ export default function (pi: ExtensionAPI) {
 		const bashProbe = await created.exec(["/bin/sh", "-lc", "command -v bash || true"]);
 		shellPath = bashProbe.stdout.trim() || "/bin/sh";
 
-		// ゲスト image (alpine-base) に git / gh は含まれないため、起動ごとに導入する。
-		// マウントの所有者はゲストの実行ユーザーと一致しないので safe.directory も要る。
+		// git / gh はゲスト image に焼き込み済み (pi/gondolin/guest/)。ここでは設定だけ行う。
+		// マウントの所有者はゲストの実行ユーザーと一致しないので safe.directory が要る。
 		// ゲストから見える SSH ホスト鍵は gondolin が合成したものなので accept-new にする
 		// (上流 github.com の検証はホスト側の known_hosts が担当する)
 		const gitIdentity = readGitIdentity(localCwd);
-		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", "Gondolin: installing git and gh"));
+		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", "Gondolin: configuring guest"));
 		const guestSetup = await created.exec([
 			"/bin/sh",
 			"-lc",
 			[
-				"(command -v git >/dev/null && command -v gh >/dev/null || apk add --no-progress git github-cli)",
 				`git config --global --add safe.directory ${GUEST_WORKSPACE}`,
 				// ホストの ~/.gitconfig はマウント外なので、実効値を写して commit できるようにする
 				...(gitIdentity.name ? [`git config --global user.name ${shellQuote(gitIdentity.name)}`] : []),
@@ -491,7 +490,7 @@ export default function (pi: ExtensionAPI) {
 		]);
 		if (guestSetup.exitCode !== 0) {
 			ctx?.ui.notify(
-				`Gondolin: failed to set up git in the VM.\n${guestSetup.stderr.trim() || guestSetup.stdout.trim()}`,
+				`Gondolin: failed to configure git in the VM.\n${guestSetup.stderr.trim() || guestSetup.stdout.trim()}`,
 				"warning",
 			);
 		}
