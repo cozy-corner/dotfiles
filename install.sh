@@ -77,14 +77,6 @@ ln -sf ~/dotfiles/pi/gondolin ~/.pi/agent/extensions/gondolin
 if [ ! -d ~/dotfiles/pi/gondolin/node_modules ]; then
   (cd ~/dotfiles/pi/gondolin && npm install --ignore-scripts)
 fi
-# ゲスト image (Docker と mke2fs が要るので、未登録かつ Docker が動いているときだけ)
-if ! (cd ~/dotfiles/pi/gondolin && npx gondolin image ls 2>/dev/null | grep -q '^pi-dev:latest'); then
-  if docker info >/dev/null 2>&1; then
-    ~/dotfiles/pi/gondolin/guest/build.sh
-  else
-    echo "gondolin guest image is not built. Start Docker and run pi/gondolin/guest/build.sh"
-  fi
-fi
 
 # bat (delta/lazygit と共有する syntax テーマ置き場)
 mkdir -p ~/.config/bat
