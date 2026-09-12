@@ -1,0 +1,18 @@
+{
+  "arch": "aarch64",
+  "distro": "alpine",
+  "alpine": {
+    "version": "3.23.0",
+    "kernelPackage": "linux-virt",
+    "kernelImage": "vmlinuz-virt",
+    "krunfwVersion": "v5.2.1"
+  },
+  "oci": {
+    "image": "pi-guest:latest",
+    "runtime": "docker",
+    "pullPolicy": "never"
+  },
+  "rootfs": {
+    "label": "gondolin-root"
+  }
+}
