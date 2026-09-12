@@ -3,37 +3,14 @@
 pi のツール実行を micro VM に隔離する構成 (`index.ts`) で、実際の開発作業を
 妨げている2点を解消する。
 
-## Phase 1: OCI ベースのカスタム image
+## Phase 1: OCI ベースのカスタム image (完了)
 
-既定のゲスト image (`alpine-base:latest`) は開発用途に足りず、起動ごとの
-`apk add` で穴埋めしている。実測した不足は以下。
+Debian ベースの image を焼き、起動ごとの `apk add` を廃止した。判断の経緯は
+`docs/adr/0001-gondolin-guest-image-base.md` を参照。
 
-- `cc` / `make` が無く、ネイティブモジュールをビルドできない
-- `rg` / `jq` が無い
-- `awk` / `sed` / `grep` が busybox 版で、GNU/BSD 固有オプションが通らない
-- node がホスト v23.11.0 / ゲスト v24.14.1 で不一致
-
-gondolin は Alpine minirootfs の代わりに OCI image を rootfs のベースにできる
-(`dist/src/build/config.d.ts:61-70`, `129-130`)。
-
-```jsonc
-{
-  "oci": { "image": "node:24-bookworm", "runtime": "docker" },
-  "postBuild": {
-    "commands": ["apt-get update && apt-get install -y git jq ripgrep build-essential"]
-  }
-}
-```
-
-- [ ] macOS + Docker で `gondolin build --config ... --tag pi-dev:latest` が通るか確認
-      (ビルド自体が Docker/podman に依存する)
-- [ ] ゲストで `grep --version` が GNU であること、`cc` / `make` / `jq` / `rg` の存在を確認
-- [ ] `GONDOLIN_DEFAULT_IMAGE=pi-dev:latest` を設定し、pi から起動して動作確認
-- [ ] `index.ts` の起動時 `apk add` を削除する
-- [ ] ビルド設定を dotfiles 管理下に置き、`install.sh` に手順を追加
-
-image に焼くのはどのリポジトリでも使うものに限る。プロジェクト固有の toolchain は
-起動時に追加する。
+- ビルド: `pi/gondolin/guest/build.sh` (Docker と `brew install e2fsprogs` が必要)
+- 選択: `~/.zshrc_local` の `GONDOLIN_DEFAULT_IMAGE=pi-dev:latest` (マシン固有のため)
+- 結果: Debian 12 / glibc 2.36 / GNU coreutils / node v24.21.0 / git / gh / jq / rg / cc / make
 
 ## Phase 2: node_modules の分離
 
