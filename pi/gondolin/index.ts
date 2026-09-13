@@ -20,10 +20,11 @@
  */
 
 import { execFileSync } from "node:child_process";
-import { existsSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, mkdirSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createHttpHooks, RealFSProvider, VM } from "@earendil-works/gondolin";
+import { createHttpHooks, RealFSProvider, ShadowProvider, VM } from "@earendil-works/gondolin";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
 	type BashOperations,
@@ -405,6 +406,22 @@ function shellQuote(value: string): string {
 	return `'${value.replace(/'/g, "'\\''")}'`;
 }
 
+/**
+ * ホストの node_modules をゲストから隠し、書き込みはプロジェクトごとのキャッシュへ逃がす。
+ * macOS 向けにビルドされたネイティブモジュールはゲストで動かず、逆にゲストで
+ * npm install するとホスト側が Linux 用に上書きされて壊れるため、両者を分ける。
+ */
+function createWorkspaceProvider(localCwd: string): ShadowProvider {
+	const key = `${path.basename(localCwd)}-${createHash("sha256").update(localCwd).digest("hex").slice(0, 8)}`;
+	const cacheDir = path.join(os.homedir(), ".cache", "gondolin-pi", "node_modules", key);
+	mkdirSync(cacheDir, { recursive: true });
+	return new ShadowProvider(new RealFSProvider(localCwd), {
+		shouldShadow: ({ path: entryPath }) => entryPath.split("/").includes("node_modules"),
+		writeMode: "tmpfs",
+		tmpfs: new RealFSProvider(cacheDir),
+	});
+}
+
 export default function (pi: ExtensionAPI) {
 	const localCwd = process.cwd();
 	const localRead = createReadTool(localCwd);
@@ -455,7 +472,7 @@ export default function (pi: ExtensionAPI) {
 			env: github?.env,
 			vfs: {
 				mounts: {
-					[GUEST_WORKSPACE]: new RealFSProvider(localCwd),
+					[GUEST_WORKSPACE]: createWorkspaceProvider(localCwd),
 				},
 			},
 			// port 22 の outbound を接続先ホスト名へ戻すために per-host マッピングが要る
