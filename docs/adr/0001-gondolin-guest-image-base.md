@@ -55,7 +55,11 @@ OCI image をそのまま `oci.image` に渡せる。
 ```
 
 手書き時代に必要だった手作業 (gh のために GitHub の apt リポジトリ鍵を curl して
-sources.list に追記する等) が消え、バージョン指定も Features の設定値として書ける。
+sources.list に追記する等) は、無くなったのではなく Feature 側に移り、保守の責任も
+そちらに移る。実際 `github-cli` の Feature は apt リポジトリを足さず、リリースの
+`.deb` を直接取得して dpkg で入れている。我々のリポジトリに残るのは宣言1行だけで、
+バージョン指定も Features の設定値として書ける。
+
 image の組み立てだけ devcontainer のエコシステムに任せ、実行時の隔離
 (認証情報を渡さない、egress 制限、SSH 終端) は gondolin のままにできる。
 
