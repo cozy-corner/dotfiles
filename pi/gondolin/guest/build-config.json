@@ -13,6 +13,16 @@
     "pullPolicy": "never"
   },
   "rootfs": {
-    "label": "gondolin-root"
-  }
+    "label": "gondolin-root",
+    "sizeMb": 10240
+  },
+  "env": [
+    "PATH=/usr/local/cargo/bin:/usr/local/share/nvm/current/bin:/usr/local/go/bin:/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "GOROOT=/usr/local/go",
+    "GOPATH=/go",
+    "NVM_DIR=/usr/local/share/nvm",
+    "NVM_SYMLINK_CURRENT=true",
+    "CARGO_HOME=/usr/local/cargo",
+    "RUSTUP_HOME=/usr/local/rustup"
+  ]
 }
