@@ -1,7 +1,7 @@
 # gondolin 開発環境の整備計画
 
 pi のツール実行を micro VM に隔離する構成 (`index.ts`) で、開発作業を妨げていた
-2点を解消する。判断の経緯は `docs/adr/0001-gondolin-guest-image-base.md`。
+点を解消する。判断の経緯は `docs/adr/0001-gondolin-guest-image-base.md`。
 
 ## Phase 1: カスタム image
 
@@ -34,3 +34,13 @@ Linux 用に上書きされ、ホストが壊れる。
       セグメントを含むものが対象なので、モノレポの `packages/*/node_modules` も同様
 - [x] 検証。loverese でゲスト内 `npm install` が 557 パッケージ成功し、
       `better_sqlite3.node` の Linux バイナリが生成された。ホストの node_modules は無変更
+
+## Phase 3: skills のマウント
+
+`~/.claude/skills` がワークスペース外のためゲストから読めず、pi が skill 本文を
+読み込めなかった (`failed to access guest file`)。
+
+- [x] 原因を特定。`toGuestPath` はワークスペース外の絶対パスを変換せずゲストパスと
+      して扱うため、マウントされていない `~/.claude/skills` は解決できない
+- [x] `index.ts` の `vfs.mounts` に `~/.claude/skills` を同一パスで `ReadonlyProvider`
+      経由で追加マウント。ディレクトリが無いホストでは警告のみで起動は継続

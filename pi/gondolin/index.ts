@@ -24,7 +24,7 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createHttpHooks, RealFSProvider, ShadowProvider, VM } from "@earendil-works/gondolin";
+import { createHttpHooks, ReadonlyProvider, RealFSProvider, ShadowProvider, VM } from "@earendil-works/gondolin";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
 	type BashOperations,
@@ -50,6 +50,10 @@ import {
 
 const GUEST_WORKSPACE = "/workspace";
 const DEFAULT_GREP_LIMIT = 100;
+// pi/settings.json の skills はホストパス(~/.claude/skills)のまま渡ってくる。
+// toGuestPath はワークスペース外の絶対パスをそのままゲストパスとして扱うため、
+// 同一パスに read-only でマウントしておかないとゲスト内で解決できない。
+const HOST_SKILLS_DIR = path.join(os.homedir(), ".claude", "skills");
 
 type TextToolResult<TDetails> = {
 	content: Array<{ type: "text"; text: string }>;
@@ -466,6 +470,11 @@ export default function (pi: ExtensionAPI) {
 			);
 		}
 
+		const skillsMountEnabled = existsSync(HOST_SKILLS_DIR);
+		if (!skillsMountEnabled) {
+			ctx?.ui.notify(`Gondolin: skills directory not found (${HOST_SKILLS_DIR}); skills unavailable.`, "warning");
+		}
+
 		const created = await VM.create({
 			sessionLabel: `pi ${path.basename(localCwd)}`,
 			httpHooks: github?.httpHooks,
@@ -473,6 +482,9 @@ export default function (pi: ExtensionAPI) {
 			vfs: {
 				mounts: {
 					[GUEST_WORKSPACE]: createWorkspaceProvider(localCwd),
+					...(skillsMountEnabled
+						? { [HOST_SKILLS_DIR]: new ReadonlyProvider(new RealFSProvider(HOST_SKILLS_DIR)) }
+						: {}),
 				},
 			},
 			// port 22 の outbound を接続先ホスト名へ戻すために per-host マッピングが要る
