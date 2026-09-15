@@ -14,3 +14,7 @@ split_vertical   = "prefix+%"   # tmux: bind % split-window -h (left/right)
 # Move within the spaces sidebar (navigate mode)
 navigate_workspace_down = "ctrl+n" # down = next in the list
 navigate_workspace_up   = "ctrl+p" # up = previous in the list
+
+# true だと隣接する2枚の枠線が並び、上下は左右の倍の実寸になる
+[ui]
+pane_gaps = false
