@@ -18,3 +18,5 @@ navigate_workspace_up   = "ctrl+p" # up = previous in the list
 # true だと隣接する2枚の枠線が並び、上下は左右の倍の実寸になる
 [ui]
 pane_gaps = false
+# マウスを使わないので、スクロールバー用に常時確保される 1 列を本文に回す
+pane_scrollbars = false
