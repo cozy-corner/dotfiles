@@ -122,7 +122,7 @@
     "kotlin-lsp@claude-plugins-official": true,
     "mapo-aidd@bill-one-marketplace": true,
     "mapo-git@bill-one-marketplace": true,
-    "mapo-implementation-rules@bill-one-marketplace": true,
+    "mapo-implementation-rules@bill-one-marketplace": false,
     "mapo-tools@bill-one-marketplace": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "serena@claude-plugins-official": false,
