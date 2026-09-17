@@ -15,6 +15,7 @@ RUN apt-get update \
 		jq \
 		less \
 		openssh-client \
+		postgresql-client \
 		procps \
 		python3 \
 		ripgrep \
