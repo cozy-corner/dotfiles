@@ -120,7 +120,7 @@
     "commit-commands@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
     "kotlin-lsp@claude-plugins-official": true,
-    "mapo-aidd@bill-one-marketplace": true,
+    "mapo-aidd@bill-one-marketplace": false,
     "mapo-git@bill-one-marketplace": true,
     "mapo-implementation-rules@bill-one-marketplace": false,
     "mapo-tools@bill-one-marketplace": true,
