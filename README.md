@@ -27,6 +27,7 @@ cd ~/dotfiles
 | `aerospace/` | AeroSpace ウィンドウマネージャ設定 |
 | `atuin/` | Atuin シェル履歴設定 |
 | `claude/` | Claude Code の設定・カスタムコマンド・エージェント定義 |
+| `cursor/` | Cursor CLI。Claude の承認設定を `~/.cursor/cli-config.json` へ merge（ライブファイルは symlink しない） |
 | `gh/` | GitHub CLI 設定 |
 | `tealdeer/` | tealdeer (tldr クライアント) 設定 |
 | `doc/` | 技術メモ |
@@ -38,6 +39,6 @@ cd ~/dotfiles
 - **エディタ**: [Neovim](https://neovim.io)
 - **ウィンドウマネージャ**: [AeroSpace](https://github.com/nikitabobko/AeroSpace)
 - **Git**: [delta](https://github.com/dandavison/delta) + [CodeRabbit](https://coderabbit.ai)
-- **AI**: [Claude Code](https://claude.ai/claude-code) (カスタムエージェント・コマンド付き)
+- **AI**: [Claude Code](https://claude.ai/claude-code) / [Cursor CLI](https://cursor.com/docs/cli/overview)（承認は Claude user 設定に揃える）
 - **その他**: mise, direnv, eza, tealdeer
 
