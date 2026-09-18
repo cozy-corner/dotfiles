@@ -10,3 +10,6 @@ pi/gondolin/node_modules/
 
 # direnv (ローカル環境変数)
 .envrc
+
+# Python
+**/__pycache__/

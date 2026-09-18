@@ -34,6 +34,10 @@ ln -sf ~/dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 rm -f ~/.claude/statusline-command.sh
 ln -sf ~/dotfiles/claude/statusline-command.sh ~/.claude/statusline-command.sh
 
+# Cursor CLI (merge permissions into the live file; do not symlink it)
+mkdir -p ~/.cursor
+python3 ~/dotfiles/cursor/sync-from-claude.py
+
 # tealdeer
 mkdir -p ~/.config/tealdeer
 rm -f ~/.config/tealdeer/config.toml
@@ -93,4 +97,3 @@ if ! command -v coderabbit &> /dev/null; then
 else
     echo "CodeRabbit CLI is already installed"
 fi
-
