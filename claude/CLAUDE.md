@@ -37,7 +37,7 @@
 - Never say a named tool, skill, or agent was used unless that exact invocation is in the transcript. If asked to use one — or before spawning an Agent for a role a real Skill/agent already covers — first check the available Skill/agent list for that exact name and invoke it (Skill tool for skills, that exact agent type for agents). If you use something else instead (e.g. a general-purpose Agent role-playing a reviewer), say so literally and surface the substitution — never reuse the real name as the Agent's label, and do not describe the substitute by the requested name. Attribute work to the literal tool call, never to the role it played.
 
 ## Scripts Location
-- Place all working scripts inside the repo (e.g., scripts/) rather than /tmp, so they are versioned and reusable.
+- Scripts meant to be reused later go in the repo (e.g., scripts/), so they are versioned. One-off/throwaway scripts (e.g. ad-hoc log analysis) follow the harness's own default (its scratchpad directory), not the repo.
 
 ## Hunk (diff review)
 - Whenever the user wants you to read their Hunk review comments, or to review/annotate a changeset in Hunk, follow the bundled skill at `hunk skill path`.
