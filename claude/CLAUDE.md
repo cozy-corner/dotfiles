@@ -21,6 +21,7 @@
 - ALWAYS use a git worktree for feature/bugfix work — never `git checkout -b` in the main checkout. Create it with `git gtr new <branch>` (the worktree runner; folder is named after the branch, fetches by default). This is a standing rule; do not ask each time.
 - The base branch is task-dependent — usually `origin/main`, but work may stack on another branch. Pass `--from <ref>` to set the base; if it isn't obvious, ask.
 - When addressing multiple review findings or items in one request, make one commit per item. Do not bundle unrelated changes into a single commit.
+- Commit messages: use Conventional Commits format for the subject line — `type(scope): summary` (e.g. `feat(pi): ...`, `fix(install): ...`, `docs: ...`, `refactor(pgcli): ...`). Subject line only, concise, summarizing *what* changed. Do not add a body by default — do not narrate *how* it was implemented or re-list changes file-by-file; the diff already shows that. If the repo has an ADR/PR-description convention for large rationale, use that instead of the commit body. Only add a short one-line body when there's genuinely commit-scoped context not captured elsewhere.
 
 ## Scope Discipline
 - Do not add refactors, parallelization, hooks, or settings.json changes that were not explicitly requested.
