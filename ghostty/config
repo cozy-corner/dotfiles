@@ -1,5 +1,8 @@
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 
+# cursor-agent CLI mishandles raw ^H (0x08); send DEL instead, same as physical Backspace
+keybind = ctrl+h=text:\x7f
+
 # Color theme
 theme = Kanagawa Wave
 
