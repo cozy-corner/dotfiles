@@ -78,6 +78,11 @@ if [ ! -d ~/dotfiles/pi/gondolin/node_modules ]; then
   (cd ~/dotfiles/pi/gondolin && npm install --ignore-scripts)
 fi
 
+# pgcli
+mkdir -p ~/.config/pgcli
+rm -f ~/.config/pgcli/config
+ln -sf ~/dotfiles/pgcli/config ~/.config/pgcli/config
+
 # bat (delta/lazygit と共有する syntax テーマ置き場)
 mkdir -p ~/.config/bat
 rm -rf ~/.config/bat/themes
