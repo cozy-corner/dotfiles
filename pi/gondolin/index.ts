@@ -61,7 +61,16 @@ const PROJECT_CONFIG_FILE = ".gondolin.json";
 type ProjectGondolinConfig = {
 	tcp?: Record<string, string>;
 	env?: Record<string, string>;
+	mounts?: string[];
 };
+
+function expandHome(inputPath: string): string {
+	if (inputPath === "~" || inputPath === "$HOME" || inputPath === "${HOME}") return os.homedir();
+	for (const prefix of ["~/", "$HOME/", "${HOME}/"]) {
+		if (inputPath.startsWith(prefix)) return path.join(os.homedir(), inputPath.slice(prefix.length));
+	}
+	return inputPath;
+}
 
 function loadProjectConfig(localCwd: string): ProjectGondolinConfig | undefined {
 	const configPath = path.join(localCwd, PROJECT_CONFIG_FILE);
@@ -496,6 +505,16 @@ export default function (pi: ExtensionAPI) {
 
 		const projectConfig = loadProjectConfig(localCwd);
 
+		// .gondolin.json の mounts はホストの絶対パスをゲストの同一パスにそのままマウントする
+		// (skills と同じ仕組み)。DBファイルなど workspace 外のホストリソースに触れたいプロジェクト向け
+		const projectMounts = (projectConfig?.mounts ?? []).map(expandHome).filter((mountPath) => {
+			const exists = existsSync(mountPath);
+			if (!exists) {
+				ctx?.ui.notify(`Gondolin: mount path not found (${mountPath}); skipping.`, "warning");
+			}
+			return exists;
+		});
+
 		const created = await VM.create({
 			sessionLabel: `pi ${path.basename(localCwd)}`,
 			httpHooks: github?.httpHooks,
@@ -506,6 +525,7 @@ export default function (pi: ExtensionAPI) {
 					...(skillsMountEnabled
 						? { [HOST_SKILLS_DIR]: new ReadonlyProvider(new RealFSProvider(HOST_SKILLS_DIR)) }
 						: {}),
+					...Object.fromEntries(projectMounts.map((mountPath) => [mountPath, new RealFSProvider(mountPath)])),
 				},
 			},
 			// port 22 の outbound を接続先ホスト名へ戻すために per-host マッピングが要る
