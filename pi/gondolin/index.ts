@@ -21,7 +21,7 @@
 
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { createHttpHooks, ReadonlyProvider, RealFSProvider, ShadowProvider, VM } from "@earendil-works/gondolin";
@@ -54,6 +54,25 @@ const DEFAULT_GREP_LIMIT = 100;
 // toGuestPath はワークスペース外の絶対パスをそのままゲストパスとして扱うため、
 // 同一パスに read-only でマウントしておかないとゲスト内で解決できない。
 const HOST_SKILLS_DIR = path.join(os.homedir(), ".claude", "skills");
+// リポジトリ固有の gondolin 設定 (DB接続先の書き換えなど)。中身は index.ts が
+// 知らなくてよく、リポジトリ側が自分のポートや変数名を持つ
+const PROJECT_CONFIG_FILE = ".gondolin.json";
+
+type ProjectGondolinConfig = {
+	tcp?: Record<string, string>;
+	env?: Record<string, string>;
+};
+
+function loadProjectConfig(localCwd: string): ProjectGondolinConfig | undefined {
+	const configPath = path.join(localCwd, PROJECT_CONFIG_FILE);
+	if (!existsSync(configPath)) return undefined;
+	try {
+		const parsed = JSON.parse(readFileSync(configPath, "utf8"));
+		return parsed && typeof parsed === "object" ? (parsed as ProjectGondolinConfig) : undefined;
+	} catch {
+		return undefined;
+	}
+}
 
 type TextToolResult<TDetails> = {
 	content: Array<{ type: "text"; text: string }>;
@@ -475,6 +494,8 @@ export default function (pi: ExtensionAPI) {
 			ctx?.ui.notify(`Gondolin: skills directory not found (${HOST_SKILLS_DIR}); skills unavailable.`, "warning");
 		}
 
+		const projectConfig = loadProjectConfig(localCwd);
+
 		const created = await VM.create({
 			sessionLabel: `pi ${path.basename(localCwd)}`,
 			httpHooks: github?.httpHooks,
@@ -492,6 +513,10 @@ export default function (pi: ExtensionAPI) {
 			// 秘密鍵はホストに残したまま、署名だけ ssh-agent 経由でホスト側に委譲する。
 			// 上流ホスト鍵は既定でホスト側の known_hosts により検証される
 			ssh: sshEnabled ? { allowedHosts: ["github.com"], agent: sshAgent } : undefined,
+			// リポジトリの .gondolin.json が tcp.hosts を持っていればホストの
+			// localhost サービス (DB など) への転送を有効にする。localhost 宛の名前解決は
+			// RFC 6761 特例で synthetic DNS を経由しないため、別名を経由する必要がある
+			tcp: projectConfig?.tcp ? { hosts: projectConfig.tcp } : undefined,
 		});
 		// shutdown 側から到達できるよう、セットアップ前に保持する
 		vm = created;
@@ -517,6 +542,26 @@ export default function (pi: ExtensionAPI) {
 				"printf 'Host *\\n  StrictHostKeyChecking accept-new\\n' > \"$HOME/.ssh/config\"",
 			].join(" && "),
 		]);
+		if (projectConfig?.env && Object.keys(projectConfig.env).length > 0) {
+			// dotenv 系ローダーは既存の環境変数を上書きしないものが多いため、.env 自体を
+			// 書き換えずに済むよう profile 経由でログインシェルに先に export しておく
+			const exportLines = Object.entries(projectConfig.env)
+				.map(([key, value]) => `export ${key}=${shellQuote(value)}`)
+				.join("\n");
+			const encoded = Buffer.from(exportLines, "utf8").toString("base64");
+			const envSetup = await created.exec([
+				"/bin/sh",
+				"-lc",
+				`printf '%s' ${shellQuote(encoded)} | base64 -d > /etc/profile.d/gondolin-project-env.sh`,
+			]);
+			if (envSetup.exitCode !== 0) {
+				ctx?.ui.notify(
+					`Gondolin: failed to apply ${PROJECT_CONFIG_FILE} env.\n${envSetup.stderr.trim() || envSetup.stdout.trim()}`,
+					"warning",
+				);
+			}
+		}
+
 		if (guestSetup.exitCode !== 0) {
 			ctx?.ui.notify(
 				`Gondolin: failed to configure git in the VM.\n${guestSetup.stderr.trim() || guestSetup.stdout.trim()}`,
