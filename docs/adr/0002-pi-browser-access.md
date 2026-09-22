@@ -63,11 +63,10 @@ Playwright を guest image に焼く案は採らない。chrome-devtools-mcp も
 - 性能計測 (perf trace / Lighthouse / heap) は手に入らない。必要になった場合は
   chrome-devtools-mcp を `--browserUrl` で併用すればよく、playwright-mcp と排他では
   ない
-- **VM 内で起動した dev server には届かない。** ホストで dev server を回している
-  限り問題にならないが、VM 内で回す構成に倒す場合は別途 ingress が要る
-  (後述)
+- playwright-mcp はホストで動くため、VM 内で起動した dev server には ingress 経由の
+  URL (`http://127.0.0.1:<hostPort>`) でアクセスすることになる (後述)
 
-## 残る課題: ホストから VM の画面が見えない
+## 併せて解消した課題: ホストから VM の画面が見えない
 
 この ADR とは別件だが、同じ穴から出てきた問題として記録しておく。
 
@@ -76,17 +75,28 @@ gondolin 導入時の検証は「エージェントが VM 内でインストー�
 `PLAN.md` の Phase 1〜3 も扱っているのはビルド側だけで、`index.ts` で唯一
 ネットワーク方向に触れている `tcp.hosts` は guest→host (DB への転送) である。
 
-そのため VM 内で `npm run dev` しても、ホストのブラウザからは到達できない。
+そのため VM 内で `npm run dev` してもホストのブラウザからは到達できなかった。
 gondolin 自体は `vm.enableIngress()` を持っており (ホストに HTTP ゲートウェイを
-立て、ゲスト内の `/etc/gondolin/listeners` に書いた prefix→ポートで振り分ける。
-WebSocket も既定で有効)、上流は想定しているが `index.ts` が呼んでいない。
+立て、ゲスト内の `/etc/gondolin/listeners` に書いた prefix→ポートで振り分ける)、
+上流は想定していたが `index.ts` が呼んでいなかった。
 
-現状の回避策は dev server をホスト側で回すこと。VM 内で回す必要があるのは
-Linux 向けネイティブモジュールを使う場合 (loverese の better-sqlite3 など) に
-限られる。
+これを `index.ts` で接続した。リポジトリの `.gondolin.json` に
+`"ingress": { "port": 3000, "hostPort": 3000 }` と宣言すると、VM 起動時に
+`prefix: "/"` のルートを1本張ってホスト側に HTTP ゲートウェイを立てる。
+ポートをリポジトリ側の宣言にしたのは、`tcp` / `env` / `mounts` と同じ機構に乗り、
+ポートがリポジトリ固有の既知の値だからである。ゲスト内の LISTEN ポートを自動検出
+する案は、ポーリングが要る上に挙動が読みにくくなるため採らなかった。
+
+`prefix: "/"` は全パスにマッチし strip も起きないため、アプリ側のパスがそのまま
+ゲストに渡る。WebSocket も既定で有効なので HMR も通る想定だが、こちらは実測して
+いない。ingress の設定に失敗した場合は警告のみで VM の起動は継続する (ssh の設定
+ミスで read/bash まで巻き添えで死んだ前例があるため)。
+
+ホスト側のポートは VM 起動と同時に開く (ゲストに dev server がまだ無ければ 502 の
+応答になる)。宣言のあるリポジトリだけが対象なので、ホストで dev server を回す従来の
+運用もそのまま続けられる。
 
 ## 前提が変わる条件
 
-dev server を VM 内で回す運用に倒すなら、ingress の実装が前提条件になる。
-また、見た目の確認より隔離を優先する方針に変わるなら、VM 内 Playwright を
+見た目の確認より隔離を優先する方針に変わるなら、VM 内 Playwright を
 選び直す余地がある (その場合はフォントの不一致を受け入れることになる)。

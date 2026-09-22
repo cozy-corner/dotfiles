@@ -62,6 +62,7 @@ type ProjectGondolinConfig = {
 	tcp?: Record<string, string>;
 	env?: Record<string, string>;
 	mounts?: string[];
+	ingress?: { port: number; hostPort?: number };
 };
 
 function expandHome(inputPath: string): string {
@@ -535,6 +536,7 @@ export default function (pi: ExtensionAPI) {
 	let vm: VM | undefined;
 	let vmStarting: Promise<VM> | undefined;
 	let shellPath = "/bin/sh";
+	let ingressUrl: string | undefined;
 
 	async function startVm(ctx?: ExtensionContext): Promise<VM> {
 		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", `Gondolin: starting ${GUEST_WORKSPACE}`));
@@ -657,11 +659,32 @@ export default function (pi: ExtensionAPI) {
 			);
 		}
 
+		// ゲスト内で起動した dev server をホストのブラウザから見るための HTTP ゲートウェイ。
+		// prefix "/" はすべてのパスにマッチし strip も起きないので、HMR の WebSocket も通る。
+		// 失敗してもツールは使えるべきなので、ssh と同じく警告に留める
+		ingressUrl = undefined;
+		if (projectConfig?.ingress) {
+			const { port, hostPort } = projectConfig.ingress;
+			try {
+				created.setIngressRoutes([{ prefix: "/", port, stripPrefix: false }]);
+				const access = await created.enableIngress({ listenPort: hostPort ?? port });
+				ingressUrl = access.url;
+			} catch (error) {
+				ctx?.ui.notify(
+					`Gondolin: ingress disabled (${error instanceof Error ? error.message : String(error)}).`,
+					"warning",
+				);
+			}
+		}
+
 		ctx?.ui.setStatus(
 			"gondolin",
 			ctx.ui.theme.fg("accent", `Gondolin: ${created.id.slice(0, 8)} (${GUEST_WORKSPACE})`),
 		);
 		ctx?.ui.notify(`Gondolin VM ready. ${localCwd} is mounted at ${GUEST_WORKSPACE}.`, "info");
+		if (ingressUrl) {
+			ctx?.ui.notify(`Gondolin ingress: ${ingressUrl} -> guest :${projectConfig?.ingress?.port}`, "info");
+		}
 		return created;
 	}
 
@@ -702,6 +725,7 @@ export default function (pi: ExtensionAPI) {
 					`Host workspace: ${localCwd}`,
 					`Guest workspace: ${GUEST_WORKSPACE}`,
 					`Shell: ${shellPath}`,
+					`Ingress: ${ingressUrl ?? `disabled (set ingress in ${PROJECT_CONFIG_FILE})`}`,
 				].join("\n"),
 				"info",
 			);
