@@ -30,7 +30,7 @@ ln -sf ~/dotfiles/claude/skills ~/.claude/skills
 rm -f ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
 rm -f ~/.claude/CLAUDE.md
-ln -sf ~/dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
+ln -sf ~/dotfiles/claude/AGENTS.md ~/.claude/CLAUDE.md
 rm -f ~/.claude/statusline-command.sh
 ln -sf ~/dotfiles/claude/statusline-command.sh ~/.claude/statusline-command.sh
 
@@ -74,7 +74,7 @@ ln -sf ~/dotfiles/pi/keybindings.json ~/.pi/agent/keybindings.json
 rm -f ~/.pi/agent/prompts
 ln -sf ~/dotfiles/pi/prompts ~/.pi/agent/prompts
 rm -f ~/.pi/agent/AGENTS.md
-ln -sf ~/dotfiles/claude/CLAUDE.md ~/.pi/agent/AGENTS.md
+ln -sf ~/dotfiles/claude/AGENTS.md ~/.pi/agent/AGENTS.md
 
 # pi gondolin extension (ツール実行をローカル VM で隔離。node_modules は git 管理外)
 mkdir -p ~/.pi/agent/extensions
