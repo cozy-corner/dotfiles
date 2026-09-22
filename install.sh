@@ -75,6 +75,8 @@ rm -f ~/.pi/agent/prompts
 ln -sf ~/dotfiles/pi/prompts ~/.pi/agent/prompts
 rm -f ~/.pi/agent/AGENTS.md
 ln -sf ~/dotfiles/claude/AGENTS.md ~/.pi/agent/AGENTS.md
+rm -f ~/.pi/agent/mcp.json
+ln -sf ~/dotfiles/pi/mcp.json ~/.pi/agent/mcp.json
 
 # pi gondolin extension (ツール実行をローカル VM で隔離。node_modules は git 管理外)
 mkdir -p ~/.pi/agent/extensions

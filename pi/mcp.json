@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "playwright-mcp",
+      "args": ["--headless", "--browser", "chrome", "--isolated"],
+      "lifecycle": "lazy",
+      "idleTimeout": 10
+    }
+  }
+}
