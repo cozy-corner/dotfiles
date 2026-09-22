@@ -11,6 +11,7 @@
   ],
   "hideThinkingBlock": false,
   "packages": [
-    "https://github.com/obra/superpowers"
+    "https://github.com/obra/superpowers",
+    "npm:pi-mcp-adapter"
   ]
 }
