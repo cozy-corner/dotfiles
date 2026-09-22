@@ -1,8 +1,15 @@
 {
   "mcpServers": {
     "playwright": {
-      "command": "playwright-mcp",
-      "args": ["--headless", "--browser", "chrome", "--isolated"],
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@0.0.68",
+        "--headless",
+        "--browser",
+        "chrome",
+        "--isolated"
+      ],
       "lifecycle": "lazy",
       "idleTimeout": 10
     }
