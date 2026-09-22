@@ -73,6 +73,8 @@ rm -f ~/.pi/agent/keybindings.json
 ln -sf ~/dotfiles/pi/keybindings.json ~/.pi/agent/keybindings.json
 rm -f ~/.pi/agent/prompts
 ln -sf ~/dotfiles/pi/prompts ~/.pi/agent/prompts
+rm -f ~/.pi/agent/AGENTS.md
+ln -sf ~/dotfiles/claude/CLAUDE.md ~/.pi/agent/AGENTS.md
 
 # pi gondolin extension (ツール実行をローカル VM で隔離。node_modules は git 管理外)
 mkdir -p ~/.pi/agent/extensions
