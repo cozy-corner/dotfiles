@@ -9,5 +9,8 @@
   "skills": [
     "~/.claude/skills"
   ],
-  "hideThinkingBlock": false
+  "hideThinkingBlock": false,
+  "packages": [
+    "https://github.com/obra/superpowers"
+  ]
 }
