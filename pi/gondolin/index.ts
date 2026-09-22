@@ -438,6 +438,74 @@ function shellQuote(value: string): string {
 	return `'${value.replace(/'/g, "'\\''")}'`;
 }
 
+/** 'r' / 'r+' はファイルを作らないので親も要らない。作成を伴うのは w / a / x のみ */
+function flagsCreate(flags: string): boolean {
+	return /[wax]/.test(flags);
+}
+
+/**
+ * 書き込み先の親ディレクトリを先に作る RealFSProvider。
+ *
+ * ShadowProvider は shadow 対象への書き込みを tmpfs へリダイレクトするだけで、親は作らない。
+ * `.next/dev/` のように親が shadow 対象外だとホスト側にしか存在せず、tmpfs 側は親が無いまま
+ * `.next/dev/node_modules` を作ることになって ENOENT になる（Turbopack の dev 起動がこれで
+ * panic する）。ルート直下の `node_modules` だけ通っていたのは、親が cacheDir 自身だったため。
+ */
+class ParentMirroringProvider extends RealFSProvider {
+	async #ensureParent(entryPath: string): Promise<void> {
+		const parent = path.posix.dirname(entryPath);
+		if (parent === entryPath || parent === "." || parent === "/") return;
+		await super.mkdir(parent, { recursive: true });
+	}
+
+	#ensureParentSync(entryPath: string): void {
+		const parent = path.posix.dirname(entryPath);
+		if (parent === entryPath || parent === "." || parent === "/") return;
+		super.mkdirSync(parent, { recursive: true });
+	}
+
+	async mkdir(entryPath: string, options?: object) {
+		await this.#ensureParent(entryPath);
+		return super.mkdir(entryPath, options);
+	}
+
+	mkdirSync(entryPath: string, options?: object) {
+		this.#ensureParentSync(entryPath);
+		return super.mkdirSync(entryPath, options);
+	}
+
+	async open(entryPath: string, flags: string, mode?: number) {
+		if (flagsCreate(flags)) await this.#ensureParent(entryPath);
+		return super.open(entryPath, flags, mode);
+	}
+
+	openSync(entryPath: string, flags: string, mode?: number) {
+		if (flagsCreate(flags)) this.#ensureParentSync(entryPath);
+		return super.openSync(entryPath, flags, mode);
+	}
+
+	async symlink(target: string, entryPath: string, type?: string) {
+		await this.#ensureParent(entryPath);
+		return super.symlink!(target, entryPath, type);
+	}
+
+	symlinkSync(target: string, entryPath: string, type?: string) {
+		this.#ensureParentSync(entryPath);
+		return super.symlinkSync!(target, entryPath, type);
+	}
+
+	// shadow 境界を跨ぐ rename は ShadowProvider が EXDEV にするので、ここは tmpfs 内の移動のみ
+	async rename(oldPath: string, newPath: string) {
+		await this.#ensureParent(newPath);
+		return super.rename(oldPath, newPath);
+	}
+
+	renameSync(oldPath: string, newPath: string) {
+		this.#ensureParentSync(newPath);
+		return super.renameSync(oldPath, newPath);
+	}
+}
+
 /**
  * ホストの node_modules をゲストから隠し、書き込みはプロジェクトごとのキャッシュへ逃がす。
  * macOS 向けにビルドされたネイティブモジュールはゲストで動かず、逆にゲストで
@@ -450,7 +518,7 @@ function createWorkspaceProvider(localCwd: string): ShadowProvider {
 	return new ShadowProvider(new RealFSProvider(localCwd), {
 		shouldShadow: ({ path: entryPath }) => entryPath.split("/").includes("node_modules"),
 		writeMode: "tmpfs",
-		tmpfs: new RealFSProvider(cacheDir),
+		tmpfs: new ParentMirroringProvider(cacheDir),
 	});
 }
 
