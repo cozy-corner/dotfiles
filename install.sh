@@ -78,12 +78,19 @@ ln -sf ~/dotfiles/claude/AGENTS.md ~/.pi/agent/AGENTS.md
 rm -f ~/.pi/agent/mcp.json
 ln -sf ~/dotfiles/pi/mcp.json ~/.pi/agent/mcp.json
 
-# pi gondolin extension (ツール実行をローカル VM で隔離。node_modules は git 管理外)
+# pi gondolin extension (ツール実行をローカル VM で隔離。別リポジトリ)
+if [ -d ~/pi-gondolin/.git ]; then
+  # 手元で編集中でも install.sh 全体は止めない
+  git -C ~/pi-gondolin pull --ff-only || echo "warning: pi-gondolin の更新をスキップした"
+else
+  git clone git@github.com:cozy-corner/pi-gondolin.git ~/pi-gondolin
+fi
 mkdir -p ~/.pi/agent/extensions
 rm -f ~/.pi/agent/extensions/gondolin
-ln -sf ~/dotfiles/pi/gondolin ~/.pi/agent/extensions/gondolin
-if [ ! -d ~/dotfiles/pi/gondolin/node_modules ]; then
-  (cd ~/dotfiles/pi/gondolin && npm install --ignore-scripts)
+ln -sf ~/pi-gondolin ~/.pi/agent/extensions/gondolin
+# --ignore-scripts: 依存の native build (ssh2 / cpu-features) を避ける
+if [ ! -d ~/pi-gondolin/node_modules ]; then
+  (cd ~/pi-gondolin && npm install --ignore-scripts)
 fi
 
 # pgcli

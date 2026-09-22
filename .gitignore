@@ -5,9 +5,6 @@
 # superpowers brainstorming visual companion (local only)
 .superpowers/
 
-# pi gondolin extension dependencies
-pi/gondolin/node_modules/
-
 # direnv (ローカル環境変数)
 .envrc
 
