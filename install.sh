@@ -77,6 +77,9 @@ rm -f ~/.pi/agent/AGENTS.md
 ln -sf ~/dotfiles/claude/AGENTS.md ~/.pi/agent/AGENTS.md
 rm -f ~/.pi/agent/mcp.json
 ln -sf ~/dotfiles/pi/mcp.json ~/.pi/agent/mcp.json
+mkdir -p ~/.pi/agent/extensions
+rm -f ~/.pi/agent/extensions/statusline.ts
+ln -sf ~/dotfiles/pi/extensions/statusline.ts ~/.pi/agent/extensions/statusline.ts
 
 # pi gondolin extension (ツール実行をローカル VM で隔離。別リポジトリ)
 if [ -d ~/pi-gondolin/.git ]; then
