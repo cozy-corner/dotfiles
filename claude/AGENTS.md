@@ -16,6 +16,11 @@
 - Run `git pull` at the start of every conversation to ensure the working tree is up to date.
 - ALWAYS read the project README before starting work on a new task in a repo.
 
+## Handoff
+- 作業状態の引き継ぎメモは、リポジトリのルート直下に `HANDOFF.md` として1枚だけ置く。サブディレクトリには置かない — 次のセッションが探さずに最初に目にする位置に置くため。調査メモのような永続する知識とは別物なので、それらと同じ場所に並べない。
+- 内容は常に上書きして1枚に保つ。セッションごとにファイルを増やさない。
+- `HANDOFF.md` は commit しない。揮発物なので git 管理の対象外。共有される `.gitignore` は編集せず、必要なら `.git/info/exclude` に追記する。
+
 ## Git Workflow
 - When addressing multiple review findings or items in one request, make one commit per item. Do not bundle unrelated changes into a single commit.
 - Commit messages: use Conventional Commits format for the subject line — `type(scope): summary` (e.g. `feat(pi): ...`, `fix(install): ...`, `docs: ...`, `refactor(pgcli): ...`). Subject line only, concise, summarizing *what* changed. Do not add a body by default — do not narrate *how* it was implemented or re-list changes file-by-file; the diff already shows that. If the repo has an ADR/PR-description convention for large rationale, use that instead of the commit body. Only add a short one-line body when there's genuinely commit-scoped context not captured elsewhere.
