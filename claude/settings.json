@@ -59,7 +59,7 @@
     "out/",
     "target/"
   ],
-  "model": "sonnet",
+  "model": "opus[1m]",
   "permissions": {
     "allow": [
       "Bash(*)",
