@@ -33,6 +33,52 @@ vim.keymap.set("c", "%%", function()
   end
 end, { expr = true })
 
+-- curl で GET して JSON を返す。失敗時は nil
+-- 同期で待つ: 待機中に打ったキーは先行入力として置換後に処理されるので取りこぼさない
+local function fetch_json(url, params)
+  local cmd = { "curl", "-s", "--max-time", "3", "--get", url }
+  for k, v in pairs(params) do
+    vim.list_extend(cmd, { "--data-urlencode", k .. "=" .. v })
+  end
+  local res = vim.system(cmd, { text = true }):wait()
+  local ok, data = pcall(vim.json.decode, res.stdout)
+  if res.code == 0 and ok and type(data) == "table" then
+    return data
+  end
+end
+
+-- 入力モードのまま、カーソル直前の日本語（またはローマ字）を英訳して置き換える
+vim.keymap.set("i", "<C-t>", function()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local before = vim.api.nvim_get_current_line():sub(1, col)
+  -- 直前に続く非 ASCII バイト列を日本語の1語とみなす（「I got ザリガニ」→「ザリガニ」）。
+  -- なければ直前の英字列をローマ字とみなす（「I got zarigani」→「zarigani」）
+  local word = before:match("[\128-\255]+$") or before:match("%a+$")
+  if not word then
+    return
+  end
+  local ja = word
+  if word:match("^%a") then
+    -- 翻訳 API はローマ字を訳さないので、先に Google 入力ツールで日本語に変換する
+    local conv = fetch_json("https://inputtools.google.com/request", { text = word, itc = "ja-t-i0-und", num = "1" })
+    ja = vim.tbl_get(conv or {}, 2, 1, 2, 1)
+  end
+  local data = ja and fetch_json("https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=en&dt=t", { q = ja })
+  if not data or type(data[1]) ~= "table" then
+    vim.notify("翻訳に失敗しました", vim.log.levels.WARN)
+    return
+  end
+  local text = table.concat(vim.tbl_map(function(seg) return seg[1] end, data[1]))
+  local start = col - #word
+  -- Google は単語単体の訳を文頭扱いで大文字始まりにするので、文中なら小文字に戻す。
+  -- 2文字目も大文字なら略語（API など）とみなして触らない
+  if before:sub(1, start):match("[^%s.!?]%s*$") then
+    text = text:gsub("^(%u)(%l)", function(a, b) return a:lower() .. b end)
+  end
+  vim.api.nvim_buf_set_text(0, row - 1, start, row - 1, col, { text })
+  vim.api.nvim_win_set_cursor(0, { row, start + #text })
+end, { desc = "直前の日本語（ローマ字可）を英訳して置換" })
+
 -- lazy.nvimのセットアップ
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
