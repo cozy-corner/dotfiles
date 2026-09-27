@@ -100,6 +100,7 @@ local lsp_servers = (function()
     "lua_ls",
     "ts_ls",
     "kotlin_language_server",
+    "harper_ls",
   }
   local optional = {
     fsautocomplete = "dotnet", -- F# LSP は .NET SDK 必須
@@ -359,6 +360,11 @@ require("lazy").setup({
             },
           },
         },
+      })
+
+      -- 英文チェックは Markdown だけ（既定ではコード中のコメントも対象になる）
+      vim.lsp.config("harper_ls", {
+        filetypes = { "markdown" },
       })
 
       -- LSPサーバーを有効化
