@@ -8,6 +8,7 @@ Follow these steps:
    - **Critical Issues**: Issues marked as "⚠️ Potential issue" with "🔴 Critical" or containing error/exception handling concerns
    - **Suggestions**: CodeRabbit nitpicks and suggestions for improvement
    - **Team Comments**: Comments from human reviewers (not bots)
+   - **Check run annotations**: every annotation in the "Check Runs & Statuses" section — `failure` level goes to Critical Issues, other levels to Suggestions
 4. Create a task list with the following structure:
    - Each task should be a checkbox `- [ ]`
    - Include file path and line numbers when available
@@ -69,13 +70,18 @@ Follow these steps:
    - Comments from human users (not bots)
    - Group by reviewer username
 
-4. **Extract Information**:
+4. **Identify Check Run Annotations**:
+   - Every annotation under "Check Runs & Statuses" becomes a task; do not skip any level
+   - Put them under a `### {check run name} の指摘` heading in the section chosen by level
+   - If the reviews file lists 未完了 checks, add a line under the title: `> ⏳ 未完了の check: {names}（完了後に pr-reviews を再実行）`
+
+5. **Extract Information**:
    - File path: Look for patterns like `file.kt`, `file.md`, path in review comments
    - Line numbers: Look for `#L10`, `#L10-12`, or line number ranges
    - Description: First sentence or key point of the comment
    - Details: Full explanation from the comment body
 
-5. **Skip**:
+6. **Skip**:
    - Empty review bodies
    - Mermaid diagrams
    - CodeRabbit poems and walkthrough summaries
