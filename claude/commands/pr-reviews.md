@@ -14,7 +14,7 @@ Follow these steps:
 
 1. Use `gh pr view ${1:-} --json number,title,headRepository,headRefName,headRefOid` to get the PR number, title, repository info, branch, and head commit SHA
 2. Extract owner, repo, number, title, branch, and headRefOid from the JSON response
-3. **Wait for checks to finish before collecting anything.** Run `gh pr checks {number}`; exit code 8 means checks are pending — then run `gh pr checks {number} --watch` and wait until it returns. Findings from checks that have not completed do not exist yet, so collecting early silently under-reports. If it reports no checks at all, look at `gh api '/repos/{owner}/{repo}/commits/{headRefOid}^/check-runs' --jq '.total_count'` (the parent commit): if the parent had check runs, the head's checks have not registered yet (typical right after a push) — re-run `gh pr checks {number}` every 30s until they appear, then `--watch`. Only treat "no checks" as final when the parent had none either
+3. **Collect checks in their current state — do not wait or poll.** Any check run whose `status` is not `completed` (or commit status still `pending`) is listed in the Check Runs section and in the Summary as 未完了, so the reader knows to re-run later. If the head commit has 0 check runs and 0 statuses, write "head commit に check run / status なし（push 直後なら未登録の可能性あり）"
 4. Use `gh api --paginate /repos/{owner}/{repo}/issues/{number}/comments?per_page=100` to get PR-level comments
 5. **Use `gh api --paginate /repos/{owner}/{repo}/pulls/{number}/reviews?per_page=100` to get PR reviews (CRITICAL: includes CodeRabbit nitpicks)**
 6. Use `gh api --paginate /repos/{owner}/{repo}/pulls/{number}/comments?per_page=100` to get review comments on specific lines
@@ -115,11 +115,11 @@ Format the comments as:
   - **Primary comments (in_reply_to_id == null)**: A件
   - **Reply comments (in_reply_to_id != null)**: B件
 - **Resolved (除外)**: R件
-- **Check runs**: C件（failure F件）
+- **Check runs**: C件（failure F件、未完了 P件）
   - **Annotations**: N件（failure / warning / notice の内訳）
 - **Commit statuses**: S件
 
-Always write every section and the Summary, even when counts are 0 — an explicit "0件" is how the reader knows the source was checked. If the head commit has 0 check runs and 0 statuses, say so explicitly in that section.
+Always write every section and the Summary, even when counts are 0 — an explicit "0件" is how the reader knows the source was checked.
 
 Remember:
 1. **Always use `--paginate` with `per_page=100`** to fetch all comments (not just first 30)
