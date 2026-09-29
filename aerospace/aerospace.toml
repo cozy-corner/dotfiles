@@ -313,3 +313,7 @@ W = ['built-in retina display']  # MacBook (Work: Teamflow/Gather); モニタ番
 [[on-window-detected]]
     if.app-id = 'dev.zed.Zed'
     run = 'move-node-to-workspace E'  # E - Editor (Zed)
+
+[[on-window-detected]]
+    if.app-id = 'com.todesktop.230313mzl4w4u92'
+    run = 'move-node-to-workspace E'  # E - Editor (Cursor)
