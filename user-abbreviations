@@ -1,6 +1,7 @@
 abbr "..."="cd ../.."
 abbr ".."="cd .."
 abbr "c"="clear"
+abbr "ca"="cursor-agent"
 abbr "dcu"="docker-compose up"
 abbr "ga"="git add"
 abbr "gal"="gcloud auth login --update-adc"
