@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Merge Claude permissions into ~/.cursor/cli-config.json.
 
-Only permissions, approvalMode, and autoAcceptWebSearch are written.
+Only permissions, approvalMode, autoAcceptWebSearch, and statusLine are written.
 Other live keys (authInfo, model, display) are left untouched.
 Claude `ask` Bash patterns become deny because CLI has no ask prompt.
 `Bash(*)` becomes `Shell(*)`.
@@ -115,6 +115,13 @@ def main() -> int:
     cfg["permissions"] = overlay["permissions"]
     cfg["approvalMode"] = overlay["approvalMode"]
     cfg["autoAcceptWebSearch"] = overlay["autoAcceptWebSearch"]
+    # `~` is expanded only on the executable. `bash ~/.cursor/...` leaves the
+    # script path literal because the CLI spawns with shell:false.
+    cfg["statusLine"] = {
+        "type": "command",
+        "command": "~/.cursor/statusline-command.sh",
+        "padding": 0,
+    }
     write_live(LIVE_CONFIG, cfg)
     print(f"updated {LIVE_CONFIG}")
     return 0

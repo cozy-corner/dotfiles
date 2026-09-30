@@ -36,6 +36,8 @@ ln -sf ~/dotfiles/claude/statusline-command.sh ~/.claude/statusline-command.sh
 
 # Cursor CLI (merge permissions into the live file; do not symlink it)
 mkdir -p ~/.cursor
+rm -f ~/.cursor/statusline-command.sh
+ln -sf ~/dotfiles/cursor/statusline-command.sh ~/.cursor/statusline-command.sh
 python3 ~/dotfiles/cursor/sync-from-claude.py
 
 # tealdeer
