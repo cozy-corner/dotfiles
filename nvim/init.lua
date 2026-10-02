@@ -579,6 +579,14 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function(args)
+    vim.keymap.set('n', '<cr>', '<cr><cmd>cclose<cr>',
+      { buffer = args.buf, silent = true, desc = 'Jump and close quickfix' })
+  end,
+})
+
 -- パーサーが利用可能な言語で Treesitter ハイライトを開始
 vim.api.nvim_create_autocmd("FileType", {
   callback = function(args)
