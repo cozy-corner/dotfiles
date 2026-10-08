@@ -63,7 +63,14 @@ vim.keymap.set("i", "<C-t>", function()
     local conv = fetch_json("https://inputtools.google.com/request", { text = word, itc = "ja-t-i0-und", num = "1" })
     ja = vim.tbl_get(conv or {}, 2, 1, 2, 1)
   end
-  local data = ja and fetch_json("https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=en&dt=t", { q = ja })
+  local data
+  -- 非公式 API なので client ごとにレート制限される。弾かれたら次の client を試す
+  for _, client in ipairs({ "dict-chrome-ex", "gtx" }) do
+    data = ja and fetch_json("https://translate.googleapis.com/translate_a/single?sl=ja&tl=en&dt=t", { client = client, q = ja })
+    if data and type(data[1]) == "table" then
+      break
+    end
+  end
   if not data or type(data[1]) ~= "table" then
     vim.notify("翻訳に失敗しました", vim.log.levels.WARN)
     return
