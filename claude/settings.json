@@ -36,7 +36,7 @@
       {
         "hooks": [
           {
-            "command": "jq -r '.tool_input.command // empty' | grep -Eq '(^|[;&(])[[:space:]]*(e?grep|fgrep)[[:space:]]([^|;&]*[[:space:]])?(-[a-zA-Z]*[rR][a-zA-Z]*|--recursive)([[:space:]]|$)' && { echo 'Recursive grep is blocked. If `<repo-root>/.tgrep` exists use `tgrep`, otherwise use `rg` (add -uu to include gitignored/hidden files).' >&2; exit 2; }; exit 0",
+            "command": "bash \"$HOME/dotfiles/claude/hooks/prefer-tgrep-rg.sh\"",
             "type": "command"
           }
         ],
