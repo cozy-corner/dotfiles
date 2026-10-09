@@ -1,7 +1,7 @@
 # Rules
 
 - For code symbol resolution (finding where a symbol is defined, referenced, or implemented), prefer the LSP tool (goToDefinition / findReferences / goToImplementation) over Grep — it uses type information, so it is more precise and won't confuse same-named symbols. Fall back to Grep for plain-text search or when no language server is configured.
-- For plain-text/content search in a repo, first run `tgrep status <repo-root>` to check for an index. Exit 0 means an index exists — use `tgrep` for the search. A nonzero exit (no index found) means use `rg` (ripgrep) instead.
+- For plain-text/content search in a repo, first check that `<repo-root>/.tgrep` exists (`tgrep status` always exits 0, even with no index, so don't rely on its exit code). If it exists, use `tgrep` for the search; otherwise use `rg` (ripgrep) instead.
 
 ## Subagents
 - Delegating is not free: each subagent re-establishes context, re-explores, and reports back, and you then read its report. Delegate only when that overhead is clearly worth it.

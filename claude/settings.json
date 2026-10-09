@@ -32,6 +32,17 @@
     "lastShownTime": 1754269096080
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"$HOME/dotfiles/claude/hooks/prefer-tgrep-rg.sh\"",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [
