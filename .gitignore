@@ -10,3 +10,7 @@
 
 # Python
 **/__pycache__/
+
+# Claude Code が ~/.claude/skills（このディレクトリへのリンク）に書き込むアカウント skill の同期データ
+claude/skills/synced/
+claude/skills/.trash/
