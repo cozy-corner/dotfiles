@@ -21,6 +21,12 @@
 | [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | ブラウザプレビュー (Mermaid 対応) |
 | [csvview.nvim](https://github.com/hat0uma/csvview.nvim) | CSV テーブル表示 |
 
+## Treesitter parser
+
+Nvim 同梱外の parser は `install.sh` から入れる（`~/.local/share/nvim/site` に置く）。
+
+- Gleam: `install-gleam-parser.sh`（Markdown のコードブロック内でも効く）
+
 ## LSP サーバー (Mason)
 
 `lua_ls`, `ts_ls`, `pyright`, `rust_analyzer`, `kotlin_language_server`, `fsautocomplete`
