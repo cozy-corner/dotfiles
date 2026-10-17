@@ -139,7 +139,8 @@ require("lazy").setup({
   },
 
   -- Treesitter: parser とクエリの管理（ハイライト開始は末尾の FileType autocmd）
-  -- Markdown のコードブロックは parser があればハイライトされるので、使う言語は先に入れておく
+  -- main ブランチには auto_install がなく、ファイルを開いても parser は入らない。
+  -- ここに書いた言語だけが Treesitter でハイライトされる（Markdown のコードブロック内も同じ）
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
