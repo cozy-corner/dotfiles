@@ -104,7 +104,6 @@
       "Bash(brew install *)",
       "Bash(brew remove *)",
       "Bash(brew uninstall *)",
-      "Bash(chmod *)",
       "Bash(chown *)",
       "Bash(gh api --method PATCH *)",
       "Bash(gh api --method POST *)",
