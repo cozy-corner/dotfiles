@@ -9,6 +9,7 @@ mkdir -p ~/.config/nvim
 rm -f ~/.config/nvim/init.vim  # 古い設定を削除
 ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 ln -sf ~/dotfiles/nvim/markdown.css ~/.config/nvim/markdown.css
+~/dotfiles/nvim/install-gleam-parser.sh
 mkdir -p ~/.config/ghostty
 rm -rf ~/.config/ghostty/config
 ln -sf ~/dotfiles/ghostty/config ~/.config/ghostty/config
