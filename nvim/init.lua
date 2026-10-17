@@ -151,6 +151,7 @@ require("lazy").setup({
         "diff",
         "fsharp",
         "gleam",
+        "go",
         "html",
         "javascript",
         "json",
