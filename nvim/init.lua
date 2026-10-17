@@ -138,6 +138,34 @@ require("lazy").setup({
     end,
   },
 
+  -- Treesitter: parser とクエリの管理（ハイライト開始は末尾の FileType autocmd）
+  -- Markdown のコードブロックは parser があればハイライトされるので、使う言語は先に入れておく
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter").install({
+        "bash",
+        "css",
+        "diff",
+        "fsharp",
+        "gleam",
+        "html",
+        "javascript",
+        "json",
+        "kotlin",
+        "python",
+        "rust",
+        "sql",
+        "toml",
+        "tsx",
+        "typescript",
+        "yaml",
+      })
+    end,
+  },
+
   -- render-markdown.nvim: Markdownのリッチ表示
   {
     "MeanderingProgrammer/render-markdown.nvim",
