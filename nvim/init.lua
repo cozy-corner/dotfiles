@@ -288,6 +288,13 @@ require("lazy").setup({
     end,
   },
 
+  -- nvim-autopairs: 閉じかっこ・引用符の自動挿入
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    opts = {},
+  },
+
   -- Comment.nvim: コメントアウトの操作
   {
     "numToStr/Comment.nvim",
