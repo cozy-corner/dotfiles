@@ -25,6 +25,10 @@
 
 `lua_ls`, `ts_ls`, `pyright`, `rust_analyzer`, `kotlin_language_server`, `fsautocomplete`
 
+## LSP サーバー (Mason 外)
+
+`gleam` — LSP は gleam 本体に同梱。`gleam` コマンドがある環境でだけ有効化される (要 `brew install gleam erlang rebar3`)
+
 ## キーバインド
 
 ### 一般
