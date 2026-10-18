@@ -407,6 +407,11 @@ require("lazy").setup({
       -- LSPサーバーを有効化
       vim.lsp.enable(lsp_servers)
 
+      -- gleam の LSP は gleam 本体に同梱で Mason 管理外なので lsp_servers（ensure_installed に渡る）とは別に有効化
+      if vim.fn.executable("gleam") == 1 then
+        vim.lsp.enable("gleam")
+      end
+
       -- LSP attach時のキーマッピング設定
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(ev)
