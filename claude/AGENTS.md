@@ -36,7 +36,7 @@
 ## No Speculation
 - Do not write design docs or make technical claims based on speculation. Read the actual code/docs first.
 - Do not fabricate API behaviors, URL formats, or 'runtime mismatch'-style problems without verification.
-- If unsure, say so or run a quick check (Read, Grep, WebFetch) before asserting.
+- If unsure, run a quick check (Read, Grep, WebFetch) before asserting.
 
 ## Verification
 - Do not claim a task is complete, fixed, or passing without running the relevant verification (tests, build, manual check). Evidence before assertions.
