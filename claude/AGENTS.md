@@ -37,6 +37,7 @@
 - Do not write design docs or make technical claims based on speculation. Read the actual code/docs first.
 - Do not fabricate API behaviors, URL formats, or 'runtime mismatch'-style problems without verification.
 - If unsure, run a quick check (Read, Grep, WebFetch) before asserting.
+- When a README/docs exists for the tool at hand, look the answer up there first; reason it out yourself only for what the docs don't cover. Read the tool's own docs, not only the surrounding repo's. A change that works is not evidence that it is the recommended setup.
 
 ## Verification
 - Do not claim a task is complete, fixed, or passing without running the relevant verification (tests, build, manual check). Evidence before assertions.
