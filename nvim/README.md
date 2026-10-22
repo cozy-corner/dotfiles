@@ -7,7 +7,7 @@
 | プラグイン | 用途 |
 |---|---|
 | [rebelot/kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim) | カラースキーム (Wave) |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | シンタックスハイライト (auto_install 有効) |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | parser 管理 (main ブランチ。要 `brew install tree-sitter-cli`) |
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | ファジーファインダー |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP クライアント設定 |
 | [mason.nvim](https://github.com/williamboman/mason.nvim) + mason-lspconfig | LSP サーバー管理 |
@@ -16,6 +16,7 @@
 | [which-key.nvim](https://github.com/folke/which-key.nvim) | キーバインドヘルプ表示 |
 | [flash.nvim](https://github.com/folke/flash.nvim) | 高速カーソル移動 |
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | 囲み文字の操作 |
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | 閉じかっこ・引用符の自動挿入 |
 | [Comment.nvim](https://github.com/numToStr/Comment.nvim) | コメントトグル |
 | [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | Markdown リッチ表示 |
 | [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | ブラウザプレビュー (Mermaid 対応) |
@@ -24,6 +25,10 @@
 ## LSP サーバー (Mason)
 
 `lua_ls`, `ts_ls`, `pyright`, `rust_analyzer`, `kotlin_language_server`, `fsautocomplete`
+
+## LSP サーバー (Mason 外)
+
+`gleam` — LSP は gleam 本体に同梱。`gleam` コマンドがある環境でだけ有効化される (要 `brew install gleam erlang rebar3`)
 
 ## キーバインド
 

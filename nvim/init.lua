@@ -138,6 +138,36 @@ require("lazy").setup({
     end,
   },
 
+  -- Treesitter: parser とクエリの管理（ハイライト開始は末尾の FileType autocmd）
+  -- main ブランチには auto_install がなく、ファイルを開いても parser は入らない。
+  -- ここに書いた言語だけが Treesitter でハイライトされる（Markdown のコードブロック内も同じ）
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter").install({
+        "bash",
+        "css",
+        "diff",
+        "fsharp",
+        "gleam",
+        "go",
+        "html",
+        "javascript",
+        "json",
+        "kotlin",
+        "python",
+        "rust",
+        "sql",
+        "toml",
+        "tsx",
+        "typescript",
+        "yaml",
+      })
+    end,
+  },
+
   -- render-markdown.nvim: Markdownのリッチ表示
   {
     "MeanderingProgrammer/render-markdown.nvim",
@@ -234,7 +264,7 @@ require("lazy").setup({
   -- Telescope: ファジーファインダー
   {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
+    version = "*",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
@@ -256,6 +286,13 @@ require("lazy").setup({
     config = function()
       require("nvim-surround").setup()
     end,
+  },
+
+  -- nvim-autopairs: 閉じかっこ・引用符の自動挿入
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    opts = {},
   },
 
   -- Comment.nvim: コメントアウトの操作
@@ -377,6 +414,11 @@ require("lazy").setup({
       -- LSPサーバーを有効化
       vim.lsp.enable(lsp_servers)
 
+      -- gleam の LSP は gleam 本体に同梱で Mason 管理外なので lsp_servers（ensure_installed に渡る）とは別に有効化
+      if vim.fn.executable("gleam") == 1 then
+        vim.lsp.enable("gleam")
+      end
+
       -- LSP attach時のキーマッピング設定
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(ev)
@@ -494,7 +536,8 @@ local cmp = require("cmp")
 
 cmp.setup({
   mapping = cmp.mapping.preset.insert({
-    ["<C-Space>"] = cmp.mapping.complete(),
+    -- <C-Space>はmacOSの入力ソース切替に奪われるため<C-l>
+    ["<C-l>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
     ["<Tab>"] = cmp.mapping.select_next_item(),
