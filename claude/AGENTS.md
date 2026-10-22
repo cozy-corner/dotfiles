@@ -16,6 +16,10 @@
 - Run `git pull` at the start of every conversation to ensure the working tree is up to date.
 - ALWAYS read the project README before starting work on a new task in a repo.
 
+## Investigation
+- Before reading any repo for an investigation — including a repo other than the one the session started in — run `git fetch` in that repo and read `origin/<default-branch>` (`git show origin/main:path`, `git grep <pat> origin/main`), not the working tree. The checked-out branch may be stale or an unrelated branch. Pass the same instruction to subagents.
+- End every investigation report with the commit it is based on, per repo: `origin/main @ <short-sha>`. If you cannot write the sha, you skipped the fetch — go back and do it.
+
 ## Handoff
 - 作業状態の引き継ぎメモは、リポジトリのルート直下に `HANDOFF.md` として1枚だけ置く。サブディレクトリには置かない — 次のセッションが探さずに最初に目にする位置に置くため。調査メモのような永続する知識とは別物なので、それらと同じ場所に並べない。
 - 内容は常に上書きして1枚に保つ。セッションごとにファイルを増やさない。
