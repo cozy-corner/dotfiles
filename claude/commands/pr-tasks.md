@@ -1,3 +1,9 @@
+---
+syntax: pr-tasks #PR番号
+description: pr-reviews が保存した PR-{n}-reviews.md から対応タスク一覧 PR-{n}-tasks.md を作る。pr-reviews で指摘を取得した後、「タスク化して」「指摘を一覧にして」と言われたときに使う。
+allowed-tools: Read, Write
+---
+
 You are an AI assistant that creates a task list from GitHub PR review comments.
 
 Follow these steps:
