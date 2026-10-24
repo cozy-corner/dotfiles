@@ -1,4 +1,5 @@
 ---
+name: pr-tasks
 argument-hint: "#PR番号"
 description: PR-{n}-reviews.md を読んで、対応タスクの一覧 PR-{n}-tasks.md を作る。「タスク化して」「指摘を一覧にして」と言われたときに使う。PR-{n}-reviews.md が無ければ、先に pr-reviews で取得する。
 allowed-tools: Read, Write

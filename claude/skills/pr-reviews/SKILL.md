@@ -1,5 +1,6 @@
 ---
-syntax: pr-reviews [PR番号]
+name: pr-reviews
+argument-hint: "[PR番号]"
 description: PRに付いた未解決のコメント・レビュー・CIの指摘（CodeRabbit、SonarCloud、CodeQL など）を取得し、PR-{n}-reviews.md に保存する。ユーザーが「コメントした」「レビューが来た」「CIが落ちた」「PRのコメントを見て」「指摘を直して」と言ったら、コメントを読む前に先に使う。gh api で直接取ると、解決済みスレッドが混ざり、check run の annotation を取りこぼすため。Claude 自身がPRをレビューする依頼には使わない。
 allowed-tools: Bash(gh:*), Write
 ---
