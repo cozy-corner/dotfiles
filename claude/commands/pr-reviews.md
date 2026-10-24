@@ -1,6 +1,6 @@
 ---
 syntax: pr-reviews [PR番号]
-description: PRの未解決コメントとレビューを取得・表示し、pr-tasks 連携用にファイル保存（resolved除外・nitpicks対応・check run annotation対応・ページング対応）
+description: PRに付いたコメント・レビュー・CIの指摘を取得して PR-{n}-reviews.md に保存する。ユーザーが「コメントした」「レビューが来た」「PRのコメントを見て」「指摘を直して」と言ったとき、PRのコメントを読む前に必ず先に使う。gh api で直接コメントを取らない。
 allowed-tools: Bash(gh:*), Write
 ---
 
