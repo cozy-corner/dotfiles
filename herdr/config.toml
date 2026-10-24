@@ -1,6 +1,7 @@
 onboarding = false
 [theme]
 name = "kanagawa"
+auto_switch = false
 
 # Match tmux muscle memory — see ~/dotfiles/.tmux.conf
 [keys]
