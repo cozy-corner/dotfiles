@@ -25,8 +25,11 @@ rm -f ~/.claude/commands
 ln -sf ~/dotfiles/claude/commands ~/.claude/commands
 rm -f ~/.claude/rules
 ln -sf ~/dotfiles/claude/rules ~/.claude/rules
-rm -f ~/.claude/skills
-ln -sf ~/dotfiles/claude/skills ~/.claude/skills
+# ~/.claude/skills is a real dir: Claude Code writes synced/ and .trash/ into it
+mkdir -p ~/.claude/skills
+for d in ~/dotfiles/claude/skills/*/; do
+  ln -sfn "${d%/}" ~/.claude/skills/"$(basename "$d")"
+done
 rm -f ~/.claude/settings.json
 ln -sf ~/dotfiles/claude/settings.json ~/.claude/settings.json
 rm -f ~/.claude/CLAUDE.md
