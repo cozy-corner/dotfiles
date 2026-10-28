@@ -21,8 +21,6 @@ mkdir -p ~/.config/gh
 rm -f ~/.config/gh/config.yml
 ln -sf ~/dotfiles/gh/config.yml ~/.config/gh/config.yml
 mkdir -p ~/.claude
-rm -f ~/.claude/commands
-ln -sf ~/dotfiles/claude/commands ~/.claude/commands
 rm -f ~/.claude/rules
 ln -sf ~/dotfiles/claude/rules ~/.claude/rules
 # ~/.claude/skills is a real dir: Claude Code writes synced/ and .trash/ into it
