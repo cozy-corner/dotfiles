@@ -1,5 +1,5 @@
 ---
-syntax: coderabbit-review
+name: coderabbit-review
 description: AI-driven review of uncommitted changes
 allowed-tools: Bash(coderabbit:*), Bash(git:*)
 ---
