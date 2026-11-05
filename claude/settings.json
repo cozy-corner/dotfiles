@@ -56,7 +56,7 @@
             "type": "command"
           },
           {
-            "command": "bash \"$HOME/dotfiles/claude/hooks/inject-readme.sh\"",
+            "command": "bash \"$HOME/dotfiles/claude/hooks/inject-repo-docs.sh\"",
             "type": "command"
           }
         ],
