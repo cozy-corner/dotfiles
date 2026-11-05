@@ -13,6 +13,7 @@
 | [mason.nvim](https://github.com/williamboman/mason.nvim) + mason-lspconfig | LSP サーバー管理 |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | 補完エンジン (LSP + パス) |
 | [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) | ファイルエクスプローラー |
+| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | 変更行の表示・hunk 操作・blame |
 | [which-key.nvim](https://github.com/folke/which-key.nvim) | キーバインドヘルプ表示 |
 | [flash.nvim](https://github.com/folke/flash.nvim) | 高速カーソル移動 |
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | 囲み文字の操作 |
@@ -61,6 +62,16 @@
 | `<Leader>gc` | コミット履歴 |
 | `<Leader>gs` | Git status |
 | `<Leader>gb` | ブランチ一覧 |
+
+### Git hunk (`<Leader>h` グループ / gitsigns)
+
+| キー | 動作 |
+|---|---|
+| `]c` / `[c` | 次/前の hunk |
+| `<Leader>hs` | hunk を stage（Visual では選択行） |
+| `<Leader>hr` | hunk を元に戻す（Visual では選択行） |
+| `<Leader>hp` | hunk をプレビュー |
+| `<Leader>hb` | カーソル行の blame |
 
 ### LSP
 
