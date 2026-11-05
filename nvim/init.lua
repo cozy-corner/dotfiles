@@ -1,6 +1,7 @@
 -- 基本設定
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.scrolloff = 10
 vim.opt.clipboard:append("unnamedplus")
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
