@@ -2,6 +2,37 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "advisorModel": "fable",
   "alwaysThinkingEnabled": true,
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "### User-specific",
+      "**CI/CD deploy targets**: None configured",
+      "**Cloud provider(s)**: None configured",
+      "**Data retention / declassification**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine with open internet",
+      "**Internal package registry**: None configured",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Key internal services**: None configured",
+      "**Network posture**: None configured",
+      "**Org-specific CLIs**: None configured — frequently used personal/dev CLIs observed include pi, npx, herdr, osascript, brew, hidutil, lsof, aerospace, claude, usql, pgcli, hunk, nvim, playwright-mcp, xcode-select, terraform, gh",
+      "**Organization**: None configured",
+      "**Primary use of Claude Code**: software development (personal dotfiles / hobby projects)",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Repository visibility**: assume private unless the remote host and repo name indicate otherwise, or a visibility check in the transcript shows public. A meta line reading `\"visibility\":\"unverified\"` means org policy barred the harness from checking that repo's visibility — treat it as possibly public: scope what is OK to commit or push there as for a public repo, and Out-of-Place Publication below applies to it as to a known-public destination",
+      "**Secrets management**: None configured",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
+      "**Source control**: The trusted repo and its remote(s) only (no additional orgs configured) — as scoped by the Trusted repo and Repository visibility entries above",
+      "**Trusted cloud buckets**: None configured",
+      "**Trusted internal domains**: None configured",
+      "**Trusted repo**: The git repository the agent started in (its working directory) and its configured remote(s). When the repo's public/private visibility is given — by the Repository visibility entry or the user's own message — use it to scope what is OK to commit or push there: confidential material is fine in a private repo; in a public one, only that repo's own work is — and content ported, repointed, or first read from outside this session's repo is not its own work, whoever directed the port. Visibility scopes confidential material only: secrets and sensitive data (personal & entrusted) are never cleared into any repo by its visibility (see Definitions)."
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Bash(pgcli ... -c 'DROP*':*) / destructive SQL via pgcli or usql against non-local databases"
+    ]
+  },
   "effortLevel": "medium",
   "enableAllProjectMcpServers": false,
   "enabledPlugins": {
@@ -70,10 +101,9 @@
     "out/",
     "target/"
   ],
-  "model": "opus[1m]",
+  "model": "opus",
   "permissions": {
     "allow": [
-      "Bash(*)",
       "Bash(kill *)",
       "Bash(killall *)",
       "Bash(pkill *)",
