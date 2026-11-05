@@ -289,6 +289,33 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim" },
   },
 
+  -- gitsigns: 変更行の表示と hunk 操作
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      on_attach = function(bufnr)
+        local gs = require("gitsigns")
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+        end
+        -- diff モード中は標準の ]c / [c（差分間の移動）を優先する
+        map("n", "]c", function()
+          if vim.wo.diff then vim.cmd.normal({ "]c", bang = true }) else gs.nav_hunk("next") end
+        end, "Next hunk")
+        map("n", "[c", function()
+          if vim.wo.diff then vim.cmd.normal({ "[c", bang = true }) else gs.nav_hunk("prev") end
+        end, "Previous hunk")
+        map("n", "<leader>hs", gs.stage_hunk, "Stage hunk")
+        map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
+        map("v", "<leader>hs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Stage lines")
+        map("v", "<leader>hr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Reset lines")
+        map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
+        map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, "Blame line")
+      end,
+    },
+  },
+
   -- Which-key: キーバインディングのヘルプ表示
   {
     "folke/which-key.nvim",
@@ -547,6 +574,7 @@ local wk = require("which-key")
 wk.add({
   { "<leader>f", group = "Find" },
   { "<leader>g", group = "Git" },
+  { "<leader>h", group = "Git hunk" },
   { "<leader>o", group = "Obsidian" },
   { "<leader>ot", group = "apply template" },
   { "<leader>on", group = "new note" },
