@@ -18,7 +18,7 @@
 
 ## Investigation
 - Before reading any repo for an investigation — including a repo other than the one the session started in — run `git pull --ff-only` in that repo, then read the working tree as usual. Pass the same instruction to subagents.
-- If the pull can't bring it to the default branch's latest (on another branch, dirty tree, ff fails), do not switch branches or stash. Run `git fetch` and read `origin/<default-branch>` (`git show origin/main:path`, `git grep <pat> origin/main`) instead; the working-tree tools (LSP, tgrep, rg) would return stale results.
+- If the pull can't bring it to the default branch's latest (on another branch, dirty tree, ff fails), do not switch branches or stash. Run `git fetch` and read `origin/<default-branch>` (`git show origin/main:path`, `git grep <pat> origin/main`) instead; the working-tree tools (LSP, tgrep, rg) would return stale results. This is only for when the pull actually failed — never use `fetch` + `origin/main` as a shortcut in place of a pull that would have succeeded, even when the user says "read the latest main".
 - End every investigation report with the commit it is based on, per repo: `<branch> @ <short-sha>`, or `origin/main @ <short-sha>` when read via the fallback above. If you cannot write the sha, you skipped the update — go back and do it.
 
 ## Handoff
