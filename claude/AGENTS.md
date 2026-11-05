@@ -36,7 +36,7 @@
 - Do not over-engineer solutions (e.g., pre-push hooks, env var schemes). Prefer the simplest correct solution and research industry standards before designing custom mechanisms.
 
 ## Code Comments
-- Prefer comments that explain the non-obvious *why* (rationale, gotcha, constraint) over ones that restate *what* the code does. If the name, types, or a one-line read already make it clear, skip the comment. Keep comments terse.
+- Write a comment only when a future reader, who never saw this session, would otherwise change the code wrongly: a constraint, gotcha, or non-obvious dependency. If the name, types, or a one-line read already make it clear, skip the comment. Keep comments terse.
 
 ## No Speculation
 - Do not write design docs or make technical claims based on speculation. Read the actual code/docs first.
