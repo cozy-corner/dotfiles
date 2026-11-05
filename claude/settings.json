@@ -69,6 +69,10 @@
           {
             "command": "bash \"$HOME/dotfiles/claude/hooks/prefer-tgrep-rg.sh\"",
             "type": "command"
+          },
+          {
+            "command": "bash \"$HOME/dotfiles/claude/hooks/no-branch-create.sh\"",
+            "type": "command"
           }
         ],
         "matcher": "Bash"
@@ -80,6 +84,10 @@
           {
             "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
             "timeout": 10,
+            "type": "command"
+          },
+          {
+            "command": "bash \"$HOME/dotfiles/claude/hooks/inject-repo-docs.sh\"",
             "type": "command"
           }
         ],
@@ -149,7 +157,6 @@
       "Bash(gh issue edit*)",
       "Bash(gh pr close*)",
       "Bash(gh pr create*)",
-      "Bash(gh pr edit*)",
       "Bash(gh pr merge*)",
       "Bash(git branch -D *)",
       "Bash(git checkout -- *)",
