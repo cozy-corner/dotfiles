@@ -37,6 +37,23 @@ vim.keymap.set("c", "%%", function()
   end
 end, { expr = true })
 
+-- パスは cwd 基準の相対パス
+vim.keymap.set("n", "<leader>yf", function()
+  local loc = vim.fn.expand("%:.") .. ":" .. vim.fn.line(".")
+  vim.fn.setreg("+", loc)
+  vim.notify("Yanked: " .. loc)
+end, { desc = "Yank path:line" })
+
+vim.keymap.set("x", "<leader>cc", function()
+  local s, e = vim.fn.line("v"), vim.fn.line(".")
+  if s > e then s, e = e, s end
+  local lines = vim.api.nvim_buf_get_lines(0, s - 1, e, false)
+  local header = string.format('```%s filename="%s" line=%d', vim.bo.filetype, vim.fn.expand("%:."), s)
+  vim.fn.setreg("+", table.concat({ header, table.concat(lines, "\n"), "```" }, "\n"))
+  vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
+  vim.notify(string.format("Copied %d lines as codeblock", e - s + 1))
+end, { desc = "Copy as codeblock" })
+
 -- curl で GET して JSON を返す。失敗時は nil
 -- 同期で待つ: 待機中に打ったキーは先行入力として置換後に処理されるので取りこぼさない
 local function fetch_json(url, params)
