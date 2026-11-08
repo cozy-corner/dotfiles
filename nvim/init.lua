@@ -457,6 +457,13 @@ require("lazy").setup({
       -- 英文チェックは Markdown だけ（既定ではコード中のコメントも対象になる）
       vim.lsp.config("harper_ls", {
         filetypes = { "markdown" },
+        settings = {
+          ["harper-ls"] = {
+            linters = {
+              SentenceCapitalization = false,
+            },
+          },
+        },
       })
 
       -- LSPサーバーを有効化
