@@ -174,8 +174,8 @@
         "KC_NO",
         "KC_NO",
         "KC_NO",
-        "KC_NO",
-        "KC_NO",
+        "KC_GRAVE",
+        "KC_MINUS",
         "KC_MUTE"
       ],
       [
@@ -198,8 +198,8 @@
       ],
       [
         "KC_NO",
-        "KC_RBRACKET",
-        "KC_LBRACKET",
+        "LSFT(KC_RBRACKET)",
+        "LSFT(KC_LBRACKET)",
         "KC_NO",
         "LSFT(KC_QUOTE)",
         "LSFT(KC_EQUAL)",
@@ -207,11 +207,11 @@
       ],
       [
         "KC_NO",
+        "KC_RBRACKET",
+        "KC_LBRACKET",
         "KC_NO",
-        "KC_NO",
-        "KC_NO",
-        "KC_NO",
-        "KC_NO",
+        "KC_QUOTE",
+        "KC_EQUAL",
         -1
       ],
       [
