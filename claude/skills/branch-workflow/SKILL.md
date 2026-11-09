@@ -16,4 +16,4 @@ description: Git branch and worktree policy using `git gtr` (git-worktree-runner
 
 ## Repos that opt out
 
-A repo's own `AGENTS.md` / `CLAUDE.md` takes precedence over this skill. Known opt-outs where work happens directly on `main` with no branch or worktree: `dotfiles`, `<private-repo>`.
+A repo's own `AGENTS.md` / `CLAUDE.md` takes precedence over this skill. If it says to work directly on `main`, do so with no branch or worktree.
