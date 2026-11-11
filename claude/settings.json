@@ -54,6 +54,15 @@
             "command": "bash \"$HOME/dotfiles/claude/hooks/no-partial-doc-read.sh\""
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/claude/hooks/show-doc-outline.sh\""
+          }
+        ]
       }
     ],
     "SessionStart": [
