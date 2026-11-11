@@ -1,6 +1,7 @@
 #!/bin/bash
 # PreToolUse(Edit|Write|MultiEdit): 既存の Markdown を初めて編集するとき、見出し構成を見せてから通す。
 # 「既存の節の型に合わせる」はルールに書いても、書く瞬間に他の節を見ないため守られない。
+trap 'rc=$?; echo "$(date +%FT%T) ${0##*/} exit=$rc" >>"$HOME/.claude/hook-stats.log"' EXIT
 input=$(cat)
 file=$(jq -r '.tool_input.file_path // empty' <<<"$input")
 [[ $file == *.md && -f $file ]] || exit 0

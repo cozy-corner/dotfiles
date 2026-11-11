@@ -1,5 +1,6 @@
 #!/bin/bash
 # PreToolUse(Bash): git checkout -b / switch -c を止める。ブランチ作成は git gtr new に統一する。
+trap 'rc=$?; echo "$(date +%FT%T) ${0##*/} exit=$rc" >>"$HOME/.claude/hook-stats.log"' EXIT
 cmd=$(jq -r '.tool_input.command // empty')
 
 grep -Eq 'git[[:space:]]+(checkout[[:space:]]+-[bB]|switch[[:space:]]+(-c|-C|--create|--force-create))([[:space:]]|$)' <<<"$cmd" || exit 0
