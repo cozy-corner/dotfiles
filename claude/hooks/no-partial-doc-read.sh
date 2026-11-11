@@ -1,6 +1,7 @@
 #!/bin/bash
 # PreToolUse(Bash|Read): README 等を一部だけ読んで全体を読んだつもりになるのを止める。
 # auto mode のシステムプロンプトが head / sed -n での読み取りを勧めるため、AGENTS.md の規則だけでは負ける。
+trap 'rc=$?; echo "$(date +%FT%T) ${0##*/} exit=$rc" >>"$HOME/.claude/hook-stats.log"' EXIT
 input=$(cat)
 doc='(README|CONTRIBUTING|AGENTS|CLAUDE)[^[:space:]/;&|]*'
 msg='Partial read of a project doc is blocked. Read the whole file with the Read tool, without offset/limit.'
