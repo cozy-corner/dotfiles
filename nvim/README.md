@@ -25,11 +25,13 @@
 
 ## LSP サーバー (Mason)
 
-`lua_ls`, `ts_ls`, `pyright`, `rust_analyzer`, `kotlin_language_server`, `fsautocomplete`
+`lua_ls`, `ts_ls`, `pyright`, `rust_analyzer`, `fsautocomplete`
 
 ## LSP サーバー (Mason 外)
 
 `gleam` — LSP は gleam 本体に同梱。`gleam` コマンドがある環境でだけ有効化される (要 `brew install gleam erlang rebar3`)
+
+`kotlin_lsp` — JetBrains 公式。`kotlin-lsp` コマンドがある環境でだけ有効化される (要 `brew install JetBrains/utils/kotlin-lsp`)
 
 ## キーバインド
 

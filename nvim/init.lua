@@ -127,7 +127,6 @@ local lsp_servers = (function()
   local servers = {
     "lua_ls",
     "ts_ls",
-    "kotlin_language_server",
     "harper_ls",
   }
   local optional = {
@@ -473,6 +472,12 @@ require("lazy").setup({
       -- gleam の LSP は gleam 本体に同梱で Mason 管理外なので lsp_servers（ensure_installed に渡る）とは別に有効化
       if vim.fn.executable("gleam") == 1 then
         vim.lsp.enable("gleam")
+      end
+
+      if vim.fn.executable("kotlin-lsp") == 1 then
+        -- lspconfig 既定の cmd は intellij-server で brew 版の実行名と合わない
+        vim.lsp.config("kotlin_lsp", { cmd = { "kotlin-lsp", "--stdio" } })
+        vim.lsp.enable("kotlin_lsp")
       end
 
       -- LSP attach時のキーマッピング設定
