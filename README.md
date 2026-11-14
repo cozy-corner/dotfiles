@@ -25,7 +25,7 @@ cd ~/dotfiles
 | `ghostty/` | Ghostty ターミナル設定、カスタムカーソルシェーダー、テーマ |
 | `zed/` | Zed エディタ設定 (`settings.json` / `keymap.json`) |
 | `aerospace/` | AeroSpace ウィンドウマネージャ設定 |
-| `karabiner/` | Karabiner-Elements 設定（Cornix ダイヤルで Night Shift 色温度を変更。要 `nightlight`） |
+| [`karabiner/`](karabiner/) | Karabiner-Elements 設定 ([詳細](karabiner/README.md)) |
 | `atuin/` | Atuin シェル履歴設定 |
 | `claude/` | Claude Code の設定・カスタムコマンド・エージェント定義 |
 | `cursor/` | Cursor CLI。Claude の承認設定を `~/.cursor/cli-config.json` へ merge（ライブファイルは symlink しない） |
@@ -39,6 +39,7 @@ cd ~/dotfiles
 - **ターミナル**: [Ghostty](https://ghostty.org)
 - **エディタ**: [Neovim](https://neovim.io)
 - **ウィンドウマネージャ**: [AeroSpace](https://github.com/nikitabobko/AeroSpace)
+- **キーリマップ**: [Karabiner-Elements](https://karabiner-elements.pqrs.org)
 - **Git**: [delta](https://github.com/dandavison/delta) + [CodeRabbit](https://coderabbit.ai)
 - **AI**: [Claude Code](https://claude.ai/claude-code) / [Cursor CLI](https://cursor.com/docs/cli/overview)（承認は Claude user 設定に揃える）
 - **その他**: mise, direnv, eza, tealdeer
