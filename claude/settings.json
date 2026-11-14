@@ -36,24 +36,15 @@
       {
         "hooks": [
           {
-            "command": "bash \"$HOME/dotfiles/claude/hooks/prefer-tgrep-rg.sh\"",
+            "command": "bash \"$HOME/dotfiles/claude/hooks/no-branch-create.sh\"",
             "type": "command"
           },
           {
-            "command": "bash \"$HOME/dotfiles/claude/hooks/no-branch-create.sh\"",
+            "command": "bash \"$HOME/dotfiles/claude/hooks/prefer-tgrep-rg.sh\"",
             "type": "command"
           }
         ],
         "matcher": "Bash"
-      },
-      {
-        "matcher": "Bash|Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$HOME/dotfiles/claude/hooks/no-partial-doc-read.sh\""
-          }
-        ]
       }
     ],
     "SessionStart": [
