@@ -17,6 +17,9 @@ ln -sf ~/dotfiles/ghostty/shaders ~/.config/ghostty/shaders
 mkdir -p ~/.config
 rm -rf ~/.config/aerospace
 ln -sf ~/dotfiles/aerospace ~/.config/aerospace
+# karabiner.json 単体を symlink にすると変更検知されないため、ディレクトリごとリンクする
+rm -rf ~/.config/karabiner
+ln -sf ~/dotfiles/karabiner ~/.config/karabiner
 mkdir -p ~/.config/gh
 rm -f ~/.config/gh/config.yml
 ln -sf ~/dotfiles/gh/config.yml ~/.config/gh/config.yml
