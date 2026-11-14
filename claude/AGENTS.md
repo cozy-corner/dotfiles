@@ -25,6 +25,7 @@
 - 作業状態の引き継ぎメモは、リポジトリのルート直下に `HANDOFF.md` として1枚だけ置く。サブディレクトリには置かない — 次のセッションが探さずに最初に目にする位置に置くため。調査メモのような永続する知識とは別物なので、それらと同じ場所に並べない。
 - 内容は常に上書きして1枚に保つ。セッションごとにファイルを増やさない。
 - `HANDOFF.md` は commit しない。揮発物なので git 管理の対象外。共有される `.gitignore` は編集せず、必要なら `.git/info/exclude` に追記する。
+- 文書の修正で合意した要点は、合意したその場で `HANDOFF.md` の「合意済みの要点」に一覧として書く。修正のたびに、一覧の各項目が修正後の本文のどこにあるかを示してから報告する — 会話にしかない合意は修正を重ねるうちに消えるため。該当箇所を示せば、消えた要点にユーザーが一目で気づける。
 
 ## Git Workflow
 - When addressing multiple review findings or items in one request, make one commit per item. Do not bundle unrelated changes into a single commit.
