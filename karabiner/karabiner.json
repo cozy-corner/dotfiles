@@ -1,0 +1,83 @@
+{
+    "profiles": [
+        {
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 834,
+                        "vendor_id": 1452
+                    },
+                    "ignore": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 9491,
+                        "vendor_id": 1241
+                    },
+                    "ignore": false,
+                    "simple_modifications": [
+                        {
+                            "from": {
+                                "key_code": "caps_lock"
+                            },
+                            "to": [
+                                {
+                                    "key_code": "left_control"
+                                }
+                            ]
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_control"
+                            },
+                            "to": [
+                                {
+                                    "key_code": "grave_accent_and_tilde"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "name": "Default profile",
+            "selected": true,
+            "virtual_hid_keyboard": {
+                "keyboard_type_v2": "ansi"
+            },
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "Cornix dial: Night Shift temperature (F18 -10 / F19 +10)",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "f18"
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "t=$(/opt/homebrew/bin/nightlight temp); t=$((t-10)); [ $t -lt 0 ] && t=0; /opt/homebrew/bin/nightlight temp $t"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "f19"
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "t=$(/opt/homebrew/bin/nightlight temp); t=$((t+10)); [ $t -gt 100 ] && t=100; /opt/homebrew/bin/nightlight temp $t"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
