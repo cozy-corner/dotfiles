@@ -1,5 +1,6 @@
 #!/bin/bash
 # PreToolUse(Bash): 再帰 grep を止める。tgrep / rg の使い分けは AGENTS.md の規則に任せる。
+trap 'rc=$?; echo "$(date +%FT%T) ${0##*/} exit=$rc" >>"$HOME/.claude/hook-stats.log"' EXIT
 cmd=$(jq -r '.tool_input.command // empty')
 
 # パイプ後段 (| の直後) は対象外
