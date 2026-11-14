@@ -7,15 +7,17 @@ macOS 向けの個人用 dotfiles。キーボード駆動の操作と Catppuccin
 ```bash
 git clone git@github.com:cozy-corner/dotfiles.git ~/dotfiles
 cd ~/dotfiles
+brew bundle
 ./install.sh
 ```
 
-`install.sh` は各設定ファイルへのシンボリックリンクを作成する。
+`brew bundle` は [`Brewfile`](Brewfile) の Homebrew パッケージを入れる。`install.sh` は各設定ファイルへのシンボリックリンクを作成する。
 
 ## 構成
 
 | ディレクトリ / ファイル | 内容 |
 |---|---|
+| `Brewfile` | 設定が前提とする Homebrew パッケージ |
 | `.zshrc` | Zsh 設定。fzf / zoxide / atuin / direnv / mise 連携、git 関連関数群 |
 | `.tmux.conf` | tmux 設定。prefix は `Ctrl-Q`、Vi キーバインド |
 | `.gitconfig` | Git 設定。delta (side-by-side diff) |

@@ -7,7 +7,7 @@
 | プラグイン | 用途 |
 |---|---|
 | [rebelot/kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim) | カラースキーム (Wave) |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | parser 管理 (main ブランチ。要 `brew install tree-sitter-cli`) |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | parser 管理 (main ブランチ。要 `tree-sitter-cli`) |
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | ファジーファインダー |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP クライアント設定 |
 | [mason.nvim](https://github.com/williamboman/mason.nvim) + mason-lspconfig | LSP サーバー管理 |
@@ -29,9 +29,9 @@
 
 ## LSP サーバー (Mason 外)
 
-`gleam` — LSP は gleam 本体に同梱。`gleam` コマンドがある環境でだけ有効化される (要 `brew install gleam erlang rebar3`)
+`gleam` — LSP は gleam 本体に同梱。`gleam` コマンドがある環境でだけ有効化される (要 `gleam` `erlang` `rebar3`)
 
-`kotlin_lsp` — JetBrains 公式。`kotlin-lsp` コマンドがある環境でだけ有効化される (要 `brew install JetBrains/utils/kotlin-lsp`)
+`kotlin_lsp` — JetBrains 公式。`kotlin-lsp` コマンドがある環境でだけ有効化される (要 `kotlin-lsp`)
 
 ## キーバインド
 
