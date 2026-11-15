@@ -40,7 +40,7 @@
 - Commit messages: use Conventional Commits format for the subject line — `type(scope): summary` (e.g. `feat(pi): ...`, `fix(install): ...`, `docs: ...`, `refactor(pgcli): ...`). Subject line only, concise, summarizing *what* changed. Do not add a body by default — do not narrate *how* it was implemented or re-list changes file-by-file; the diff already shows that. If the repo has an ADR/PR-description convention for large rationale, use that instead of the commit body. Only add a short one-line body when there's genuinely commit-scoped context not captured elsewhere.
 
 ## Scope Discipline
-- Do not add refactors, parallelization, hooks, or settings.json changes that were not explicitly requested.
+- Do not add refactors, parallelization, hooks, or settings.json changes unrelated to the requested change.
 - When the user asks a question, ANSWER FIRST before taking any action or making changes.
 - Do not over-engineer solutions (e.g., pre-push hooks, env var schemes). Prefer the simplest correct solution and research industry standards before designing custom mechanisms.
 
