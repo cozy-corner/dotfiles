@@ -30,12 +30,12 @@
 - ユーザーに確認を頼むときは、確認してほしい内容を会話に直接出す。HANDOFF.md や合意ファイルを開くよう案内しない。
 
 ## 合意の記録
-- 合意ファイルは、文書を直すたびに合意が本文から消えていないか照合するためのチェックリスト。会話にしかない合意は修正を重ねるうちに消え、蒸し返しの原因になる。次のセッションへの引き継ぎ用ではない（それは HANDOFF.md）。
-- 文書の修正で合意した要点は、合意したその場で、その文書の隣の `<文書名>.agreements.md` に追記する（例: `docs/event-storming.md` → `docs/event-storming.agreements.md`）。HANDOFF.md には書かない — 合意は文書が変わり続ける間ずっと必要で、上書きされる作業状態とは寿命が違うため。
+- 合意ファイルの一番の目的は、会話で合意したことを後で蒸し返さないこと。会話にしかない合意はセッションや修正を重ねるうちに消え、蒸し返しの原因になる。文書を直すときは、合意が本文から消えていないかの照合にも使う。次のセッションへの引き継ぎ用ではない（それは HANDOFF.md）。
+- 合意した要点は、合意したその場で追記する。文書に紐づく合意はその文書の隣の `<文書名>.agreements.md`（例: `docs/event-storming.md` → `docs/event-storming.agreements.md`）、どの文書にも紐づかない合意はリポジトリのルート直下の `AGREEMENTS.md` に書く。HANDOFF.md には書かない — 合意はずっと必要で、上書きされる作業状態とは寿命が違うため。
 - 追記・修正したら、何をどう書いたかを会話に出す — 取り違えにユーザーがその場で気づけるように。
 - 合意ファイルは上書きしない。合意を変えるのは、ユーザーと合意し直したときだけ。
 - その文書について答える前と、本文を直すたびに合意ファイルと照らす。直したら、各要点が修正後の本文のどこにあるかを示してから報告する。
-- 合意ファイルは commit しない。`~/.config/git/ignore` の `*.agreements.md` で全リポジトリから除外している。
+- 合意ファイルは commit しない。`~/.config/git/ignore` の `*.agreements.md` と `AGREEMENTS.md` で全リポジトリから除外している。
 
 ## Git Workflow
 - When addressing multiple review findings or items in one request, make one commit per item. Do not bundle unrelated changes into a single commit.
