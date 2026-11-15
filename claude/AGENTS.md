@@ -22,6 +22,7 @@
 - End every investigation report with the commit it is based on, per repo: `<branch> @ <short-sha>`, or `origin/main @ <short-sha>` when read via the fallback above. If you cannot write the sha, you skipped the update — go back and do it.
 
 ## Handoff
+- HANDOFF.md を書く・更新するのは、ユーザーが引き継ぎを頼んだときだけ。既存の HANDOFF.md が古くても、頼まれなければ触らない。
 - 作業状態の引き継ぎメモは、リポジトリのルート直下に `HANDOFF.md` として1枚だけ置く。サブディレクトリには置かない — 次のセッションが探さずに最初に目にする位置に置くため。調査メモのような永続する知識とは別物なので、それらと同じ場所に並べない。
 - 書くのは作業状態だけ: 何をしているか、どこで止まっているか、次に何をするか、成果物と合意ファイルの場所。成果物の本文は書かない — 本文は別ファイルに置き、HANDOFF.md には場所と状態（例: 「docs/event-storming.md、ユーザーの確認待ち」）だけを書く。
 - 内容は常に上書きして1枚に保つ。上書きとは、前の記載を捨てて今の状態に書き直すこと。セッションごとにファイルを増やさない。
