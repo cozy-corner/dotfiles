@@ -311,6 +311,21 @@ require("lazy").setup({
         map("v", "<leader>hr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Reset lines")
         map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
         map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, "Blame line")
+        -- PR レビュー用: 差分の基準を main との merge-base に切り替え、sign を PR の変更行だけにする
+        map("n", "<leader>hd", function()
+          if vim.g.gitsigns_pr_base then
+            vim.g.gitsigns_pr_base = false
+            gs.change_base(nil, true)
+            return
+          end
+          local base = vim.trim(vim.fn.system({ "git", "merge-base", "origin/main", "HEAD" }))
+          if vim.v.shell_error ~= 0 then
+            vim.notify("merge-base origin/main HEAD に失敗", vim.log.levels.ERROR)
+            return
+          end
+          vim.g.gitsigns_pr_base = true
+          gs.change_base(base, true)
+        end, "Toggle diff base: PR (merge-base origin/main)")
       end,
     },
   },

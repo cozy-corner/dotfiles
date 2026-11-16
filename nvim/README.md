@@ -74,6 +74,7 @@
 | `<Leader>hr` | hunk を元に戻す（Visual では選択行） |
 | `<Leader>hp` | hunk をプレビュー |
 | `<Leader>hb` | カーソル行の blame |
+| `<Leader>hd` | 差分の基準を `origin/main` との merge-base に切替/復帰（PR の変更行だけ sign 表示） |
 
 ### LSP
 
