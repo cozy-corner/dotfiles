@@ -10,5 +10,8 @@
 - `~/.claude/settings.json` のリンク先。稼働中の Claude Code 自身が `model` や `effortLevel` などを随時書き戻すため、未コミットの差分が定常的に存在する。`/model` でデフォルトを変えると `model` キーが書き戻される（キーを消しても再追加される）。
 - `git merge` / `git rebase` / `git checkout` がこのファイルでブロックされたとき、`stash` や `skip-worktree` での退避は効かない。アプリが直後にほぼ同一内容で再生成するため空振りする。
 
+## 移植性
+- 追跡するファイルに、ユーザー名入りの絶対パス（`/Users/<name>/...`、`/home/<name>/...`）を書かない。`~`、`$HOME`、または各ツールの標準の既定パスを使う。`claude/hooks/no-user-path.sh` が dotfiles 配下への書き込みで止める。
+
 ## .zshrc
 - マシン固有の値（vault パス、ホスト個別の PATH、インストーラが追記するブロック）は、追跡されている `.zshrc` ではなく `~/.zshrc_local`（追跡外）に置く。`.zshrc` から source される。
