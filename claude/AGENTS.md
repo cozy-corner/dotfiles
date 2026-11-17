@@ -47,7 +47,9 @@
 - Do not over-engineer solutions (e.g., pre-push hooks, env var schemes). Prefer the simplest correct solution and research industry standards before designing custom mechanisms.
 
 ## Code Comments
-- Prefer comments that explain the non-obvious *why* (rationale, gotcha, constraint) over ones that restate *what* the code does — but only a why that helps someone reading the code later. If the name, types, or a one-line read already make it clear, skip the comment. Keep comments terse.
+- Default to no comment. Add one only when a future reader, seeing just the code, would likely "fix" or remove something that is deliberately that way (a hidden constraint, a workaround for an external bug, a surprising ordering) — and the reader cannot learn it from the name, types, or a one-line read.
+- Do not comment *why this change was made* (e.g. "exact match because a similarly named item exists"). The diff already shows it, and it goes stale. A *why* that is merely true is not enough; it must prevent a mistake.
+- Test before writing one: "If I delete this comment, what breaks or gets mis-edited?" If nothing, don't write it. Keep any surviving comment terse.
 
 ## No Speculation
 - Do not write design docs or make technical claims based on speculation. Read the actual code/docs first.
