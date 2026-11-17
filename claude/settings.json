@@ -43,6 +43,10 @@
           {
             "command": "bash \"$HOME/dotfiles/claude/hooks/prefer-tgrep-rg.sh\"",
             "type": "command"
+          },
+          {
+            "command": "bash \"$HOME/dotfiles/claude/hooks/no-fixup-push.sh\"",
+            "type": "command"
           }
         ],
         "matcher": "Bash"
