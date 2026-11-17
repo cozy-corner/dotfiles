@@ -61,6 +61,10 @@
           {
             "command": "bash \"$HOME/dotfiles/claude/hooks/show-doc-outline.sh\"",
             "type": "command"
+          },
+          {
+            "command": "bash \"$HOME/dotfiles/claude/hooks/no-user-path.sh\"",
+            "type": "command"
           }
         ],
         "matcher": "Edit|Write|MultiEdit"
