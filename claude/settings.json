@@ -89,6 +89,16 @@
         ],
         "matcher": "*"
       }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/claude/hooks/question-reminder.sh\""
+          }
+        ]
+      }
     ]
   },
   "ignorePatterns": [
