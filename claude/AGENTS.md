@@ -45,7 +45,7 @@
 
 ## Scope Discipline
 - Do not add refactors, parallelization, hooks, or settings.json changes unrelated to the requested change.
-- When the user asks a question, ANSWER FIRST before taking any action or making changes.
+- 質問（「なぜ〜？」「〜できる？」など、批判や詰問の形も含む）には、答えを返してそのターンを終える。答えが手元の情報（会話・自分が書いたコード）で出せるなら、調べずにすぐ答える。足りないときだけ、答えに必要な範囲で読み取りだけの調査（Read・grep・ログ確認など）をしてよい。ファイルの編集、状態を変えるコマンド、修正の提案や「修正します」宣言はしない。次の指示を待つ。
 - Do not over-engineer solutions (e.g., pre-push hooks, env var schemes). Prefer the simplest correct solution and research industry standards before designing custom mechanisms.
 
 ## Code Comments
