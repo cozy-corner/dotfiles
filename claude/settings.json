@@ -85,6 +85,10 @@
           {
             "command": "bash \"$HOME/dotfiles/claude/hooks/inject-repo-docs.sh\"",
             "type": "command"
+          },
+          {
+            "command": "bash \"$HOME/dotfiles/claude/hooks/inject-session-agreements.sh\"",
+            "type": "command"
           }
         ],
         "matcher": "*"
