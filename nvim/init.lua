@@ -476,6 +476,7 @@ require("lazy").setup({
             linters = {
               SentenceCapitalization = false,
               UseTitleCase = false,
+              ToDoHyphen = false,
             },
           },
         },
