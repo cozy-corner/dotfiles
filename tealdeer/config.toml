@@ -37,7 +37,7 @@ show_title = false
 auto_update = false
 auto_update_interval_hours = 720
 archive_source = "https://github.com/tldr-pages/tldr/releases/latest/download/"
-tls_backend = "rustls-with-webpki-roots"
+tls_backend = "rustls-with-native-roots"
 
 [directories]
 
