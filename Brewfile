@@ -2,7 +2,6 @@
 
 # shell
 brew "olets/tap/zsh-abbr"
-brew "mise"
 
 # editor
 brew "JetBrains/utils/kotlin-lsp"
@@ -13,13 +12,10 @@ brew "erlang"
 brew "rebar3"
 
 # terminal
-brew "herdr"
 
 # git
 
 # CLI
-brew "ripgrep"
-brew "hunk"
 brew "pgcli"
 brew "libpq"
 brew "blueutil"

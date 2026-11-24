@@ -10,17 +10,25 @@
     bat
     delta
     direnv
+    exercism
     eza
     fd
     fzf
     gh
+    git-filter-repo
+    herdr
+    hunk
     jq
+    mise
     neovim
+    opencode
     ripgrep
     tealdeer
     tmux
     tree
     tree-sitter
+    usql
+    uv
     vivid
     zoxide
   ];
