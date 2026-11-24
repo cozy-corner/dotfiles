@@ -15,10 +15,12 @@
     fzf
     gh
     jq
+    neovim
     ripgrep
     tealdeer
     tmux
     tree
+    tree-sitter
     vivid
     zoxide
   ];

@@ -5,8 +5,6 @@ brew "olets/tap/zsh-abbr"
 brew "mise"
 
 # editor
-brew "neovim"
-brew "tree-sitter-cli"
 brew "JetBrains/utils/kotlin-lsp"
 
 # 言語
