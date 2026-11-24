@@ -22,6 +22,8 @@
     mise
     neovim
     opencode
+    pgcli
+    postgresql
     ripgrep
     tealdeer
     tmux

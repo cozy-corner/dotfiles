@@ -16,8 +16,6 @@ brew "rebar3"
 # git
 
 # CLI
-brew "pgcli"
-brew "libpq"
 brew "blueutil"
 brew "smudge/smudge/nightlight"
 

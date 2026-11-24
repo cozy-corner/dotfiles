@@ -198,7 +198,6 @@ export PATH="$HOME/go/bin:$PATH"
 [ -f ~/tools/git-worktree-runner/completions/git-gtr.zsh ] && source ~/tools/git-worktree-runner/completions/git-gtr.zsh
 # Load mise if installed (handles environment-specific tools)
 command -v mise &> /dev/null && eval "$(mise activate zsh)"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # tealdeer
 export TEALDEER_CONFIG_DIR="$HOME/.config/tealdeer"
