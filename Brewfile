@@ -1,17 +1,8 @@
 # dotfiles の設定が前提とする Homebrew パッケージ
-
-# shell
+# CLI ツールは nix/home.nix で管理する
 
 # editor
 brew "JetBrains/utils/kotlin-lsp"
-
-# 言語
-
-# terminal
-
-# git
-
-# CLI
 
 # app
 cask "ghostty"
