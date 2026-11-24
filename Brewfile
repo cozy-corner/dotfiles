@@ -12,8 +12,6 @@ brew "JetBrains/utils/kotlin-lsp"
 # git
 
 # CLI
-brew "blueutil"
-brew "smudge/smudge/nightlight"
 
 # app
 cask "ghostty"

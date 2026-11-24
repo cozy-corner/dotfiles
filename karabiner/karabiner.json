@@ -59,7 +59,7 @@
                                 },
                                 "to": [
                                     {
-                                        "shell_command": "t=$(/opt/homebrew/bin/nightlight temp); t=$((t-10)); [ $t -lt 0 ] && t=0; /opt/homebrew/bin/nightlight temp $t"
+                                        "shell_command": "t=$($HOME/.nix-profile/bin/nightlight temp); t=$((t-10)); [ $t -lt 0 ] && t=0; $HOME/.nix-profile/bin/nightlight temp $t"
                                     }
                                 ]
                             },
@@ -70,7 +70,7 @@
                                 },
                                 "to": [
                                     {
-                                        "shell_command": "t=$(/opt/homebrew/bin/nightlight temp); t=$((t+10)); [ $t -gt 100 ] && t=100; /opt/homebrew/bin/nightlight temp $t"
+                                        "shell_command": "t=$($HOME/.nix-profile/bin/nightlight temp); t=$((t+10)); [ $t -gt 100 ] && t=100; $HOME/.nix-profile/bin/nightlight temp $t"
                                     }
                                 ]
                             }

@@ -10,6 +10,7 @@
     bat
     beam.packages.erlang_29.erlang
     beam.packages.erlang_29.rebar3
+    blueutil
     delta
     direnv
     exercism
@@ -24,6 +25,7 @@
     jq
     mise
     neovim
+    nightlight
     opencode
     pgcli
     postgresql
