@@ -98,6 +98,16 @@
         "matcher": "*"
       }
     ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "bash \"$HOME/dotfiles/claude/hooks/no-unverified-ending.sh\"",
+            "type": "command"
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
