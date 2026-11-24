@@ -18,6 +18,7 @@ brew bundle
 | ディレクトリ / ファイル | 内容 |
 |---|---|
 | `Brewfile` | 設定が前提とする Homebrew パッケージ |
+| `nix/` | Home Manager (flake) の設定。`home-manager switch --impure --flake ~/dotfiles/nix#default` で適用 |
 | `.zshrc` | Zsh 設定。fzf / zoxide / atuin / direnv / mise 連携、git 関連関数群 |
 | `.tmux.conf` | tmux 設定。prefix は `Ctrl-Q`、Vi キーバインド |
 | `.gitconfig` | Git 設定。delta (side-by-side diff) |
