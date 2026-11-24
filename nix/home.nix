@@ -36,6 +36,7 @@
     uv
     vivid
     zoxide
+    zsh-abbr
   ];
 
   programs.home-manager.enable = true;

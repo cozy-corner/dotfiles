@@ -1,7 +1,6 @@
 # dotfiles の設定が前提とする Homebrew パッケージ
 
 # shell
-brew "olets/tap/zsh-abbr"
 
 # editor
 brew "JetBrains/utils/kotlin-lsp"
