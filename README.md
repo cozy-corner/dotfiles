@@ -7,17 +7,22 @@ macOS 向けの個人用 dotfiles。キーボード駆動の操作と Catppuccin
 ```bash
 git clone git@github.com:cozy-corner/dotfiles.git ~/dotfiles
 cd ~/dotfiles
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+nix run home-manager/master -- switch --impure --flake ~/dotfiles/nix#default
 brew bundle
 ./install.sh
 ```
 
-`brew bundle` は [`Brewfile`](Brewfile) の Homebrew パッケージを入れる。`install.sh` は各設定ファイルへのシンボリックリンクを作成する。
+Nix は Determinate Nix Installer で入れ、CLI ツールは Home Manager（[`nix/home.nix`](nix/home.nix)）で入れる。
+`brew bundle` は [`Brewfile`](Brewfile) の GUI アプリなどを入れる。
+`install.sh` は各設定ファイルへのシンボリックリンクを作成する。
+更新・ロールバック・GC の手順は [`doc/nix.md`](doc/nix.md)。
 
 ## 構成
 
 | ディレクトリ / ファイル | 内容 |
 |---|---|
-| `Brewfile` | 設定が前提とする Homebrew パッケージ |
+| `Brewfile` | Homebrew に残す GUI アプリなど |
 | `nix/` | Home Manager (flake) の設定。`home-manager switch --impure --flake ~/dotfiles/nix#default` で適用 |
 | `.zshrc` | Zsh 設定。fzf / zoxide / atuin / direnv / mise 連携、git 関連関数群 |
 | `.tmux.conf` | tmux 設定。prefix は `Ctrl-Q`、Vi キーバインド |
