@@ -7,9 +7,6 @@ brew "olets/tap/zsh-abbr"
 brew "JetBrains/utils/kotlin-lsp"
 
 # 言語
-brew "gleam"
-brew "erlang"
-brew "rebar3"
 
 # terminal
 

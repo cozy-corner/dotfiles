@@ -8,6 +8,8 @@
   home.packages = with pkgs; [
     atuin
     bat
+    beam.packages.erlang_29.erlang
+    beam.packages.erlang_29.rebar3
     delta
     direnv
     exercism
@@ -16,6 +18,7 @@
     fzf
     gh
     git-filter-repo
+    gleam
     herdr
     hunk
     jq
