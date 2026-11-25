@@ -1,11 +1,11 @@
 #!/bin/bash
-# SessionStart: このセッションの合意ファイル ~/.local/state/agents/agreements/<session_id>.md の場所と中身を流し込む。
+# SessionStart: このセッションの合意ファイル ~/.claude/agreements/<session_id>.md の場所と中身を流し込む。
 # session_id は再開(resume)しても変わらないので、再開時も同じファイルが見える。
 trap 'rc=$?; echo "$(date +%FT%T) ${0##*/} exit=$rc" >>"$HOME/.claude/hook-stats.log"' EXIT
 sid=$(jq -r '.session_id // empty')
 [ -n "$sid" ] || exit 0
 
-dir="$HOME/.local/state/agents/agreements"
+dir="$HOME/.claude/agreements"
 mkdir -p "$dir" || exit 0
 file="$dir/$sid.md"
 
