@@ -35,6 +35,7 @@ Nix は Determinate Nix Installer で入れ、CLI ツールは Home Manager（[`
 | `aerospace/` | AeroSpace ウィンドウマネージャ設定 |
 | [`karabiner/`](karabiner/) | Karabiner-Elements 設定 ([詳細](karabiner/README.md)) |
 | `atuin/` | Atuin シェル履歴設定 |
+| `agents/` | Claude Code / opencode / pi が共通で読むグローバルの指示（`AGENTS.md`） |
 | `claude/` | Claude Code の設定・カスタムコマンド・エージェント定義 |
 | `cursor/` | Cursor CLI。Claude の承認設定を `~/.cursor/cli-config.json` へ merge（ライブファイルは symlink しない） |
 | `gh/` | GitHub CLI 設定 |

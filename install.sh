@@ -47,7 +47,7 @@ python3 ~/dotfiles/cursor/sync-from-claude.py
 # opencode
 mkdir -p ~/.config/opencode
 rm -f ~/.config/opencode/AGENTS.md
-ln -sf ~/dotfiles/claude/AGENTS.md ~/.config/opencode/AGENTS.md
+ln -sf ~/dotfiles/agents/AGENTS.md ~/.config/opencode/AGENTS.md
 
 # tealdeer
 mkdir -p ~/.config/tealdeer
@@ -85,7 +85,7 @@ ln -sf ~/dotfiles/pi/keybindings.json ~/.pi/agent/keybindings.json
 rm -f ~/.pi/agent/prompts
 ln -sf ~/dotfiles/pi/prompts ~/.pi/agent/prompts
 rm -f ~/.pi/agent/AGENTS.md
-ln -sf ~/dotfiles/claude/AGENTS.md ~/.pi/agent/AGENTS.md
+ln -sf ~/dotfiles/agents/AGENTS.md ~/.pi/agent/AGENTS.md
 rm -f ~/.pi/agent/mcp.json
 ln -sf ~/dotfiles/pi/mcp.json ~/.pi/agent/mcp.json
 mkdir -p ~/.pi/agent/extensions
