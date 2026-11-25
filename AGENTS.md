@@ -1,6 +1,6 @@
 # dotfiles
 
-個人の設定ファイル置き場。`install.sh` が各ファイルをホームディレクトリへシンボリックリンクする（`~/.claude/CLAUDE.md` → `claude/AGENTS.md`、`~/.claude/settings.json` → `claude/settings.json` など）。つまりこのリポジトリのファイルは、編集した時点で稼働中の設定そのものになる。
+個人の設定ファイル置き場。`install.sh` が各ファイルをホームディレクトリへシンボリックリンクする（`~/.claude/CLAUDE.md` → `claude/CLAUDE.md`、`~/.claude/settings.json` → `claude/settings.json` など）。つまりこのリポジトリのファイルは、編集した時点で稼働中の設定そのものになる。
 
 ## Git
 - このリポジトリでは `main` で直接作業する。ブランチも worktree も作らない。稼働中の設定は main のチェックアウトからリンクされているため、ブランチ上の変更はマージするまで反映されない。

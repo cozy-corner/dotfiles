@@ -1,6 +1,5 @@
 # Rules
 
-- For code symbol resolution (finding where a symbol is defined, referenced, or implemented), prefer the LSP tool (goToDefinition / findReferences / goToImplementation) over Grep — it uses type information, so it is more precise and won't confuse same-named symbols. Fall back to Grep for plain-text search or when no language server is configured.
 - For plain-text/content search in a repo, first check that `<repo-root>/.tgrep` exists (`tgrep status` always exits 0, even with no index, so don't rely on its exit code). If it exists, use `tgrep` for the search; otherwise use `rg` (ripgrep) instead.
 
 ## Subagents
@@ -31,7 +30,7 @@
 
 ## 合意の記録
 - 合意ファイルの一番の目的は、会話で合意したことを後で蒸し返さないこと。会話にしかない合意はセッションや修正を重ねるうちに消え、蒸し返しの原因になる。文書を直すときは、合意が本文から消えていないかの照合にも使う。次のセッションへの引き継ぎ用ではない（それは HANDOFF.md）。
-- 合意した要点は、文書の中身に限らず作業の進め方なども含めて、合意したその場で、そのセッションの合意ファイル `~/.claude/agreements/<session_id>.md` に追記する（場所と中身は SessionStart hook が会話に出す。再開しても session_id は同じ）。HANDOFF.md には書かない — 合意はずっと必要で、上書きされる作業状態とは寿命が違うため。
+- 合意した要点は、文書の中身に限らず作業の進め方なども含めて、合意したその場で、そのセッションの合意ファイルに追記する。合意ファイルは `~/.claude/agreements/` に1セッション1枚置く。ハーネスが場所を会話に示していればそれを使う。示していなければ、最初に記録するときに新しく作り、そのパスを会話に出して、そのセッションではそれを使い続ける。HANDOFF.md には書かない — 合意はずっと必要で、上書きされる作業状態とは寿命が違うため。
 - 作業の依頼（調査・設計・実装・再発防止など）を受けたら、調べたり作ったりする前に、課題を一文にしてユーザーに確かめ、確認が取れたら最初の合意として記録する。一文には、何を解決したいかと、課題の種類（コードのバグ・環境や手順・作業の進め方・運用など）を入れる — 課題や種類を取り違えたまま進めると、その上に積んだ調査や変更がすべて手戻りになるため。
 - 合意は結論だけでなく理由も書く（`合意: …` / `理由: …`）。文面に当てはまらない場面でも、理由が成り立つなら同じ合意の範囲内と判断できるようにするため。
 - 追記・修正したら、何をどう書いたかを会話に出す — 取り違えにユーザーがその場で気づけるように。
