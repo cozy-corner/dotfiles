@@ -44,6 +44,11 @@ rm -f ~/.cursor/statusline-command.sh
 ln -sf ~/dotfiles/cursor/statusline-command.sh ~/.cursor/statusline-command.sh
 python3 ~/dotfiles/cursor/sync-from-claude.py
 
+# opencode
+mkdir -p ~/.config/opencode
+rm -f ~/.config/opencode/AGENTS.md
+ln -sf ~/dotfiles/claude/AGENTS.md ~/.config/opencode/AGENTS.md
+
 # tealdeer
 mkdir -p ~/.config/tealdeer
 rm -f ~/.config/tealdeer/config.toml
