@@ -7,7 +7,7 @@ input=$(cat)
 [ "$(jq -r '.stop_hook_active // false' <<<"$input")" = "true" ] && exit 0
 
 msg=$(jq -r '.last_assistant_message // empty' <<<"$input")
-pattern='未確認|確認していません|確認できていません|確認しておりません|要確認|確認が必要|断言できません|読んでいない|読んでいません|見ていない|見ていません|調べますか|確認しますか|確認しましょうか|必要なら.{0,40}確認します|unverified|not verified|haven.t (confirmed|verified|checked)|shall I check'
+pattern='未確認|確認していません|確認できていません|確認しておりません|要確認|確認が必要|断言できません|読んでいない|読んでいません|読めていません|読めていない|見ていない|見ていません|調べますか|確認しますか|確認しましょうか|必要なら.{0,40}確認します|unverified|not verified|haven.t (confirmed|verified|checked)|shall I check'
 hit=$(grep -Eoi "$pattern" <<<"$msg" | sort -u | paste -sd ',' -)
 [ -n "$hit" ] || exit 0
 
