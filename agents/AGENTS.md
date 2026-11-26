@@ -66,6 +66,10 @@
 - When you are about to write "unverified", "I haven't confirmed", or "needs checking" in an answer — or to ask "shall I check?" — first decide whether that point changes the answer's conclusion. If it does and a read-only check settles it (grep a config file, Read a file, look at a log, read the docs), do the check before answering and give the confirmed result in place of the caveat, and write the rest of the answer (explanation, inference, recommendation) on top of that result — it may change with it, but don't drop it. If it doesn't change the conclusion, don't investigate it; drop the caveat. Reason: ending with "unverified" makes the user reply "please check", a wasted round trip, while chasing caveats that don't matter wastes time on unrelated investigation.
 - State something as unverified only when confirming it needs a state change, an external send, or information only the user has. Then say what is unverified and why you can't check it yourself.
 
+## Dependency Install
+- When an investigation or verification needs a repo's dependencies, install them without asking first — lockfile-faithful installs only (`pnpm install --frozen-lockfile`, `npm ci`, `uv sync`, etc.). The side effects stay inside the repo's gitignored directories, and stopping with "can't verify" costs more rework than installing.
+- Adding new packages (`pnpm add`, `npm install <pkg>`, etc.) and global installs are out of scope.
+
 ## Scripts Location
 - Scripts meant to be reused later go in the repo (e.g., scripts/), so they are versioned. One-off/throwaway scripts (e.g. ad-hoc log analysis) follow the harness's own default (its scratchpad directory), not the repo.
 
