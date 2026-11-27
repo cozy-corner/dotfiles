@@ -1,5 +1,6 @@
 #!/bin/bash
 # Stop: 「未確認です」「確認しますか」で答えを終えるのを1回だけ差し戻す。AGENTS.md の規則だけでは守られず、「確認して」の往復が続くため。
+# コードブロック・`…`・「…」・『…』の中は引用とみなして除外する。
 # 語句で見るだけなので、結論を左右するか・読み取りで確かめられるかの判断は差し戻された Claude に任せる。
 trap 'rc=$?; echo "$(date +%FT%T) ${0##*/} exit=$rc" >>"$HOME/.claude/hook-stats.log"' EXIT
 input=$(cat)
@@ -8,6 +9,7 @@ input=$(cat)
 
 msg=$(jq -r '.last_assistant_message // empty' <<<"$input")
 pattern='未確認|確認していません|確認できていません|確認しておりません|確かめていません|(確かめ|確認し|調べ|検証し|読ん|見|試し)たわけではありません|要確認|確認が必要|断言できません|読んでいない|読んでいません|読んではいません|読めていません|読めていない|見ていない|見ていません|調べますか|確認しますか|確認しましょうか|必要なら.{0,40}確認します|unverified|not verified|haven.t (confirmed|verified|checked)|shall I check'
+msg=$(perl -CS -Mutf8 -0pe 's/```.*?```//gs; s/`[^`\n]*`//g; s/「[^」]*」//g; s/『[^』]*』//g' <<<"$msg")
 hit=$(grep -Eoi "$pattern" <<<"$msg" | sort -u | paste -sd ',' -)
 [ -n "$hit" ] || exit 0
 
