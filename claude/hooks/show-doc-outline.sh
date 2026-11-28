@@ -20,6 +20,6 @@ cat >&2 <<EOF
 Before editing $file, check its existing structure. Outline:
 $outline
 
-Read a sibling section of the same level and match its sub-headings, item order, and format. Do not invent a new layout. Then retry the edit.
+Read a sibling section of the same level. If sibling sections share a clear convention (sub-headings, item order, format), match it. If the document has no such convention (e.g. working notes or a status log), edit it as you intended. Then retry the edit.
 EOF
 exit 2
