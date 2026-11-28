@@ -6,6 +6,9 @@ input=$(cat)
 file=$(jq -r '.tool_input.file_path // empty' <<<"$input")
 [[ $file == *.md && -f $file ]] || exit 0
 
+# git で追跡していない文書（HANDOFF.md などのメモ）には守る慣習がない
+git -C "$(dirname "$file")" ls-files --error-unmatch -- "$file" >/dev/null 2>&1 || exit 0
+
 # コードフェンス内の # 行は見出しではない
 outline=$(awk '/^(```|~~~)/{f=!f; next} !f && /^#{1,6} /{print NR": "$0}' "$file")
 (( $(wc -l <<<"$outline") >= 3 )) || exit 0
